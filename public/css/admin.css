@@ -1,0 +1,48 @@
+html body .el-pagination {
+    padding: 2px 5px;
+    margin: 15px 0 15px 0;
+    font-weight: 400;
+    color: #000;
+    text-align: center;
+}
+
+html body .el-table td, html body .el-table th {
+    position: relative;
+    box-sizing: border-box;
+    padding: 7.5px 0;
+}
+
+html body .el-table th {
+    background: #f5f7fa;
+}
+
+.el-table th {
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #fff;
+}
+
+.el-table thead {
+    color: #909399;
+    font-weight: 500;
+}
+
+.tools {
+    padding-left: 20px;
+}
+
+
+.app-main-container {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    padding-bottom: 20px;
+    background: #fff;
+    border-radius: 2px;
+}
+
+[v-cloak]{
+    display: none;
+}

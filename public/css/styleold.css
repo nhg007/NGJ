@@ -1,0 +1,546 @@
+/* CSS Document */
+@charset "utf-8";
+
+
+body {
+  font-family: Meiryo,ヒラギノ角ゴ Pro W3,Hiragino Kaku Gothic Pro,ＭＳ\\ Ｐゴシック,Osaka,Arial,"Sans-serif";
+  color: #333;
+  font-size: 15px;
+  line-height: 1.8;
+  letter-spacing: 0.8px;
+  word-break: break-all;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover, a:hover img {
+  /*   opacity: .6; */
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+img, video, object {
+  max-width: 100%;
+  height: auto;
+  border: none;
+  display: block;
+}
+
+ul, li {
+  list-style: none;
+}
+
+
+
+/*--------------------------------
+　全体
+---------------------------------*/
+
+#wrapper {
+  background-color: fff;
+}
+
+.inner {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+#contents, .search-box {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding-top: 10px;
+
+}
+.search-box {
+  margin-bottom: 30px;
+}
+
+.search-box .form-control:focus {
+  border-color:#8c8c8c;
+  box-shadow:none;
+}
+
+.search-box .col-sm-4{
+  max-width: 29.333333%;
+}
+
+.search-box .animal select {
+  background-image: url(../img/animal.svg);
+}
+
+select,option{
+  border: none;
+  outline: none;
+
+  /*将背景改为红色*/
+  background:#fff;
+  padding-right: .14rem;
+}
+
+/* CHOSEN PLUGIN */
+
+.chosen-container-single .chosen-single {
+
+  background: #ffffff;
+  box-shadow: none;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5DD;
+  border-radius: 2px;
+  cursor: text;
+  height: calc(2.875rem + 2px);
+  margin: 0;
+  overflow: hidden;
+  line-height: 1.5;
+  font-size: 16px;
+  padding: 11.5px 10px;
+  position: relative;
+  width: 100%;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+  background: #f1f1f1;
+  border: 1px solid #ededed;
+  border-radius: 2px;
+  box-shadow: none;
+  color: #333333;
+  cursor: default;
+  margin: 3px 0 3px 5px;
+  padding: 3px 20px 3px 5px;
+  position: relative;
+}
+
+.chosen-container-single .chosen-single div {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  display: block;
+  width: 18px;
+  height: 100%;
+}
+
+
+/*--------------------------------
+　ヘッダー
+---------------------------------*/
+
+/* .tri {
+  background-image: url(../img/tri.jpg);
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  padding-bottom: 25px;
+  margin-top: 0;
+  } */
+
+#header img {
+  width: 100%;
+ max-width: 900px;
+ margin: 0 auto;
+  padding-top: 35px;
+}
+
+
+
+/*--------------------------------
+　メイン
+---------------------------------*/
+.logo{
+  margin:0 auto;
+  width: 100%;
+}
+
+.oishiku {
+  font-size: 18px;
+  color: #162e7e;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.question {
+  font-size: 16px;
+  color: #162e7e;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.answel {
+  font-size: 16px;
+  color: #eb3e34;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+form {
+  background: url(../img/kensaku.jpg) no-repeat center;
+  text-align: center;
+}
+
+.style_1 {
+  border: none;
+  /*   padding: 0px 0px; */
+  width: 618px;
+  /*   vertical-align: 50px; */
+  font-size: 2em;
+  margin-left: 15px;
+}
+
+.style_2 {
+  margin-left: 10px;
+}
+
+button, input {
+  overflow: visible;
+}
+
+.yurayura {
+  padding-top: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.yurayura img {
+  width: 180px;
+  margin: 30px;
+}
+
+.yurayura li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+.shintyaku {
+  font-size: 22px;
+  margin-left: -13px;
+}
+
+.midashi {
+  font-size: 18px;
+  line-height: 1.5em;
+  padding-bottom: 2px;
+}
+
+.setsumei{
+  line-height: 1.7em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.setsumei:hover {
+  -webkit-transform: scan(-3px);
+  -ms-transform: translateY(-3px);
+  transform: translateY(-3px);
+  -webkit-box-shadow: 0 0 10px #999;
+  box-shadow: 0 0 10px #999;
+  -webkit-transition: all .3s ease-out;
+  transition: all .3s ease-out;
+}
+
+.foto{
+  width: 100%;
+  padding-top: 10px;
+}
+
+.new{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+    margin-bottom: 300px;
+}
+
+.new::after{
+  content:"";
+  display: block;
+  width: 30%;
+}
+
+.new .pr {
+  height: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+}
+
+
+/*--------------------------------
+　Section
+---------------------------------*/
+
+.section .inner {
+  padding: 80px 10px;
+}
+
+.section .section-title-block {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section .section-title {
+  /*   font-family: 'Oswald', sans-serif; */
+  letter-spacing: -0.01em;
+  display: inline-block;
+  font-size: 56px;
+  font-weight: lighter;
+  margin-bottom: 10px;
+  color: #888;
+}
+
+.section .section-desc {
+  text-align: center;
+}
+
+.two-column-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.two-column-image {
+  width: 33%;
+}
+
+.two-column-image img {
+  margin: 0 auto;
+}
+
+.two-column-desc {
+  width: 62%;
+}
+
+
+
+/*--------------------------------
+　WORKS
+---------------------------------*/
+
+#works .card {
+  width: 32%;
+}
+
+#works .card {
+  margin-bottom: 50px;
+}
+
+#works .card-image {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#works .card-caption-title {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#works .card-caption-info {
+  font-size: 12px;
+}
+
+#works .card-caption-url {
+  font-size: 12px;
+}
+
+#works .card-wrapper {
+  padding: 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+#works .card-wrapper::after{
+  content:"";
+  display: block;
+  width:32%;
+}
+
+
+
+/*--------------------------------
+　About
+---------------------------------*/
+
+#about .two-column-image {
+  width: 33%;
+}
+
+#about .two-column-desc {
+  width: 62%;
+}
+
+
+/*--------------------------------
+ Footer
+---------------------------------*/
+
+#footer {
+  background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.yama {
+  background-image: url(../img/yama.jpg);
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  padding-top: 100px;
+  margin-top: 0;
+}
+
+#footer .inner {
+  padding: 30px;
+}
+
+#footer .footer-link ul {
+  margin-bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+}
+
+#footer .footer-link li {
+  font-size: 12px;
+  padding: 0 20px;
+}
+
+#footer .footer-link li a {
+  color: #333;
+  font-weight: lighter;
+}
+
+#footer .copyright {
+  font-size: 10px;
+  color: #8c8c8c;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+
+.list-group a:hover {
+  text-decoration: none;
+}
+
+.text-type{
+  color: #dc3545;
+  font-size: 17px;
+}
+
+
+ /* The popup bubble styling. */
+ .popup-bubble {
+  /* Position the bubble centred-above its parent. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -100%);
+  /* Style the bubble. */
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: sans-serif;
+  overflow-y: auto;
+  max-height: 60px;
+  box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+}
+/* The parent of the bubble. A zero-height div at the top of the tip. */
+.popup-bubble-anchor {
+  /* Position the div a fixed distance above the tip. */
+  position: absolute;
+  width: 100%;
+  bottom: /* TIP_HEIGHT= */ 8px;
+  left: 0;
+}
+/* This element draws the tip. */
+.popup-bubble-anchor::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Center the tip horizontally. */
+  transform: translate(-50%, 0);
+  /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+  width: 0;
+  height: 0;
+  /* The tip is 8px high, and 12px wide. */
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: /* TIP_HEIGHT= */ 8px solid white;
+}
+/* JavaScript will position this div at the bottom of the popup tip. */
+.popup-container {
+  cursor: auto;
+  height: 0;
+  position: absolute;
+  /* The max width of the info window. */
+  width: 200px;
+  left: 0;
+  top: -44px;
+}
+
+.route{
+  color: #3a84df;
+}
+
+.details{
+  color: #dc3545;
+  position: relative;
+  right: 0px;
+  text-align: right;
+}
+
+@media (max-width: 576px){
+.form-row {
+    margin-left:10px;
+    margin-right:10px;
+}
+}
+
+@media (min-width: 576px){
+.col-sm-4 {
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width: 32%;
+  }
+}
+
+/* 设备横屏时调用该段css代码 */
+@media all and (orientation : landscape){
+  .form-control {
+    height: calc(2.875rem + 2px);
+   }
+  }

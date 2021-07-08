@@ -1,0 +1,345 @@
+@charset "utf-8";
+
+
+body {
+	color: #333;
+	font-family: "ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", "HiraMinProN-W3", "HGS明朝E", "ＭＳ 明朝", "MS Mincho", serif;
+	font-size: 16px;
+	line-height: 2;
+	letter-spacing: 0.8px;
+	/* 	-ms-writing-mode: tb-rl;
+	writing-mode: vertical-rl; */
+	background: #000;
+	background-size: cover;
+}
+
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover, a:hover img {
+	opacity: .6;
+    color: #fff;
+    text-decoration: none;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-ms-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+img {
+	/* 	max-width: 100%; */
+	width: 100%;
+	height: auto;
+	border: none;
+	vertical-align: bottom;
+	display: block;
+}
+
+ul, li {
+	list-style: none;
+}
+
+/*--------------------------------
+　全体
+---------------------------------*/
+
+#wrapper {
+	height: auto;
+	background: #000;
+	background-attachment: scroll;
+	padding-bottom: 300px;
+}
+
+/* .inner {
+	max-width: 1320px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 10px;
+	} */
+
+#contents {
+	padding: 100px 0;
+}
+
+/*--------------------------------
+　ヘッダー
+---------------------------------*/
+
+/* #header img {
+	width: 100%;
+	opacity: 0;
+	-webkit-animation: example 0.5s ease 1s 1 forwards;
+	animation: example 0.5s ease 1s 1 forwards;
+}
+ */
+
+
+
+.item1 {
+	background : url("../img/top.jpg") center center no-repeat;
+	background-size: cover;
+	max-width: 100%;
+	height: 400px;
+	padding-top: 50%;
+	/*margin: 0 auto;
+	 position: absolute;
+	left: 0px;
+	top: 0px; */
+	opacity: 0;
+}
+
+.item2 {
+	width: 100%;
+	margin: 0 auto;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	opacity: 0;
+}
+
+.item3 {
+	width: 100%;
+	margin: 0 auto;
+	position: absolute;
+	left: 0px;
+	top: 250px;
+	opacity: 0;
+}
+
+.item4 {
+	position: relative;
+	/* 	left: 50px; */
+	margin : 0 auto;
+	top: -220px;
+	font-size: 22px;
+	line-height: 1.8;
+	color: #fff;
+	font-weight: lighter;
+	-ms-writing-mode: tb-rl;
+	-webkit-writing-mode:vertical-rl;
+	-moz-writing-mode:vertical-rl;
+	writing-mode: vertical-rl;
+	opacity: 0;
+}
+.item2 {
+	-webkit-animation: example 0.5s ease 3s 1 forwards;
+	animation: example 0.5s ease 3s 1 forwards;
+}
+
+.item1 {
+	-webkit-animation: example 0.5s ease 1s 1 forwards;
+	animation: example 0.5s ease 1s 1 forwards;
+}
+
+.item3 {
+	-webkit-animation: example 0.5s ease 2s 1 forwards;
+	animation: example 0.5s ease 2s 1 forwards;
+}
+
+.item4 {
+	-webkit-animation: example 0.5s ease 4s 1 forwards;
+	animation: example 0.5s ease 4s 1 forwards;
+}
+
+@-webkit-keyframes example {
+	100% {
+	opacity: 1;
+}
+}
+@keyframes example {
+	100% {
+	opacity: 1;
+}
+}
+
+/* #menu {
+	text-align: center;
+	} */
+
+.menu_btn {
+	/* 表示位置(固定:右下) */
+	position: fixed;
+	bottom:  60px;
+	right:   20px;
+
+	/* 開いたメニューより前面に表示する */
+	z-index: 1000;
+
+	/* ボタンのデザイン */
+	padding: 5px 2px;
+	color:       #212121;
+	font-size:   15px;
+	font-weight: bold;
+	border: 2px solid #212121;
+	border-radius: 5px;
+	background: #888;
+
+	/* カーソルの形を変える */
+	cursor: pointer;
+
+	-ms-writing-mode: tb-rl;
+	-webkit-writing-mode:vertical-rl;
+	-moz-writing-mode:vertical-rl;
+	writing-mode: vertical-rl;
+}
+.menu {
+	display: none;
+	width: 100%;
+	background: #888;
+	position: fixed;
+	bottom: 0;
+	z-index:999;
+}
+
+.menu ul {
+	width: 100%;
+	border-top: solid 1px #ffa500;
+	background: #212121;
+	position: fixed;
+	bottom: 41px;
+	z-index:997;
+}
+
+.menu li {
+	float: right;
+	margin: 10px 2px;
+	color: #fff;
+	font-size: 14px;
+	-ms-writing-mode: tb-rl;
+	-webkit-writing-mode:vertical-rl;
+	-moz-writing-mode:vertical-rl;
+	writing-mode: vertical-rl;
+}
+
+.menu ul li:first-child {
+	/*margin-right: 60px;*/
+}
+
+#footer {
+	width: 100%;
+	background: #212121;
+	position: fixed;
+	bottom: 0;
+	z-index:998;
+}
+
+#footer .copyright {
+	font-size: 12px;
+	color: #8c8c8c;
+	margin: 10px;
+}
+
+/*==================
+ ▼ブレイクポイントのルール▼
+ -スマホを基本設計にする-
+ *〜479px：SP縦
+ *480px〜：SP横
+ *600px〜タブレット
+ *960px〜小型PC
+ *1280px〜大型PC
+ ==================*/
+
+/*  画面サイズが480pxまで
+
+/* @media screen and (min-width:480px) and ( max-width:600px) {
+	　画面サイズが480pxからはここを読み込む　
+
+}
+
+@media screen and (min-width:600px) and ( max-width:960px) {
+	　画面サイズが600pxから960pxまではここを読み込む　
+
+}
+
+@media screen and (min-width:960px) and ( max-width:1280px) {
+	*　画面サイズが960pxから1280pxまではここを読み込む　
+
+}
+
+@media screen and (min-width:1280px) {
+	　画面サイズが1280pxからはここを読み込む　
+
+} */
+
+@media screen and (min-width: 600px) {
+
+.item1 {
+	background : url("../img/top.jpg") center center no-repeat;
+	background-size: cover;
+	max-width: 100%;
+	height: 800px;
+	padding-top: 30%;
+	/*margin: 0 auto;
+	 position: absolute;
+	left: 0px;
+	top: 0px; */
+	opacity: 0;
+}
+
+.item2 {
+	width: 100%;
+	margin: 0 auto;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	opacity: 0;
+}
+
+.item3 {
+	width: 100%;
+	margin: 0 auto;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	opacity: 0;
+}
+
+.item4 {
+	position: absolute;
+	left: 30px;
+	top: 30px;
+	font-size: 28px;
+	color: #fff;
+	font-weight: lighter;
+	-ms-writing-mode: tb-rl;
+	-webkit-writing-mode:vertical-rl;
+	-moz-writing-mode:vertical-rl;
+	writing-mode: vertical-rl;
+	opacity: 0;
+}
+
+.menu_btn {
+	display: none;
+}
+
+.menu {
+	display: block !important;
+}
+.menu ul {
+	width: 100%;
+	border-top: solid 1px #ffa500;
+	background: #212121;
+	position: fixed;
+	bottom: 41px;
+	z-index:997;
+}
+
+.menu li {
+	float: right;
+	margin: 10px 6px;
+	color: fff;
+	font-size: 18px;
+	-ms-writing-mode: tb-rl;
+	-webkit-writing-mode:vertical-rl;
+	-moz-writing-mode:vertical-rl;
+	writing-mode: vertical-rl;
+}
+
+.menu ul li:first-child {
+	margin-right: 36px;
+}
+}
