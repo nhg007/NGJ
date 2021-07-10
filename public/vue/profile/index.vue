@@ -2,25 +2,124 @@
     <div class="profile-container">
         <div class="app-main-container">
             <el-form ref="form" :model="form" label-width="120px" v-loading="loading">
-                <el-form-item label="店名">
-                    <el-tag>{{ name }}</el-tag>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="店名">
+                            <el-input v-model="form.name" placeholder="店名"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="ジャンル">
+                            <el-select v-model="form.type" placeholder="ジャンル">
+                                <el-option
+                                    v-for="item in types"
+                                    :key="item"
+                                    :label="item"
+                                    :value="item"
+                                >
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="15">
+                        <el-form-item label="ホームページ">
+                            <el-input v-model="form.homepage" placeholder="ホームページ"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-form-item label="住所(必需)">
+                    <el-row :gutter="20">
+                        <el-col :span="3"> <el-input v-model="form.post" placeholder="郵便番号"></el-input></el-col>
+                        <el-col :span="5"> <el-input v-model="form.pref" placeholder="都道府県"></el-input></el-col>
+                        <el-col :span="5"><el-input v-model="form.city" placeholder="市区町村"></el-input></el-col>
+                        <el-col :span="6"><el-input v-model="form.street" placeholder="その他"></el-input></el-col>
+                    </el-row>
                 </el-form-item>
-                <el-form-item label="ジャンル">
-                    <el-tag>{{ type }}</el-tag>
-                </el-form-item>
-                <el-form-item label="郵便番号">
-                    <el-tag>〒 {{ post }}</el-tag>
-                </el-form-item>
-                <el-form-item label="住宅地">
-                    <el-tag>{{ pref }}</el-tag>
-                    <el-tag>{{ city }}</el-tag>
-                    <el-tag>{{ street }}</el-tag>
+                <el-form-item label="担当者">
+                    <el-row :gutter="20">
+                        <el-col :span="8">
+                            <el-input placeholder="代表者（必需）" v-model="form.owner">
+                                <template slot="prepend">オーナー</template>
+                            </el-input>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-input placeholder="事務担当者" v-model="form.stuff1">
+                                <template slot="prepend">料理長</template>
+                            </el-input>
+                        </el-col>
+                    </el-row>
                 </el-form-item>
                 <el-form-item label="Eメール">
-                    <el-tag>{{ email }}</el-tag>
+                    <el-row :gutter="20">
+                        <el-col :span="6">
+                            <el-tag>{{ form.email }}</el-tag>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-input placeholder="Fax" v-model="form.fax">
+                                <template slot="prepend">Fax</template>
+                            </el-input>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
+
+                <el-form-item label="定休日">
+                    <el-select
+                        v-model="form.workday"
+                        style="width: 60%"
+                        multiple
+                        filterable
+                        allow-create
+                        default-first-option
+                        placeholder="取扱ジビエ"
+                    >
+                        <el-option
+                            v-for="item in workdays"
+                            :key="item"
+                            :label="item.label"
+                            :value="item.value"
+                        >
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="取扱ジビエ">
-                    <el-tag>{{ animal }}</el-tag>
+                    <el-select
+                        v-model="form.animal"
+                        style="width: 60%"
+                        multiple
+                        filterable
+                        allow-create
+                        default-first-option
+                        placeholder="取扱ジビエ"
+                    >
+                        <el-option
+                            v-for="item in animals"
+                            :key="item"
+                            :label="item"
+                            :value="item"
+                        >
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="PR文">
+                    <el-input type="textarea" rows="5" v-model="form.PR" style="width: 60%"></el-input>
+                </el-form-item>
+                <el-form-item label="備考">
+                    <el-input type="textarea" rows="5" v-model="form.comment" style="width: 60%"></el-input>
+                </el-form-item>
+                <el-form-item label="ランギング">
+                    <el-row :gutter="20">
+                        <el-col :span="1">
+                            <el-tag>低い</el-tag>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-slider v-model="form.ranking"></el-slider>
+                        </el-col>
+                        <el-col :span="3">
+                            <el-tag>高い</el-tag>
+                        </el-col>
+                    </el-row>
                 </el-form-item>
                 <el-form-item label="店舗外観">
                     <el-upload
@@ -73,19 +172,78 @@
     module.exports = {
         data() {
             return {
-                name: '',
-                type: '',
-                post: '',
-                pref: '',
-                city: '',
-                street: '',
-                email: '',
-                animal: '',
                 form: {
-                    outFiles: null,
-                    innerFiles: null,
-                    staffFiles: null
+                    name: '',
+                    homepage:'',
+                    type: '',
+                    post: '',
+                    pref: '',
+                    city: '',
+                    street: '',
+                    email: '',
+                    owner:'',
+                    stuff1:'',
+                    fax:'',
+                    PR:'',
+                    ranking:0,
+                    comment:'',
+                    animal: [],
+                    workday:[],
+                    outFiles: [],
+                    innerFiles: [],
+                    staffFiles: []
                 },
+                types: ["イタリアン", "フレンチ", "中華料理", "日本料理", "その他"],
+                animals: [
+                    "ホンシュウ鹿",
+                    "猪",
+                    "ツキノワグマ",
+                    "ヒグマ",
+                    "アナグマ",
+                    "ハクビシン",
+                    "兎",
+                    "ヌートリア",
+                    "タヌキ",
+                    "キョン",
+                    "エゾ鹿",
+                    "トド",
+                    "鴨",
+                    "カラス",
+                ],
+                workdays:[{
+                    value: '日',
+                    label: '日曜'
+                },{
+                    value: '月',
+                    label: '月曜'
+                },
+                    {
+                        value: '火',
+                        label: '火曜'
+                    },
+                    {
+                        value: '水',
+                        label: '水曜'
+                    },
+                    {
+                        value: '木',
+                        label: '木曜'
+                    },
+                    {
+                        value: '金',
+                        label: '金曜'
+                    },
+                    {
+                        value: '土',
+                        label: '土曜'
+                    },{
+                        value: '祝',
+                        label: '祝日'
+                    },
+                    {
+                        value: '不',
+                        label: '不定'
+                    }],
                 outImageUrl: '',
                 innerImageUrl: '',
                 staffImageUrl: '',
@@ -126,15 +284,23 @@
                     const {status, message, data} = response;
                     if (status === 200) {
                         const {user,images} = data
-                        _this.name = user.name
-                        _this.type = user.type
-                        _this.post = user.post
-                        _this.pref = user.pref
-                        _this.city = user.city
-                        _this.street = user.street
-                        _this.email = user.email
-                        _this.animal = user.animal
+                        _this.form.name = user.name
+                        _this.form.homepage = user.homepage
+                        _this.form.type = user.type
+                        _this.form.post = user.post
+                        _this.form.pref = user.pref
+                        _this.form.city = user.city
+                        _this.form.street = user.street
+                        _this.form.email = user.email
+                        _this.form.owner = user.owner
+                        _this.form.stuff1 = user.stuff1
+                        _this.form.fax = user.fax
+                        _this.form.PR = user.PR
+                        _this.form.comment = user.comment
+                        _this.form.workday = (user.workday || '').split(',')
+                        _this.form.animal = (user.animal || '').split(',')
                         _this.form.id = user.id
+                        _this.form.ranking = user.ranking || 0
                         if(images){
                             //外图
                             if(images.outPic){
