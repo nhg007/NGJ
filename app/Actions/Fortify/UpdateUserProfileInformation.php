@@ -18,10 +18,20 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
+        $messages = [
+            'post.required' => '郵便番号を入力してください',
+            'pref.required' => '都道府県を入力してください',
+            'address.required' => '住宅を入力してください',
+        ];
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'image', 'max:1024'],
+            'pref' => ['required', 'string', 'max:20'],
+            'telphone' => ['required', 'string', 'max:20'],
+            'post' => ['required', 'string', 'max:20'],
+            'address' => ['required', 'string', 'max:128'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -35,6 +45,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'telphone' => $input['telphone'],
+                'post'=>$input['post'],
+                'pref'=>$input['pref'],
+                'address' => $input['address'],
             ])->save();
         }
     }
@@ -51,6 +65,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
+            'telphone' => $input['telphone'],
+            'post'=>$input['post'],
+            'pref'=>$input['pref'],
+            'address' => $input['address'],
             'email_verified_at' => null,
         ])->save();
 

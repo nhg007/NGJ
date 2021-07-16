@@ -45,12 +45,37 @@ class RestrantServiceImpl implements RestrantServcie
         $innerFiles = $request->get('innerFiles');
         $staffFiles = $request->get('staffFiles');
 
+
+        //レストラン情報を更新する
+        $restrant = Restrant::find($id);
+        $restrant->name = $request->get("name");
+        $restrant->homepage =  $request->get("homepage");
+        $restrant->type =  $request->get("type");
+        $restrant->paymentType =  $request->get("paymentType");
+        $restrant->post =  $request->get("post");
+        $restrant->pref =  $request->get("pref");
+        $restrant->city = $request->get("city");
+        $restrant->street =  $request->get("street");
+        $restrant->email = $request->get("email");
+        $restrant->owner = $request->get("owner");
+        $restrant->stuff1 = $request->get("stuff1");
+        $restrant->fax = $request->get("fax");
+        $restrant->PR = $request->get("PR");
+        $restrant->latitude = $request->get("latitude");
+        $restrant->latitude = $request->get("latitude");
+        $restrant->comment = $request->get("comment");
+        $restrant->workday = $request->get("workday");;
+        $restrant->animal = $request->get("animal");
+        $restrant->id = $request->get("id");
+        $restrant->ranking = $request->get("ranking");
+        $restrant->save();
+
+        //レストランの写真を保存する
         $restrantImage = RestrantImage::firstWhere('restrant_id', $id);
-        $message = "新規成功しました";
+        $message = "更新成功しました";
         if (!isset($restrantImage)) {
             $restrantImage = new RestrantImage();
         } else {
-            $message = "更新成功しました";
             //外观
             if ($restrantImage->outPic != $outFiles) {
                 //删除文件
@@ -84,11 +109,11 @@ class RestrantServiceImpl implements RestrantServcie
         return response()->json(JsonResult::success($message, 200, $restrantImage));
     }
 
-    public function getRestrantTakeDate($restrantId,$startDate)
+    public function getRestrantTakeDate($restrantId, $startDate)
     {
-       $list = RestrantTakeOut::where([
-            ['restrant_id','=',$restrantId],
-            ['take_date','>=',$startDate]
+        $list = RestrantTakeOut::where([
+            ['restrant_id', '=', $restrantId],
+            ['take_date', '>=', $startDate]
         ])->groupBy('take_date')->pluck('take_date');
         return response()->json(JsonResult::success("取得しました。", 200, $list));
     }
@@ -99,21 +124,21 @@ class RestrantServiceImpl implements RestrantServcie
         $startDate = $dt->format('Y-m-d');
         $hour = intval($dt->format('H'));
         $list = RestrantTakeOut::where([
-            ['restrant_id','=',$restrantId],
-            ['take_date','>',$startDate],
+            ['restrant_id', '=', $restrantId],
+            ['take_date', '>', $startDate],
         ])->orWhere(function ($query) use ($hour, $startDate) {
-            $query->where('take_date','=',$startDate)->where('end_hour','>',$hour);
-        })->where('number','>',0)->get();
+            $query->where('take_date', '=', $startDate)->where('end_hour', '>', $hour);
+        })->where('number', '>', 0)->get();
         return $list;
     }
 
     public function getRestrantTakeOutDatas($restrantId, $date)
     {
-       $list = RestrantTakeOut::where([
-           ['restrant_id','=',$restrantId],
-           ['take_date','=',$date]
-       ])->get();
-       return response()->json(JsonResult::success("取得しました。", 200, $list));
+        $list = RestrantTakeOut::where([
+            ['restrant_id', '=', $restrantId],
+            ['take_date', '=', $date]
+        ])->get();
+        return response()->json(JsonResult::success("取得しました。", 200, $list));
     }
 
 
@@ -126,23 +151,23 @@ class RestrantServiceImpl implements RestrantServcie
 
         //删除已有的数据
         RestrantTakeOut::where([
-            ['restrant_id','=',$restrantId],
-            ['take_date','=',$takeDate]
+            ['restrant_id', '=', $restrantId],
+            ['take_date', '=', $takeDate]
         ])->delete();
 
         //保存数据
-        foreach ($timelines as $key => $value){
-          $restrantTakeOut =  new RestrantTakeOut();
-          $restrantTakeOut->restrant_id = $restrantId;
-          $restrantTakeOut->take_date = $takeDate;
-          $restrantTakeOut->start_time = $value['start_time'];
-          $restrantTakeOut->end_time = $value['end_time'];
-          list($startHour) = preg_split("/:/",$value['start_time']);
-          list($endHour) = preg_split("/:/",$value['end_time']);
-          $restrantTakeOut->start_hour =$startHour;
-          $restrantTakeOut->end_hour =$endHour;
-          $restrantTakeOut->number = $value['number'];
-          $restrantTakeOut->save();
+        foreach ($timelines as $key => $value) {
+            $restrantTakeOut =  new RestrantTakeOut();
+            $restrantTakeOut->restrant_id = $restrantId;
+            $restrantTakeOut->take_date = $takeDate;
+            $restrantTakeOut->start_time = $value['start_time'];
+            $restrantTakeOut->end_time = $value['end_time'];
+            list($startHour) = preg_split("/:/", $value['start_time']);
+            list($endHour) = preg_split("/:/", $value['end_time']);
+            $restrantTakeOut->start_hour = $startHour;
+            $restrantTakeOut->end_hour = $endHour;
+            $restrantTakeOut->number = $value['number'];
+            $restrantTakeOut->save();
         }
         return response()->json(JsonResult::success("保存しました。", 200, null));
     }

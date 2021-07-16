@@ -1,5 +1,6 @@
 var animal = 'ホンシュウ鹿,猪,ツキノワグマ,ヒグマ,アナグマ,ハクビシン,兎,ヌートリア,タヌキ,キョン,エゾ鹿,トド,鴨,カラス';
 var type = 'イタリアン,フレンチ,中華料理,日本料理,その他';
+let paymentType = 'イートイン,現地決済,郵送';
 var config = {
     no_results_text: 'データを見つかりません。'
 }
@@ -113,6 +114,16 @@ var utils = {
         $('#ddlType').html(html.join('')).chosen(config);
     },
 
+    //ジャンルの初期化する
+    initPaymentType: function () {
+        html = ['<option value=""></option>'];
+        var types = paymentType.split(',');
+        for (var i = 0; i < types.length; i++) {
+            html.push(`<option value="${types[i]}">${types[i]}</option>`);
+        }
+        $('#ddlPaymentType').html(html.join('')).chosen(config);
+    },
+
     //都道府を初期化する
     initPref: function () {
         $('#ddlPref').chosen(config).change(function () {
@@ -165,6 +176,7 @@ var utils = {
         utils.data.pref = $('#ddlPref').val();
         utils.data.city = $('#ddlCity').val();
         utils.data.type = $('#ddlType').val();
+        utils.data.paymentType = $('#ddlPaymentType').val()
 
         console.info(utils.data);
 
@@ -348,6 +360,7 @@ var utils = {
 $(document).ready(function () {
     utils.initAnimal();
     utils.initType();
+    utils.initPaymentType();
     utils.initPref();
     utils.initCity();
     utils.ajaxSearchEvent();

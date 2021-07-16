@@ -44,28 +44,16 @@ class OrderController extends Controller
 
     public function payment(Request $request)
     {
-        $order_sn = $request->get('order_sn');
         $order_id = $request->get('order_id');
-        $totalPrice = $request->get('totalPrice');
-
-        //注文番号をセッションに保存しました
-        if (isset($order_id)) {
-            session(['order_id' => $order_id]);
-        }
-
         //检查order
         $order = $this->orderService->getOrderInfo($order_id);
         if(!isset($order)){
             abort(404,"注文情報を見つかりませんでした");
         }
-
         $takeout = $this->restrantServcie->getRestrantCanTakeOutTimes($order->restrant_id);
-
         return view('payment.index', [
-            'email' => Auth::user()->email,
-            "order_id" => $order_id,
-            "order_sn" => $order_sn,
-            'totalPrice' => $totalPrice,
+            'user' => Auth::user(),
+             "order" => $order,
             'takeoutTimes'=>$takeout]);
     }
 

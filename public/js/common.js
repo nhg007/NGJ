@@ -2,6 +2,24 @@ let formatNumber = function (num) {
     return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
 };
 
+let deliveryFees = [['北海道', 1404], ['沖縄県', 1404]]
+
+function initTodofuken(val) {
+    val = val || '';
+    //都道府県初始化
+    let map = AjaxZip3.PREFMAP;
+    let htmlArray = [];
+    for (let i = 0, len = map.length; i < len; i++) {
+        let html = '';
+        if (map[i] == val) {
+            html = `<option value="${map[i] ? map[i] : ''}" selected>${map[i] ? map[i] : '都道府県選択してください'}</option>`
+        } else {
+            html = `<option value="${map[i] ? map[i] : ''}">${map[i] ? map[i] : '都道府県選択してください'}</option>`
+        }
+        htmlArray.push(html);
+    }
+    $('#pref').html(htmlArray.join(''));
+}
 
 toastr.options = {
     "closeButton": false,
@@ -429,28 +447,26 @@ let payment = {
         });
 
         //代引き
-        $('#chkPayment').on('ifChecked', function () {
+        $('#chkTakeout').on('ifChecked', function () {
             $('.deliveryCash').removeClass('hide');
             $('.credit').addClass('hide');
-            $('#payment').val(1);
+            $('#payment').val(2);
         })
 
-        //クレジット
-        $('#chkCredit').on('ifChecked', function () {
-            $('.deliveryCash').addClass('hide');
-            $('.credit').removeClass('hide');
-            $('#payment').val(2);
+         //代引き
+         $('#chkPayment').on('ifChecked', function () {
+            formCheck();
+            calcFee();
+            $('#payment').val(1);
         })
 
         if ($('#chkPayment')[0].checked) {
             $('.deliveryCash').removeClass('hide');
-            $('.credit').addClass('hide');
             $('#payment').val(1);
         }
 
-        if ($('#chkCredit')[0].checked) {
+        if ($('#chkTakeout')[0].checked) {
             $('.deliveryCash').addClass('hide');
-            $('.credit').removeClass('hide');
             $('#payment').val(2);
         }
 
@@ -459,18 +475,244 @@ let payment = {
             $('#takeoutId').val(this.value)
             $('#btnConfirm').removeAttr('disabled')
             $(this).closest('tr').find('.delivery_date').removeAttr('disabled')
-
-
         })
 
 
-        //基本情報
-        let form = $(".frmConsignee");
-        form.validate({
-            errorPlacement: function errorPlacement(error, element) {
-                element.before(error);
-            }
-        });
+      //先ず、配送料を計算します
+      calcFee();
+
+      $('#todofuken').on('change', function () {
+          //计算
+          calcFee()
+      })
+
+
+      function calcFee() {
+          let receiver = $('#slReceiver').val();
+          let todofuken = '';
+          if (receiver === '登録住所') {
+              todofuken = $('#userTodofuken').val()
+          } else {
+              todofuken = $('#todofuken').val()
+          }
+
+          let fee1 = 972;
+          if (todofuken == '北海道' || todofuken == '沖縄県') {
+              fee1 = 1404;
+          }
+
+          let tipfee = 0;
+
+          //检查支付类型
+          if ($('#chkPayment')[0].checked) {
+              tipfee = 324;
+              $('#tip').removeClass('hide');
+              $('#tipfee').text('¥' + formatNumber(tipfee))
+          }
+
+          if ($('#chkTakeout')[0].checked) {
+              tipfee = 0;
+              $('#tip').addClass('hide');
+          }
+
+          //检查商品是否是常温和冷冻混合
+          //冷凍と常温が混在するので、送料が二倍となる
+          if ($('[data-keeping*="冷凍"]').length > 0 && $('[data-keeping*="常温"]').length > 0) {
+              fee1 = fee1 * 2;
+              $('#feetip').removeClass('hide')
+          } else {
+              $('#feetip').addClass('hide')
+          }
+
+          $('#fee').text('¥' + formatNumber(fee1));
+
+          //
+          let orderAmount = $('#productAmout').val();
+
+          let total = parseInt(orderAmount, 10) + fee1 + tipfee;
+          total = total + total * 0.1
+
+          //先舍位
+          $('#totalPay').text('¥' + formatNumber(Math.round(total)))
+      }
+
+      $('#slReceiver').change(function () {
+          let value = this.value;
+          if (value === '登録住所') {
+              $('.receiver-info').addClass('hidden')
+          } else {
+              $('.receiver-info').removeClass('hidden')
+          }
+          calcFee();
+      })
+
+
+      //基本情報
+      let form = $(".frmConsignee");
+      form.validate({
+          errorPlacement: function errorPlacement(error, element) {
+              let errorPlace = $(element).closest('.form-group').find('.errorPlace');
+              if (errorPlace.length > 0) {
+                  errorPlace.html(error)
+              } else {
+                  element.after(error);
+              }
+          }
+      });
+
+
+     async function formCheck() {
+
+          if( $('#slReceiver').val()=='登録住所'){
+
+              //检查用户登录信息是否是完整
+              //电话号码，邮编，住址，名前
+              let userTelphone = $('#userTelphone').val();
+              let userPost = $('#userPost').val();
+              let userTodofuken = $('#userTodofuken').val();
+              let userAddress = $('#userAddress').val();
+
+              if(userTelphone.length == 0 || userPost.length == 0 || userTodofuken.length == 0 || userAddress.length == 0){
+
+                  const {data } = await axios.post('/getUserInfo')
+
+                  if(!data.telphone || !data.post || !data.todofuken || !data.address){
+
+                      $('#staticBackdrop').modal('show');
+                      return false;
+                  }
+
+                  $('#userTelphone').val(data.telphone)
+                  $('#userPost').val(data.post)
+                  $('#userTodofuken').val(data.todofuken)
+                  $('#userAddress').val(data.address)
+                  $('#lblTelphone').text(data.telphone);
+                  $('#lblPost').text(data.post);
+                  $('#lblTodofuken').text(data.todofuken);
+                  $('#lblAddress').text(data.address);
+              }
+          }
+
+          if (!form.valid()) {
+              $(window).scrollTop(0)
+          }
+          return form.valid();
+      }
+
+      //初始化都道府県
+      initTodofuken($('#pref').attr('data-value'));
+
+      //邮编编号点击事件
+      $('#zipSearch').off('click').on('click', function () {
+          let postCode = $('#post');
+          if (postCode.val()) {
+              AjaxZip3.zip2addr(postCode[0], '', 'todofuken', 'address', 'address');
+          }
+      });
+
+
+       //受取日
+       $('#receiveDate').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'ja',
+          useCurrent: true,
+          showClose: true,
+      });
+
+
+      //注文情報確認ダイアログ
+      $('#orderConfirmModel').on('show.bs.modal', function (event) {
+          var modal = $(this)
+          if ($('#slReceiver').val() == '登録住所') {
+              $('.userRegister').removeClass('hide')
+              $('.basicInfo').addClass('hide')
+          } else {
+              $('.basicInfo').removeClass('hide')
+              $('.userRegister').addClass('hide')
+
+              //copy
+              modal.find('.modal-body #spconsignee').text($('#consignee').val())
+              modal.find('.modal-body #sptel').text($('#tel').val())
+              modal.find('.modal-body #spost').text($('#post').val())
+              modal.find('.modal-body #sptodofuken').text($('#todofuken').val())
+              modal.find('.modal-body #spaddress').text($('#address').val())
+          }
+
+          modal.find('.modal-body #spreceiveDate').text($('#receiveDate').val())
+          modal.find('.modal-body #spreceiveTime').text($('#receiveTime option:selected').text())
+          modal.find('.modal-body #spremark').text($('#remark').val())
+
+          if ($('#chkPayment')[0].checked) {
+              modal.find('.modal-body #spayType').text('代引き');
+          }
+
+          if ($('#chkCredit')[0].checked) {
+              modal.find('.modal-body #spayType').text('クレジット');
+          }
+
+          modal.find('.modal-body #payment-result').html($('.order-paymentAmount').clone())
+
+
+          console.info(modal.find('.modal-footer #btnOrderInfoSend').length);
+      })
+
+
+      //最終の確定
+      $('#btnOrderInfoSend').off('click').on('click', function () {
+
+          //注文ID
+          let id = form.find('#id').val();
+
+          //保存订单数据
+          form.ajaxForm({
+              beforeSend: function () {
+                  $('#btnOrderInfoSend').attr('disabled','disabled')
+              },
+              success: function (res) {
+                  if (res.status === 200) {
+                      let order = res.data;
+                      if (order.payment == 1) {
+                          toastr.success(res.message);
+                          setTimeout(function () {
+                              location.href = "/paySuccess?token=" + order.token;
+                          }, 300)
+                      }
+
+                      //信用卡
+                      if (order.payment == 2) {
+                          //向信用卡迁移
+                          let frmCredit = $('#frmCredit');
+                          frmCredit.find('#telno').val(order.tel);
+                          frmCredit.find('#money').val(order.order_amount);
+                          let successUrl = app_url + '/paySuccess?token=' + order.token;
+                          let failureUrl = app_url + '/payFailed?token=' + order.token;
+                          frmCredit.find('#success_url').val(successUrl);
+                          frmCredit.find('#failure_url').val(failureUrl);
+                          frmCredit.submit();
+                      }
+                  }
+              }, error: function (res) {
+                  toastr.error('注文を失敗しました！');
+                  setTimeout(function () {
+                      location.href = "/payFailed?orderId=" + id;
+                  }, 300)
+              }
+          })
+          form.submit();
+      })
+
+
+      //代引きの支払い
+      $('#btnConfirm').on('click', async function () {
+          if ( await formCheck()) {
+              //弹出层，确认订货信息
+              $('#orderConfirmModel').modal({
+                  backdrop: true,
+                  show: true
+              })
+          }
+      })
+
 
         function checkTakeOutDate(obj){
             let value = obj.value;
@@ -539,34 +781,7 @@ let payment = {
             form.submit();
         })
 
-        //クレジットの支払い
-        $('#btnCredit').on('click', function () {
-
-            let id = form.find('#id').val();
-
-            if (form.valid()) {
-                let frmCredit = $('#frmCredit');
-                frmCredit.find('#telno').val($('#tel').val());
-
-                form.ajaxForm({
-                    beforeSend: function () {
-                        $('#paymentConfirm').modal('show');
-                    },
-                    success: function (res) {
-                        if (res.status === 200) {
-                            //クレジット画面へ遷移
-                            frmCredit.submit();
-                        }
-                    }, error: function (res) {
-                        toastr.error('注文を失敗しました！');
-                        setTimeout(function () {
-                            location.href = "/payFailed?orderId=" + id + '&payment=2';
-                        }, 300)
-                    }
-                })
-            }
-            form.submit();
-        })
+        
 
         $.extend($.fn.datetimepicker.dates , {
             ja: {
@@ -605,6 +820,50 @@ let payment = {
                 $('#delivery_date').val(this.value)
         })
 
+    }
+}
+
+let profile = {
+    init: function () {
+
+
+        //都道府県の初期化
+        let todofuken = $('#pref');
+        initTodofuken(todofuken.attr('data-value'));
+
+
+        $('#zipSearch').off('click').on('click', function () {
+            let postCode = $('#post');
+            if (postCode.val()) {
+                AjaxZip3.zip3addr(postCode[0], '', 'pref', 'address', 'address');
+            }
+        });
+
+        $('#btnSaveProfile').on('click', function () {
+            let form = $(this).closest('form');
+            let serializeArray = form.serializeJSON();
+            let postUrl = form.attr('action');
+
+            axios.put(postUrl, serializeArray).then(function (res) {
+                if (res.status == 200) {
+                    //全てのエラーメッセージを隠す
+                    $('p.text-red-600').remove();
+                    $('#message').show(100);
+                    setTimeout(function () { $('#message').hide() }, 2000);
+                }
+
+            }).catch(function (res) {
+                const { data, status } = res.response
+                let errors = data.errors;
+                for (let item in errors) {
+                    for (let index in errors[item]) {
+                        let obj = $('#' + item);
+                        obj.parent().find('p.text-red-600').remove()
+                        obj.after(`<p class="text-sm text-red-600 mt-2">${errors[item][index]}</p>`);
+                    }
+                }
+            })
+        })
     }
 }
 

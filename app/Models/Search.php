@@ -40,6 +40,7 @@ class Search extends Model
         $pref = $this->request['pref'];
         $city = $this->request['city'];
         $type = $this->request['type'];
+        $paymentType = $this->request['paymentType'];
 
         //Pager
         $restrant = \DB::table('restrants')->select(\DB::raw('count(1) as count'));
@@ -57,6 +58,11 @@ class Search extends Model
         }
         if(isset($type)){
             $restrant = $restrant->where('type',$type);
+        }
+
+        //販売形式
+        if(isset($paymentType)){
+            $restrant = $restrant->where('paymentType',$paymentType);
         }
 
         if(isset($right_bottom_lat)){
@@ -92,6 +98,9 @@ class Search extends Model
         }
         if(isset($type)){
             $list = $list->where('type',$type);
+        }
+        if(isset($paymentType)){
+            $list = $list->where('paymentType',$paymentType);
         }
 
 

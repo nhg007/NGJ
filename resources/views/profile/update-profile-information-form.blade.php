@@ -1,79 +1,107 @@
-<x-jet-form-section submit="updateProfileInformation">
-    <x-slot name="title">
-        {{ __('Profile Information') }}
-    </x-slot>
+<div wire:id="IotjdJ2qDvURy5b40Jjh" class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+        <div class="px-4 sm:px-0">
+            <h3 class="text-lg font-medium text-gray-900">会員情報</h3>
 
-    <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
-    </x-slot>
+            <p class="mt-1 text-sm text-gray-600">
+                アカウントのプロファイル情報とメールアドレスを更新します。
+            </p>
+        </div>
+    </div>
 
-    <x-slot name="form">
-        <!-- Profile Photo -->
-        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
-                <!-- Profile Photo File Input -->
-                <input type="file" class="hidden"
-                            wire:model="photo"
-                            x-ref="photo"
-                            x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
-                            " />
+    <div class="mt-5 md:mt-0 md:col-span-2">
+        <form action="/user/profile-information">
+            <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="px-4 py-5 bg-white sm:p-6">
+                    <div class="grid grid-cols-6 gap-6">
+                        <!-- Name -->
+                        <div class="col-span-6 sm:col-span-4">
+                            <label class="block font-medium text-sm text-gray-700" for="name">
+                                名前 <span class="single-total">*</span>
+                            </label>
 
-                <x-jet-label for="photo" value="{{ __('Photo') }}" />
 
-                <!-- Current Profile Photo -->
-                <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                            <input
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                id="name" name="name" type="text" value="{{$this->user->name}}"  autocomplete="name">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-span-6 sm:col-span-4">
+                            <label class="block font-medium text-sm text-gray-700" for="email">
+                                Eメールアドレス <span class="single-total">*</span>
+                            </label>
+                            <input
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                id="email" name="email" type="email" value="{{$this->user->email}}" >
+                        </div>
+
+                        <!-- 電話番号 -->
+                        <div class="col-span-6 sm:col-span-4">
+                            <label class="block font-medium text-sm text-gray-700" for="telphone">
+                                電話番号 <span class="single-total">*</span>
+                            </label>
+                            <input
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                id="telphone" name="telphone" type="text" value="{{$this->user->telphone}}">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label class="block font-medium text-sm text-gray-700" for="post">
+                                郵便番号 <span class="single-total">*</span>
+                            </label>
+                            <input
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 w-60"
+                                id="post" name="post" type="text" value="{{$this->user->post}}"  placeholder="郵便番号を入力してくだい">
+                            <button type="button"
+                                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 bg-green-600 hover:bg-green-500 active:bg-green-700 focus:border-green-700 focus:shadow-outline-green w-15"
+                                    id="zipSearch">
+                                郵便番号検索
+                            </button>
+                        </div>
+                        <div class="col-span-6 sm:col-span-4">
+                            <label class="block font-medium text-sm text-gray-700" for="pref">
+                                都道府県 <span class="single-total">*</span>
+                            </label>
+                            <select class="form-control col-8" name="pref" id="pref" data-value="{{$this->user->pref}}">
+
+                            </select>
+                        </div>
+                        <!-- 住宅 -->
+                        <div class="col-span-6 sm:col-span-4">
+                            <label class="block font-medium text-sm text-gray-700" for="address">
+                                住宅 <span class="single-total">*</span>
+                            </label>
+                            <input
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                id="address" name="address" type="text" value="{{$this->user->address}}" >
+                        </div>
+                    </div>
                 </div>
 
-                <!-- New Profile Photo Preview -->
-                <div class="mt-2" x-show="photoPreview">
-                    <span class="block rounded-full w-20 h-20"
-                          x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
-                    </span>
+                <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
+                    <div id="message" style="display: none;" class="text-sm text-gray-600 mr-3">
+                        更新しました
+                    </div>
+
+                    <button type="button" id="btnSaveProfile"
+                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 bg-green-800 hover:bg-green-700 active:bg-green-900 focus:border-green-900 focus:shadow-outline-green"
+                            >
+                        更新
+                    </button>
                 </div>
-
-                <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
-                    {{ __('Select A New Photo') }}
-                </x-jet-secondary-button>
-
-                @if ($this->user->profile_photo_path)
-                    <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
-                        {{ __('Remove Photo') }}
-                    </x-jet-secondary-button>
-                @endif
-
-                <x-jet-input-error for="photo" class="mt-2" />
             </div>
-        @endif
+        </form>
+    </div>
+</div>
 
-        <!-- Name -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Name') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name" />
-            <x-jet-input-error for="name" class="mt-2" />
-        </div>
+@push('modals')
+    <script src="{{url('/js/ajaxzip3.js')}}"></script>
+    <script src="{{url('/js/jquery.serializejson.min.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            profile.init()
+        })
+    </script>
+@endpush
 
-        <!-- Email -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="email" value="{{ __('Email') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
-            <x-jet-input-error for="email" class="mt-2" />
-        </div>
-    </x-slot>
-
-    <x-slot name="actions">
-        <x-jet-action-message class="mr-3" on="saved">
-            {{ __('Saved.') }}
-        </x-jet-action-message>
-
-        <x-jet-button class="bg-green-800 hover:bg-green-700 active:bg-green-900 focus:border-green-900 focus:shadow-outline-green" wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
-        </x-jet-button>
-    </x-slot>
-</x-jet-form-section>

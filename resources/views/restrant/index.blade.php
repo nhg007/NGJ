@@ -111,6 +111,7 @@
 <script src="//unpkg.com/element-ui/lib/umd/locale/ja.js"></script>
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK6GPBCxZEmYmCPckjSG4cjonOespvxE8&language=ja"></script>
 <script src="{{mix('js/app.js')}}"></script>
 <script>
 
