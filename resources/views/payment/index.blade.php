@@ -68,7 +68,7 @@
                                 <div class="form-group row">
                                     <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">都道府県 <span
                                             class="required">*</span></label>
-                                    <select class="form-control col-sm-3 required" name="todofuken" id="todofuken"
+                                    <select class="form-control col-sm-3 required" name="pref" id="pref"
                                         data-value="{{ $order->receive_type == 'その他' ? $order->pref : '' }}">
 
                                     </select>
@@ -122,12 +122,12 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <input type="radio" id="chkPayment" name="payment" value="1" />
-                                <label for="chkCredit">代引き 決済手数料：324円</label>
+                                <label for="chkPayment">代引き 決済手数料：324円</label>
                                 <div class="errorPlace"></div>
                             </div>
                             <div class="form-group">
                                 <input type="radio" id="chkTakeout" name="payment" value="2" checked />
-                                <label for="chkPayment">現地決済</label>
+                                <label for="chkTakeout">現地決済</label>
                                 <div class="errorPlace"></div>
                             </div>
                         </div>
@@ -309,7 +309,7 @@
                                         <div class="form-group row">
                                             <label class="col-5 col-sm-2 col-form-label">都道府県 </label>
                                             <span class="col-form-label"
-                                                id="lblTodofuken">{{ $user->todofuken }}</span>
+                                                id="lblTodofuken">{{ $user->pref }}</span>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-5 col-sm-2 col-form-label">詳細住所 </label>

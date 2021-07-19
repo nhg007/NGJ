@@ -6,7 +6,7 @@
             </select>
         </div>
         <div class="col-sm-3 pb-2">
-            <select id="ddlPref" class="custom-select">
+            <select id="ddlPref" class="custom-select" data-placeholder="地域" >
               <option value="" selected>地域</option>
                 @foreach ($prefList as $pref)
                 <option value="{{ $pref->pref }}">{{ $pref->pref }}

@@ -481,7 +481,7 @@ let payment = {
       //先ず、配送料を計算します
       calcFee();
 
-      $('#todofuken').on('change', function () {
+      $('#pref').on('change', function () {
           //计算
           calcFee()
       })
@@ -493,7 +493,7 @@ let payment = {
           if (receiver === '登録住所') {
               todofuken = $('#userTodofuken').val()
           } else {
-              todofuken = $('#todofuken').val()
+              todofuken = $('#pref').val()
           }
 
           let fee1 = 972;
@@ -572,7 +572,10 @@ let payment = {
               let userTodofuken = $('#userTodofuken').val();
               let userAddress = $('#userAddress').val();
 
-              if(userTelphone.length == 0 || userPost.length == 0 || userTodofuken.length == 0 || userAddress.length == 0){
+              if(userTelphone.length == 0
+                 || userPost.length == 0 
+                 || userTodofuken.length == 0 
+                 || userAddress.length == 0){
 
                   const {data } = await axios.post('/getUserInfo')
 
@@ -584,7 +587,7 @@ let payment = {
 
                   $('#userTelphone').val(data.telphone)
                   $('#userPost').val(data.post)
-                  $('#userTodofuken').val(data.todofuken)
+                  $('#userTodofuken').val(data.pref)
                   $('#userAddress').val(data.address)
                   $('#lblTelphone').text(data.telphone);
                   $('#lblPost').text(data.post);
@@ -606,7 +609,7 @@ let payment = {
       $('#zipSearch').off('click').on('click', function () {
           let postCode = $('#post');
           if (postCode.val()) {
-              AjaxZip3.zip2addr(postCode[0], '', 'todofuken', 'address', 'address');
+              AjaxZip3.zip2addr(postCode[0], '', 'pref', 'address', 'address');
           }
       });
 
@@ -630,11 +633,11 @@ let payment = {
               $('.basicInfo').removeClass('hide')
               $('.userRegister').addClass('hide')
 
-              //copy
+              //
               modal.find('.modal-body #spconsignee').text($('#consignee').val())
               modal.find('.modal-body #sptel').text($('#tel').val())
               modal.find('.modal-body #spost').text($('#post').val())
-              modal.find('.modal-body #sptodofuken').text($('#todofuken').val())
+              modal.find('.modal-body #sptodofuken').text($('#pref').val())
               modal.find('.modal-body #spaddress').text($('#address').val())
           }
 
