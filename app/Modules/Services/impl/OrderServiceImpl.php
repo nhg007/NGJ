@@ -63,9 +63,9 @@ class OrderServiceImpl implements OrderService
     public function createOrder(Request $request)
     {
 
+        $totalPrice = 0;
+        $goods_number = 0;
         $cartIds = $request->get('cartIds');
-        $totalPrice = $request->get('totalPrice');
-        $goods_number = $request->get('goodNumber');
         $restrantId  = $request->get('restrantId');
         DB::beginTransaction();
         try {
@@ -78,10 +78,22 @@ class OrderServiceImpl implements OrderService
             $order->user_id = Auth::id();
 
             $order->restrant_id = $restrantId;
+
+            $cartArray = $this->cartService->getItems($cartIds);
+
+            foreach ($cartArray as $cart) {
+                $goods_number = $goods_number + $cart->number;
+                $totalPrice = $totalPrice + $cart->price * $cart->number;
+            }
+
             //商品数量
             $order->product_number = $goods_number;
+
+            //商品价格总价
+            $order->product_amount = $totalPrice;
+
             //注文価格
-            $order->order_amount = $totalPrice;
+            $order->order_amount = 0;
 
             //注文状態
             $order->status = 0;

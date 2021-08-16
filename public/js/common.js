@@ -446,11 +446,12 @@ let payment = {
             increaseArea: '20%' // optional
         });
 
-        //代引き
+        //現地決済
         $('#chkTakeout').on('ifChecked', function () {
             $('.deliveryCash').removeClass('hide');
             $('.credit').addClass('hide');
             $('#payment').val(2);
+            $('#divTakeoutTimes').show()
         })
 
          //代引き
@@ -458,16 +459,21 @@ let payment = {
             formCheck();
             calcFee();
             $('#payment').val(1);
+            $('#divTakeoutTimes').hide()
         })
 
         if ($('#chkPayment')[0].checked) {
             $('.deliveryCash').removeClass('hide');
             $('#payment').val(1);
+            $('#divTakeoutTimes').hide()
+            $('#payment-error').hide()
         }
 
         if ($('#chkTakeout')[0].checked) {
             $('.deliveryCash').addClass('hide');
             $('#payment').val(2);
+            $('#divTakeoutTimes').show()
+            $('#payment-error').hide()
         }
 
         //
@@ -532,6 +538,8 @@ let payment = {
           let total = parseInt(orderAmount, 10) + fee1 + tipfee;
           total = total + total * 0.1
 
+          console.info(total)
+
           //先舍位
           $('#totalPay').text('¥' + formatNumber(Math.round(total)))
       }
@@ -573,8 +581,8 @@ let payment = {
               let userAddress = $('#userAddress').val();
 
               if(userTelphone.length == 0
-                 || userPost.length == 0 
-                 || userTodofuken.length == 0 
+                 || userPost.length == 0
+                 || userTodofuken.length == 0
                  || userAddress.length == 0){
 
                   const {data } = await axios.post('/getUserInfo')
@@ -596,6 +604,10 @@ let payment = {
               }
           }
 
+
+          if(!$('#chkPayment').prop('checked') && !$('#chkTakeout').prop('checked')){
+              $('#payment-error').show()
+          }
           if (!form.valid()) {
               $(window).scrollTop(0)
           }
@@ -649,14 +661,12 @@ let payment = {
               modal.find('.modal-body #spayType').text('代引き');
           }
 
-          if ($('#chkCredit')[0].checked) {
+          if ($('#chkTakeout')[0].checked) {
               modal.find('.modal-body #spayType').text('クレジット');
           }
 
           modal.find('.modal-body #payment-result').html($('.order-paymentAmount').clone())
 
-
-          console.info(modal.find('.modal-footer #btnOrderInfoSend').length);
       })
 
 
@@ -784,7 +794,7 @@ let payment = {
             form.submit();
         })
 
-        
+
 
         $.extend($.fn.datetimepicker.dates , {
             ja: {

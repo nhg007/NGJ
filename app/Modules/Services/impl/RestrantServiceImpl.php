@@ -171,4 +171,11 @@ class RestrantServiceImpl implements RestrantServcie
         }
         return response()->json(JsonResult::success("保存しました。", 200, null));
     }
+
+    public function getRestrantInfo($restrantId)
+    {
+        return Restrant::find($restrantId);
+    }
+
+
 }

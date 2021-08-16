@@ -25,12 +25,12 @@
                 <div class="shopping-car-container">
                     <div class="car-headers-menu">
                         <div class="row">
-                            <div class="col-1 col-md-1 car-menu">
+                            <div class="" style="display: none">
                                 <label>
                                     <input type="checkbox" id="check-goods-all"/>
                                 </label>
                             </div>
-                            <div class="col-6 col-md-5 car-menu">商品情報</div>
+                            <div class="col-7 col-md-5 car-menu">商品情報</div>
                             <div class="col-1 col-md-1 car-menu mobile-hide">単価</div>
                             <div class="col-5 col-md-2 car-menu">数量</div>
                             <div class="col-4 col-md-1 car-menu mobile-hide">金额</div>
@@ -55,12 +55,12 @@
                                                 <div class="card card-default">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="col-1 col-md-1 car-goods-info">
+                                                            <div class="" style="display: none">
                                                                 <label>
                                                                     <input type="checkbox" class="goods-list-item"
                                                                            data-id="{{$cart->id}}"
                                                                            data-restrantId="{{$restrantCart["restrant_id"]}}"
-                                                                           data-price="{{$cart->price}}">
+                                                                           data-price="{{$cart->price}}" checked>
                                                                 </label>
                                                             </div>
                                                             <div
@@ -152,7 +152,7 @@
 
                                     </div>
                                     <div class="col-md-2 bottom-menu mobile-hide">
-                                        <span>選択 <span class="selectGoodsCount">0</span> 件</span>
+                                        <span>数量 <span class="selectGoodsCount">0</span> 件</span>
                                     </div>
                                     <div class="col-md-2 bottom-menu goods-price mobile-hide">
                                         合計：<span>￥</span><span class="selectGoodsMoney">0</span>

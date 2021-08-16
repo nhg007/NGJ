@@ -20,4 +20,6 @@ interface RestrantServcie
 
     //保存take out规则
     public function updateTakeOutRule(Request $request);
+
+    public function getRestrantInfo($restrantId);
 }

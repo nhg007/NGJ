@@ -47,14 +47,16 @@ class OrderController extends Controller
         $order_id = $request->get('order_id');
         //检查order
         $order = $this->orderService->getOrderInfo($order_id);
-        if(!isset($order)){
-            abort(404,"注文情報を見つかりませんでした");
+        if (!isset($order)) {
+            abort(404, "注文情報を見つかりませんでした");
         }
+        $restrant = $this->restrantServcie->getRestrantInfo($order->restrant_id);
         $takeout = $this->restrantServcie->getRestrantCanTakeOutTimes($order->restrant_id);
         return view('payment.index', [
             'user' => Auth::user(),
-             "order" => $order,
-            'takeoutTimes'=>$takeout]);
+            "order" => $order,
+            "restrant" => $restrant,
+            'takeoutTimes' => $takeout]);
     }
 
     /**
@@ -71,7 +73,7 @@ class OrderController extends Controller
     {
         //1:現地決済、2:クレジットカード
         $payment = $request->payment;
-        $order = $this->orderService->updateOrderPaymentAndStatus($request->orderId, $payment, 1,1);
+        $order = $this->orderService->updateOrderPaymentAndStatus($request->orderId, $payment, 1, 1);
         return view('payment.success', ["order" => $order, "email" => Auth::user()->email]);
     }
 

@@ -25,33 +25,33 @@
                                     <option value="その他" {{ $order->receive_type == 'その他' ? 'selected' : '' }}>その他
                                     </option>
                                 </select>
-                                <input id="userName" type="hidden" value="{{ $user->name }}" />
-                                <input id="userTelphone" type="hidden" value="{{ $user->telphone }}" />
-                                <input id="userPost" type="hidden" value="{{ $user->post }}" />
-                                <input id="userTodofuken" type="hidden" value="{{ $user->todofuken }}" />
-                                <input id="userAddress" type="hidden" value="{{ $user->address }}" />
+                                <input id="userName" type="hidden" value="{{ $user->name }}"/>
+                                <input id="userTelphone" type="hidden" value="{{ $user->telphone }}"/>
+                                <input id="userPost" type="hidden" value="{{ $user->post }}"/>
+                                <input id="userTodofuken" type="hidden" value="{{ $user->pref }}"/>
+                                <input id="userAddress" type="hidden" value="{{ $user->address }}"/>
                             </div>
                             <div class="receiver-info {{ $order->receive_type == 'その他' ? '' : 'hidden' }}">
                                 <div class="form-group row">
                                     <label for="consignee" class="col-sm-2 col-form-label">お名前 <span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control col-sm-6  required" id="consignee"
-                                        value="{{ $order->receive_type == 'その他' ? $order->consignee : '' }}"
-                                        name="consignee" placeholder="お名前を入力してくだい">
+                                           value="{{ $order->receive_type == 'その他' ? $order->consignee : '' }}"
+                                           name="consignee" placeholder="お名前を入力してくだい">
                                 </div>
                                 <div class="form-group row">
                                     <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">電話番号 <span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control col-sm-6 required digits" id="tel" name="tel"
-                                        value="{{ $order->receive_type == 'その他' ? $order->tel : '' }}"
-                                        placeholder="電話番号を入力してくだい">
+                                           value="{{ $order->receive_type == 'その他' ? $order->tel : '' }}"
+                                           placeholder="電話番号を入力してくだい">
                                 </div>
                                 <div class="form-group row">
                                     <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">郵便番号 <span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control  col-sm-3 required" name="post" id="post"
-                                        value="{{ $order->receive_type == 'その他' ? $order->post : '' }}"
-                                        placeholder="郵便番号を入力してくだい" />
+                                           value="{{ $order->receive_type == 'その他' ? $order->post : '' }}"
+                                           placeholder="郵便番号を入力してくだい"/>
                                     <input id="zipSearch" class="inline-flex
                                         items-center
                                         bg-green-500 border
@@ -62,14 +62,14 @@
                                         focus:outline-none focus:border-green-800
                                         focus:shadow-outline-green
                                         disabled:opacity-25 transition ease-in-out duration-150"
-                                        style="margin-left: 20px;text-align: center" value="郵便番号検索" />
+                                           style="margin-left: 20px;text-align: center" value="郵便番号検索"/>
 
                                 </div>
                                 <div class="form-group row">
                                     <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">都道府県 <span
                                             class="required">*</span></label>
                                     <select class="form-control col-sm-3 required" name="pref" id="pref"
-                                        data-value="{{ $order->receive_type == 'その他' ? $order->pref : '' }}">
+                                            data-value="{{ $order->receive_type == 'その他' ? $order->pref : '' }}">
 
                                     </select>
                                 </div>
@@ -77,14 +77,14 @@
                                     <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">詳細住所 <span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control required col-sm-6" name="address"
-                                        value="{{ $order->receive_type == 'その他' ? $order->address : '' }}"
-                                        id="address" placeholder="詳細住所を入力してくだい">
+                                           value="{{ $order->receive_type == 'その他' ? $order->address : '' }}"
+                                           id="address" placeholder="詳細住所を入力してくだい">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="remark" class="col-sm-2 col-form-label">受取希望日</label>
                                 <input class="form-control col-sm-6 required" id="receiveDate" name="receiveDate"
-                                    value="{{ $order->receiveDate }}" placeholder="受取希望日を入力してください"></input>
+                                       value="{{ $order->receiveDate }}" placeholder="受取希望日を入力してください"></input>
                             </div>
                             <div class="form-group row">
                                 <label for="originalTimeId" class="col-sm-2 col-form-label">受取時間帯</label>
@@ -109,10 +109,10 @@
                             <div class="form-group row">
                                 <label for="remark" class="col-sm-2 col-form-label">備考欄</label>
                                 <textarea class="form-control col-sm-6" id="remark" name="remark" rows="5"
-                                    placeholder="必要な場合のみご入力してくだい">{{ $order->remark }}</textarea>
+                                          placeholder="必要な場合のみご入力してくだい">{{ $order->remark }}</textarea>
                             </div>
                             <input type="hidden" name="id" id="id" value="{{ $order->id }}">
-                            <input type="hidden" name="payment" id="payment" />
+                            <input type="hidden" name="payment" id="payment"/>
                         </div>
                     </div>
                     <div class="card mt-3">
@@ -120,19 +120,22 @@
                             お支払い方法
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <input type="radio" id="chkPayment" name="payment" value="1" />
-                                <label for="chkPayment">代引き 決済手数料：324円</label>
-                                <div class="errorPlace"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="radio" id="chkTakeout" name="payment" value="2" checked />
-                                <label for="chkTakeout">現地決済</label>
-                                <div class="errorPlace"></div>
-                            </div>
+                            @if($restrant->paymentType == 'イートイン' || $restrant->paymentType == '郵送')
+                                <div class="form-group">
+                                    <input type="radio" id="chkPayment" name="payment" value="1"/>
+                                    <label for="chkPayment">代引き 決済手数料：324円</label>
+                                </div>
+                            @endif
+                            @if($restrant->paymentType == 'イートイン' || $restrant->paymentType == '現地決済')
+                                <div class="form-group">
+                                    <input type="radio" id="chkTakeout" name="payment" value="2"/>
+                                    <label for="chkTakeout">現地決済</label>
+                                </div>
+                            @endif
+                                <label id="payment-error" class="error" for="payment">お支払い方法を選択してください。</label>
                         </div>
                     </div>
-                    <div class="card mt-3">
+                    <div class="card mt-3" id="divTakeoutTimes" style="display: none">
                         <div class="card-header">
                             テイクアウト来店時間帯
                         </div>
@@ -144,41 +147,41 @@
                             @else
                                 <table class="table table-borderless">
                                     <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">日付</th>
-                                            <th scope="col">開始時間</th>
-                                            <th scope="col">終了時間</th>
-                                            <th scope="col">残り席</th>
-                                            <th scope="col">受け取る時間</th>
-                                        </tr>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">日付</th>
+                                        <th scope="col">開始時間</th>
+                                        <th scope="col">終了時間</th>
+                                        <th scope="col">残り席</th>
+                                        <th scope="col">受け取る時間</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($takeoutTimes as $takeoutTime)
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="form-group">
-                                                        <input type="radio" name="time"
-                                                            value="{{ $takeoutTime->id }}" class="takeoutRule" />
-                                                    </div>
-                                                </th>
-                                                <td>{{ $takeoutTime->take_date }}</td>
-                                                <td>{{ $takeoutTime->start_time }}</td>
-                                                <td>{{ $takeoutTime->end_time }}</td>
-                                                <td>{{ $takeoutTime->number }}</td>
-                                                <td style="width: 400px">
-                                                    <div class="takeOutTimes" style="position: relative">
-                                                        <input type="text" class="form-control text-left delivery_date"
-                                                            disabled data-take_date="{{ $takeoutTime->take_date }}"
-                                                            data-start_time="{{ $takeoutTime->start_time }}"
-                                                            data-end_time="{{ $takeoutTime->end_time }}"
-                                                            autocomplete="off" name="delivery_date"
-                                                            placeholder="货物を受け取る時間を入力してくだい">
-                                                        <span class="error" for="delivery_date"></span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach ($takeoutTimes as $takeoutTime)
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="form-group">
+                                                    <input type="radio" name="time"
+                                                           value="{{ $takeoutTime->id }}" class="takeoutRule"/>
+                                                </div>
+                                            </th>
+                                            <td>{{ $takeoutTime->take_date }}</td>
+                                            <td>{{ $takeoutTime->start_time }}</td>
+                                            <td>{{ $takeoutTime->end_time }}</td>
+                                            <td>{{ $takeoutTime->number }}</td>
+                                            <td style="width: 400px">
+                                                <div class="takeOutTimes" style="position: relative">
+                                                    <input type="text" class="form-control text-left delivery_date"
+                                                           disabled data-take_date="{{ $takeoutTime->take_date }}"
+                                                           data-start_time="{{ $takeoutTime->start_time }}"
+                                                           data-end_time="{{ $takeoutTime->end_time }}"
+                                                           autocomplete="off" name="delivery_date"
+                                                           placeholder="货物を受け取る時間を入力してくだい">
+                                                    <span class="error" for="delivery_date"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             @endif
@@ -211,15 +214,13 @@
                         </ul>
                         <ul class="list-unstyled order-paymentAmount">
                             <li>送料について　<span class="badge badge-danger">送料は、全国一律９７２円です。（北海道・沖縄は１４０４円）</span></li>
-                            <li>配送料:　<span id="fee" class="goods-price">なし</span> <span id="feetip"
-                                    class="badge badge-success hide">冷凍と常温が混在するので、送料が二倍となる</span></li>
+                            <li>配送料:　<span id="fee" class="goods-price">なし</span></li>
                             <li id="tip" class="hide">手数料:　<span id="tipfee" class="goods-price">なし</span></li>
-                            <li>注文金額:　<span class="goods-price">¥{{ number_format($order->product_amount) }}</span>
-                            </li>
+                            <li>注文金額:　<span class="goods-price">¥{{ number_format($order->product_amount) }}</span></li>
                             <li>消費税:　10%</li>
                             <li>お支払い金額:　<span id="totalPay" class="goods-price"></span></li>
                         </ul>
-                        <input type="hidden" id="productAmout" value="{{ $order->product_amount }}" />
+                        <input type="hidden" id="productAmout" value="{{ $order->product_amount }}"/>
                     </div>
                 </div>
 
@@ -231,7 +232,7 @@
                                 hover:bg-green-600 active:bg-green-700
                                 focus:outline-none focus:border-green-800
                                 focus:shadow-outline-green
-                                disabled:opacity-25 transition ease-in-out duration-150" disabled="disabled">
+                                disabled:opacity-25 transition ease-in-out duration-150">
                         注文確認
                     </button>
                 </div>
@@ -251,7 +252,7 @@
         </div>
 
         <div class="modal fade" id="orderConfirmModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -300,7 +301,7 @@
                                         <div class="form-group row">
                                             <label class="col-5 col-sm-2 col-form-label">電話番号</label>
                                             <span class="col-form-label"
-                                                id="lblTelphone">{{ $user->telphone }}</span>
+                                                  id="lblTelphone">{{ $user->telphone }}</span>
                                         </div>
                                         <div class="form-group row">
                                             <label for="spost" class="col-5 col-sm-2 col-form-label">郵便番号 </label>
@@ -309,7 +310,7 @@
                                         <div class="form-group row">
                                             <label class="col-5 col-sm-2 col-form-label">都道府県 </label>
                                             <span class="col-form-label"
-                                                id="lblTodofuken">{{ $user->pref }}</span>
+                                                  id="lblTodofuken">{{ $user->pref }}</span>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-5 col-sm-2 col-form-label">詳細住所 </label>
@@ -331,12 +332,12 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="exampleFormControlInput1"
-                                                class="col-5 col-sm-2 col-form-label">都道府県 </label>
+                                                   class="col-5 col-sm-2 col-form-label">都道府県 </label>
                                             <span class="col-form-label" id="sptodofuken"></span>
                                         </div>
                                         <div class="form-group row">
                                             <label for="exampleFormControlSelect2"
-                                                class="col-5 col-sm-2 col-form-label">詳細住所 </label>
+                                                   class="col-5 col-sm-2 col-form-label">詳細住所 </label>
                                             <span class="col-form-label" id="spaddress"></span>
                                         </div>
                                     </div>
@@ -378,7 +379,8 @@
                      hover:bg-green-600 active:bg-green-700
                      focus:outline-none focus:border-green-800
                      focus:shadow-outline-green
-                     disabled:opacity-25 transition ease-in-out duration-150">注文確定</button>
+                     disabled:opacity-25 transition ease-in-out duration-150">注文確定
+                        </button>
                     </div>
                 </div>
             </div>
@@ -386,7 +388,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -401,7 +403,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">注文続け</button>
                         <button type="button" class="btn btn-primary"
-                            onclick="location.href='/user/profile'">プロフィールへ</button>
+                                onclick="location.href='/user/profile'">プロフィールへ
+                        </button>
                     </div>
                 </div>
             </div>
@@ -444,7 +447,7 @@
             })
             moment.locale(window.navigator.userLanguage || window.navigator.language)
 
-            $(document).ready(function() {
+            $(document).ready(function () {
                 payment.init();
 
                 //$('#delivery_date').datetimepicker();
