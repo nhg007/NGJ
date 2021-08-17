@@ -89,7 +89,7 @@
                                                 <div class="card-footer text-muted order-foot">
                                                     <div class="row order-buttons">
                                                         <div class="col-md-6 col-sm-12">
-                                                            注文価格：<span class="goods-price">¥{{number_format($order->order_amount)}}</span>
+                                                            注文価格：<span class="goods-price">¥{{number_format($order->product_amount)}}</span>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12 text-right">
                                                             @if($order->pay_status == 0 && $order->status == 0)

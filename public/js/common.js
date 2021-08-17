@@ -450,8 +450,14 @@ let payment = {
         $('#chkTakeout').on('ifChecked', function () {
             $('.deliveryCash').removeClass('hide');
             $('.credit').addClass('hide');
+            calcFee();
             $('#payment').val(2);
             $('#divTakeoutTimes').show()
+            $('#payment-error').hide()
+
+            //配送料を隠す
+            $('.deliveryGroup').hide()
+            $('.delivery-baseinfo').hide()
         })
 
          //代引き
@@ -460,20 +466,26 @@ let payment = {
             calcFee();
             $('#payment').val(1);
             $('#divTakeoutTimes').hide()
+            $('#payment-error').hide()
+            $('.deliveryGroup').show()
+            $('.delivery-baseinfo').show()
         })
 
-        if ($('#chkPayment')[0].checked) {
+        if ($('#chkPayment').prop('checked')) {
             $('.deliveryCash').removeClass('hide');
             $('#payment').val(1);
             $('#divTakeoutTimes').hide()
             $('#payment-error').hide()
+            $('.delivery-baseinfo').show()
+
         }
 
-        if ($('#chkTakeout')[0].checked) {
+        if ($('#chkTakeout').prop('checked')) {
             $('.deliveryCash').addClass('hide');
             $('#payment').val(2);
             $('#divTakeoutTimes').show()
             $('#payment-error').hide()
+            $('.delivery-baseinfo').hide()
         }
 
         //
@@ -502,22 +514,23 @@ let payment = {
               todofuken = $('#pref').val()
           }
 
-          let fee1 = 972;
-          if (todofuken == '北海道' || todofuken == '沖縄県') {
-              fee1 = 1404;
-          }
-
+          let fee1 = 0;
           let tipfee = 0;
 
           //检查支付类型
-          if ($('#chkPayment')[0].checked) {
+          if ($('#chkPayment').prop('checked')) {
               tipfee = 324;
+              fee1 = 972;
+              if (todofuken == '北海道' || todofuken == '沖縄県') {
+                  fee1 = 1404;
+              }
               $('#tip').removeClass('hide');
               $('#tipfee').text('¥' + formatNumber(tipfee))
           }
 
-          if ($('#chkTakeout')[0].checked) {
+          if ($('#chkTakeout').prop('checked')) {
               tipfee = 0;
+              fee1 = 0;
               $('#tip').addClass('hide');
           }
 
@@ -536,10 +549,8 @@ let payment = {
           let orderAmount = $('#productAmout').val();
 
           let total = parseInt(orderAmount, 10) + fee1 + tipfee;
+          console.info(fee1)
           total = total + total * 0.1
-
-          console.info(total)
-
           //先舍位
           $('#totalPay').text('¥' + formatNumber(Math.round(total)))
       }
@@ -658,15 +669,22 @@ let payment = {
           modal.find('.modal-body #spremark').text($('#remark').val())
 
           if ($('#chkPayment')[0].checked) {
+            modal.find('.modal-body .confirm-delivery').show()
+            modal.find('.modal-body .confirm-takeout').hide()
               modal.find('.modal-body #spayType').text('代引き');
           }
 
           if ($('#chkTakeout')[0].checked) {
-              modal.find('.modal-body #spayType').text('クレジット');
+                modal.find('.modal-body .confirm-delivery').hide()
+                modal.find('.modal-body .confirm-takeout').show()
+              modal.find('.modal-body #spayType').text('現地決済');
+
+              let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date');
+              modal.find('.modal-body #takeoutTime').text(inpt.val());
           }
 
-          modal.find('.modal-body #payment-result').html($('.order-paymentAmount').clone())
-
+          let html = $('.order-paymentAmount').clone().html();
+            modal.find('.modal-body #payment-result').html(html)
       })
 
 
@@ -693,22 +711,15 @@ let payment = {
 
                       //信用卡
                       if (order.payment == 2) {
-                          //向信用卡迁移
-                          let frmCredit = $('#frmCredit');
-                          frmCredit.find('#telno').val(order.tel);
-                          frmCredit.find('#money').val(order.order_amount);
-                          let successUrl = app_url + '/paySuccess?token=' + order.token;
-                          let failureUrl = app_url + '/payFailed?token=' + order.token;
-                          frmCredit.find('#success_url').val(successUrl);
-                          frmCredit.find('#failure_url').val(failureUrl);
-                          frmCredit.submit();
+                          
                       }
                   }
               }, error: function (res) {
-                  toastr.error('注文を失敗しました！');
-                  setTimeout(function () {
-                      location.href = "/payFailed?orderId=" + id;
-                  }, 300)
+                  console.info(res)
+                //   toastr.error('注文を失敗しました！');
+                //   setTimeout(function () {
+                //       location.href = "/payFailed?orderId=" + id;
+                //   }, 300)
               }
           })
           form.submit();
@@ -718,6 +729,20 @@ let payment = {
       //代引きの支払い
       $('#btnConfirm').on('click', async function () {
           if ( await formCheck()) {
+
+            //如果选择了takeout的情况
+            if ($('#chkTakeout').prop('checked')) {
+
+                let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date');
+                if(inpt.length == 0){
+                    toastr.error('テイクアウト来店時間帯を選択してください');
+                    return false
+                }
+                if(!checkTakeOutDate(inpt[0])){
+                    return false
+                }
+            }
+
               //弹出层，确认订货信息
               $('#orderConfirmModel').modal({
                   backdrop: true,
@@ -728,11 +753,18 @@ let payment = {
 
 
         function checkTakeOutDate(obj){
+
             let value = obj.value;
             let takeDate = obj.dataset.take_date
             let startTime = obj.dataset.start_time
             let endTime = obj.dataset.end_time
             let result = true;
+
+            if(!value){
+                $(obj).parent().find('.error').text('受け取る時間を入力してください');
+                $(obj).addClass('error');
+                return false
+            }
 
             if(new moment(value) - new moment(takeDate + ' ' + startTime) < 0){
                 $(obj).parent().find('.error').text('货物を受け取る時間は開始時間より小さくしてはいけません');
@@ -758,41 +790,41 @@ let payment = {
         }
 
 
-        //代引きの支払い
-        $('#btnConfirm').on('click', function () {
-            let id = form.find('#id').val();
+        // //代引きの支払い
+        // $('#btnConfirm').on('click', function () {
+        //     let id = form.find('#id').val();
 
-            let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date')[0]
+        //     let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date')[0]
 
-            if (form.valid() && checkTakeOutDate(inpt)) {
-                form.ajaxForm({
-                    beforeSend: function () {
-                    },
-                    success: function (res) {
-                        if (res.status === 200) {
-                            toastr.success(res.message);
-                            setTimeout(function () {
-                                location.href = "/paySuccess?orderId=" + id + '&payment=1';
-                            }, 300)
-                        }
+        //     if (form.valid() && checkTakeOutDate(inpt)) {
+        //         form.ajaxForm({
+        //             beforeSend: function () {
+        //             },
+        //             success: function (res) {
+        //                 if (res.status === 200) {
+        //                     toastr.success(res.message);
+        //                     setTimeout(function () {
+        //                         location.href = "/paySuccess?orderId=" + id + '&payment=1';
+        //                     }, 300)
+        //                 }
 
-                        if(res.status === 500){
-                            toastr.error(res.message);
-                            //更新一下时间带
-                            setTimeout(function () {
-                                location.href = '/dashboard';
-                            }, 2000)
-                        }
-                    }, error: function (res) {
-                        toastr.error('注文を失敗しました！');
-                        setTimeout(function () {
-                            location.href = "/payFailed?orderId=" + id + '&payment=1';
-                        }, 300)
-                    }
-                })
-            }
-            form.submit();
-        })
+        //                 if(res.status === 500){
+        //                     toastr.error(res.message);
+        //                     //更新一下时间带
+        //                     setTimeout(function () {
+        //                         location.href = '/dashboard';
+        //                     }, 2000)
+        //                 }
+        //             }, error: function (res) {
+        //                 toastr.error('注文を失敗しました！');
+        //                 setTimeout(function () {
+        //                     location.href = "/payFailed?orderId=" + id + '&payment=1';
+        //                 }, 300)
+        //             }
+        //         })
+        //     }
+        //     form.submit();
+        // })
 
 
 

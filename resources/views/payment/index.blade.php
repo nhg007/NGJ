@@ -81,12 +81,12 @@
                                            id="address" placeholder="詳細住所を入力してくだい">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row delivery-baseinfo">
                                 <label for="remark" class="col-sm-2 col-form-label">受取希望日</label>
                                 <input class="form-control col-sm-6 required" id="receiveDate" name="receiveDate"
                                        value="{{ $order->receiveDate }}" placeholder="受取希望日を入力してください"></input>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row delivery-baseinfo">
                                 <label for="originalTimeId" class="col-sm-2 col-form-label">受取時間帯</label>
                                 <select class="form-control col-sm-6" id="receiveTime" name="receiveTime">
                                     <option value="">希望なし</option>
@@ -213,9 +213,9 @@
                             @endforeach
                         </ul>
                         <ul class="list-unstyled order-paymentAmount">
-                            <li>送料について　<span class="badge badge-danger">送料は、全国一律９７２円です。（北海道・沖縄は１４０４円）</span></li>
-                            <li>配送料:　<span id="fee" class="goods-price">なし</span></li>
-                            <li id="tip" class="hide">手数料:　<span id="tipfee" class="goods-price">なし</span></li>
+                            <li class="deliveryGroup">送料について　<span class="badge badge-danger">送料は、全国一律９７２円です。（北海道・沖縄は１４０４円）</span></li>
+                            <li class="deliveryGroup">配送料:　<span id="fee" class="goods-price">なし</span></li>
+                            <li id="tip" class="hide deliveryGroup">手数料:　<span id="tipfee" class="goods-price">なし</span></li>
                             <li>注文金額:　<span class="goods-price">¥{{ number_format($order->product_amount) }}</span></li>
                             <li>消費税:　10%</li>
                             <li>お支払い金額:　<span id="totalPay" class="goods-price"></span></li>
@@ -342,13 +342,17 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row confirm-delivery">
                                         <label for="receiveDate" class="col-5 col-sm-2 col-form-label ">受取希望日</label>
                                         <span class="col-form-label" id="spreceiveDate"></span>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row confirm-delivery">
                                         <label for="originalTimeId" class="col-5 col-sm-2 col-form-label">受取時間帯</label>
                                         <span class="col-form-label" id="spreceiveTime"></span>
+                                    </div>
+                                    <div class="form-group row confirm-takeout">
+                                        <label for="originalTimeId" class="col-5 col-sm-2 col-form-label">受け取る時間</label>
+                                        <span class="col-form-label" id="takeoutTime"></span>
                                     </div>
                                     <div class="form-group row">
                                         <label for="remark" class="col-5 col-sm-2 col-form-label">備考欄</label>
@@ -360,12 +364,13 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="card mt-3">
                                 <div class="card-header">
                                     合計
                                 </div>
-                                <div class="card-body" id="payment-result">
-
+                                <div class="card-body">
+                                    <ul class="list-unstyled" id="payment-result"></ul>
                                 </div>
                             </div>
                         </form>

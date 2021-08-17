@@ -186,17 +186,28 @@ class OrderServiceImpl implements OrderService
 
     }
 
-    public function updateOrderPayment(Request $request)
+    public function updateOrderPayment(Request $request){
+
+        $payment = $request->payment;
+        if($payment == '1'){
+            return $this->updateOrderDeliveryPayment($request);
+        }else{
+            return $this->updateOrderTakeoutPayment($request);
+        }
+    }
+
+    //現地取りの場合
+    public function updateOrderTakeoutPayment(Request $request)
     {
         // TODO: Implement updateOrderPayment() method.
 
         $id = $request->id;
-        //$payment = $request->payment;
         $consignee = $request->consignee;
         $tel = $request->tel;
         $post = $request->post;
         $address = $request->address;
         $remark = $request->remark;
+        $payment = $request->payment;
 
         $delivery_date = $request->delivery_date;
         $takeoutId = $request->takeoutId;
@@ -248,7 +259,7 @@ class OrderServiceImpl implements OrderService
         //注文状態
         $order->status = 0;
         //支払い方式
-        //$order->payment = $payment;
+        $order->payment = 2;
         $order->consignee = $consignee;
         $order->tel = $tel;
         $order->post = $post;
@@ -256,11 +267,122 @@ class OrderServiceImpl implements OrderService
         $order->remark = $remark;
         $order->delivery_date = $delivery_date;
         $order->restrant_take_out_id = $takeoutId;
+        $order->token = $this->GetRandStr(15) . '_' . $order->id;
         $order->save();
-
 
         return response()->json(JsonResult::success('注文を完成しました', 200, $order));
     }
+
+    //郵便の場合
+    public function updateOrderDeliveryPayment(Request $request)
+    {
+        $id = $request->id;
+        $consignee = $request->consignee;
+        $tel = $request->tel;
+        $post = $request->post;
+        $todofuken = $request->todofuken;
+        $address = $request->address;
+        $remark = $request->remark;
+        $payment = $request->payment;
+        $receiveType = $request->receiveType;
+        $receiveDate = $request->receiveDate;
+        $receiveTime = $request->receiveTime;
+
+        //お届け先
+        if ($receiveType == '登録住所') {
+            $user = Auth::user();
+            $consignee = $user->name;
+            $post = $user->post;
+            $todofuken = $user->todofuken;
+            $tel = $user->telphone;
+            $address = $user->address;
+        }
+
+        $order = Order::find($id);
+        if (!isset($order)) {
+            return response()->json(JsonResult::fail('注文情報を見つかりません', 404, $order));
+        }
+
+        //注文状態
+        $order->status = 0;
+        //支払い方式
+        $order->payment = 1;
+        $order->consignee = $consignee;
+        $order->tel = $tel;
+        $order->post = $post;
+        $order->address = $address;
+        $order->remark = $remark;
+        $order->receive_type = $receiveType;
+        $order->pref = $todofuken;
+        $order->receiveDate = $receiveDate;
+        $order->receiveTime = $receiveTime;
+
+
+        //最後の支払い金額を計算する
+        $products = $order->products;
+        $totalPrice = 0;
+        //商品の合計金額
+        $normal = false;
+        $cold = false;
+        foreach ($products as $product) {
+            if ($product->keeping == '常温便') {
+                $normal = true;
+            }
+
+            if ($product->keeping == '冷凍便') {
+                $cold = true;
+            }
+            $totalPrice += $product->pivot->product_price * $product->pivot->product_number;
+        }
+
+        //计算运费
+        $fee1 = 972;
+        if ($todofuken == '北海道' || $todofuken == '沖縄県') {
+            $fee1 = 1404;
+        }
+
+        $tipfee = 0;
+        if ($payment == '1') {
+            $tipfee = 324;
+        }
+
+        //检查商品是否是常温和冷冻混合
+        //冷凍と常温が混在するので、送料が二倍となる
+        if ($normal && $cold) {
+            $fee1 = $fee1 * 2;
+        }
+
+        //手续费
+        $order->tip_fee = $tipfee;
+        //配送料
+        $order->delivery_fee = $fee1;
+
+        $total = $totalPrice + $fee1 + $tipfee;
+        $total = $total + $total * 0.1;
+
+        //支付金额
+        $order->order_amount = round($total);
+
+        $order->token = $this->GetRandStr(15) . '_' . $order->id;
+
+        $order->save();
+
+        return response()->json(JsonResult::success('注文を完成しました', 200, $order));
+    }
+
+    function GetRandStr($length)
+    {
+        //字符组合
+        $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $len = strlen($str) - 1;
+        $randstr = '';
+        for ($i = 0; $i < $length; $i++) {
+            $num = mt_rand(0, $len);
+            $randstr .= $str[$num];
+        }
+        return $randstr;
+    }
+
 
     public function updateOrderPaymentAndStatus($id, $payment, $status, $payStatus)
     {
