@@ -715,13 +715,13 @@ let payment = {
                             location.href = '/dashboard';
                         }, 2000)
                     }
+
                 }, error: function (res) {
-                    console.info(res)
                     $('#btnOrderInfoSend').removeEventListener('disabled')
-                    //   toastr.error('注文を失敗しました！');
-                    //   setTimeout(function () {
-                    //       location.href = "/payFailed?orderId=" + id;
-                    //   }, 300)
+                      toastr.error('注文を失敗しました！');
+                      setTimeout(function () {
+                          location.href = "/payFailed?orderId=" + id;
+                      }, 300)
                 }
             })
             form.submit();

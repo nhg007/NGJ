@@ -228,6 +228,7 @@ class OrderServiceImpl implements OrderService
             return response()->json(JsonResult::fail('注文情報を見つかりません', 404, $order));
         }
 
+        $order->token = $this->GetRandStr(15) . '_' . $order->id;
         //最後の支払い金額を計算する
         $products = $order->products;
         $totalPrice = 0;
@@ -332,6 +333,7 @@ class OrderServiceImpl implements OrderService
         if (!isset($order)) {
             return response()->json(JsonResult::fail('注文情報を見つかりません', 404, $order));
         }
+        $order->token = $this->GetRandStr(15) . '_' . $order->id;
 
         //注文状態
         $order->status = 0;
@@ -428,11 +430,7 @@ class OrderServiceImpl implements OrderService
         $order->pay_status = $payStatus;
         //订单正常完成
         $order->status = $status;
-
-
         $order->save();
-
-
         $restrant = DB::table('restrants')->where('id',$restrantId)->first();
 
         //客様へ送信する
@@ -447,4 +445,20 @@ class OrderServiceImpl implements OrderService
 
         return $order;
     }
+
+    public function updateOrderStatus($id, $status, $payStatus)
+    {
+        $order = Order::find($id);
+        if (!isset($order)) {
+            abort(404, '注文情報を見つかりませんでした');
+            return;
+        }
+        //支付状态为支付成功
+        $order->pay_status = $payStatus;
+        //订单正常完成
+        $order->status = $status;
+        $order->save();
+    }
+
+
 }

@@ -85,7 +85,7 @@ class OrderController extends Controller
         //1:現地決済、2:クレジットカード
         $orderStatus = 1; //订单完成
         $payStatus = 2; //支付失败
-        $order = $this->orderService->updateOrderPaymentAndStatus($request->token, $orderStatus, $payStatus);
+        $order = $this->orderService->updateOrderStatus($request->orderId, $orderStatus, $payStatus);
         return view('payment.failed',["order" => $order, "email" => Auth::user()->email]);
     }
 }

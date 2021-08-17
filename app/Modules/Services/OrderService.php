@@ -21,6 +21,8 @@ interface OrderService
     //注文の支払い方法と状態を更新する
     public function updateOrderPaymentAndStatus($token, $status, $payStatus);
 
+    public function updateOrderStatus($id, $status, $payStatus);
+
     //注文リストを取得する
     public function getUserOrders();
 
