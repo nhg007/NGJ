@@ -19,7 +19,7 @@ interface OrderService
     public function cancelOrder(Request $request);
 
     //注文の支払い方法と状態を更新する
-    public function updateOrderPaymentAndStatus($id, $payment, $status, $payStatus);
+    public function updateOrderPaymentAndStatus($token, $status, $payStatus);
 
     //注文リストを取得する
     public function getUserOrders();

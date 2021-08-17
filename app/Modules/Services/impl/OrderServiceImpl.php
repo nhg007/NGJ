@@ -218,7 +218,7 @@ class OrderServiceImpl implements OrderService
         }
 
         $filename = storage_path('app') . DIRECTORY_SEPARATOR. "lock";
-        $file = fopen($filename, 'w'); //打开文件
+        $file = fopen($filename, 'r'); //打开文件
         $lock = flock($file, LOCK_EX);
         $cantakeOut = true;
         $message = "";
@@ -384,11 +384,12 @@ class OrderServiceImpl implements OrderService
     }
 
 
-    public function updateOrderPaymentAndStatus($id, $payment, $status, $payStatus)
+    public function updateOrderPaymentAndStatus($token, $status, $payStatus)
     {
-        $order = Order::find($id);
+        $order = Order::where(['token' => $token])->first();
         if (!isset($order)) {
-            return null;
+            abort(404, '注文情報を見つかりませんでした');
+            return;
         }
 
         $restrantId = $order->restrant_id;
@@ -398,8 +399,6 @@ class OrderServiceImpl implements OrderService
         //订单正常完成
         $order->status = $status;
 
-        //支付方式
-        $order->payment = $payment;
 
         $order->save();
 

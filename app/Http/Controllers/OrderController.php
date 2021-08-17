@@ -72,8 +72,10 @@ class OrderController extends Controller
     public function paySuccess(Request $request)
     {
         //1:現地決済、2:クレジットカード
-        $payment = $request->payment;
-        $order = $this->orderService->updateOrderPaymentAndStatus($request->orderId, $payment, 1, 1);
+        //1:代引き、2:クレジットカード
+        $payStatus = 1; //订单完成
+        $orderStatus = 1; //支付成功;
+        $order = $this->orderService->updateOrderPaymentAndStatus($request->token, $orderStatus, $payStatus);
         return view('payment.success', ["order" => $order, "email" => Auth::user()->email]);
     }
 
@@ -81,8 +83,9 @@ class OrderController extends Controller
     {
         //支付方式
         //1:現地決済、2:クレジットカード
-        $payment = $request->payment;
-        $order = $this->orderService->updateOrderPaymentAndStatus($request->orderId, $payment, 1, 2);
-        return view('payment.failed', ["request" => $request]);
+        $orderStatus = 1; //订单完成
+        $payStatus = 2; //支付失败
+        $order = $this->orderService->updateOrderPaymentAndStatus($request->token, $orderStatus, $payStatus);
+        return view('payment.failed',["order" => $order, "email" => Auth::user()->email]);
     }
 }

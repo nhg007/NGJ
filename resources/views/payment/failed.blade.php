@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-{{--        <h2 class="font-semibold text-xl text-gray-800 leading-tight">--}}
-{{--            {{ __('決済失敗') }}--}}
-{{--        </h2>--}}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('決済失敗') }}
+        </h2>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -21,8 +21,8 @@
                                 <li class="list-group-item">注文番号：{{$order->order_sn}}</li>
                                 <li class="list-group-item">電話番号：<a href="tel:{{$order->tel}}">{{$order->tel}}</a></li>
                                 <li class="list-group-item">メールアドレス：<a href="mailto:{{$email}}">{{$email}}</a></li>
-                                <li class="list-group-item hidden">郵便番号：〒{{$order->post}}</li>
-                                <li class="list-group-item hidden">詳細住所：{{$order->address}}</li>
+                                <li class="list-group-item">郵便番号：〒{{$order->post}}</li>
+                                <li class="list-group-item">詳細住所：{{$order->address}}</li>
                             </ul>
                         </div>
                     </div>
