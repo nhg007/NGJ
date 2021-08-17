@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 16/07/2021 19:00:36
+ Date: 17/08/2021 19:25:57
 */
 
 SET NAMES utf8mb4;
@@ -100,7 +100,7 @@ CREATE TABLE `carts`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 80 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of carts
@@ -1173,7 +1173,7 @@ CREATE TABLE `restrant_take_outs`  (
   `created_at` datetime(0) NULL DEFAULT NULL,
   `updated_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of restrant_take_outs
@@ -1190,6 +1190,8 @@ INSERT INTO `restrant_take_outs` VALUES (23, 1297, '2021-06-06', '10:00', '11:00
 INSERT INTO `restrant_take_outs` VALUES (24, 1297, '2021-06-06', '12:00', '14:00', 12, 14, 0, '2021-06-06 12:29:51', '2021-06-06 12:33:14');
 INSERT INTO `restrant_take_outs` VALUES (25, 1297, '2021-06-06', '15:00', '18:00', 15, 18, 4, '2021-06-06 12:29:51', '2021-06-06 12:29:51');
 INSERT INTO `restrant_take_outs` VALUES (26, 1297, '2021-06-07', '10:00', '12:00', 10, 12, 2, '2021-06-06 12:39:42', '2021-06-06 12:39:42');
+INSERT INTO `restrant_take_outs` VALUES (27, 1297, '2021-08-17', '10:00', '11:00', 10, 11, 0, '2021-08-17 17:17:42', '2021-08-17 17:17:42');
+INSERT INTO `restrant_take_outs` VALUES (28, 1297, '2021-08-17', '18:00', '20:00', 18, 20, 12, '2021-08-17 17:17:42', '2021-08-17 17:17:42');
 
 -- ----------------------------
 -- Table structure for restrants
@@ -2207,7 +2209,7 @@ INSERT INTO `restrants` VALUES (1290, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk
 INSERT INTO `restrants` VALUES (1292, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk0QQcnaYZ5YaA0HZyn1q', 'ジリオン・豊洲店', '135-0061', '東京都', '江東区', '豊洲２－２－１三井所ピングパーク・アーバンドッグ・ららぽーと豊洲３', 35.681382, 139.766084, 'イタリアン', 'イートイン', NULL, NULL, '不定', NULL, '鈴木', '03-5859-5960', '090-3803-6605', NULL, 'sakura.hirahira1603@gmail.com', NULL, NULL, 50, '常連', '未申請', '送付済', '表示', '2021-07-16 15:58:03', '2021-03-29 02:13:10');
 INSERT INTO `restrants` VALUES (1293, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk0QQcnaYZ5YaA0HZyn1q', '世田谷食堂バンビーニ', NULL, '東京都', '世田谷区', '若林4-31-9ポライト第二ビルBF1', 35.681382, 139.766084, 'イタリアン', 'イートイン', NULL, NULL, '不定', '深沢', NULL, '03-6450-7774', NULL, NULL, 'sioyakitori626@gmail.com', NULL, NULL, 50, '未利用', '未申請', '送付済', '表示', '2021-07-16 15:58:03', '2021-04-07 01:06:30');
 INSERT INTO `restrants` VALUES (1295, '$2y$10$kMpAUIN6.I.2dmA8v1IR/./a3O7hGOUf7UC6Aph7NAJNiZbMC1sl6', '南区大字太田窪唐揚げ', '3360015', '埼玉県', 'さいたま市', '２０８８−７', 35.8528661, 139.6454782, 'イタリアン', '現地決済', '猪,兎,ヌートリア', 'www.google.com.jp', '水,木,不定', '牛宏剛', '牛宏剛', '07026638216', '07026638216', NULL, 'niuhonggang007@gmail.com', NULL, NULL, 50, '申請中', '未申請', '未送付', '表示', '2021-07-16 16:29:47', '2021-05-15 15:52:19');
-INSERT INTO `restrants` VALUES (1297, '$2y$10$AiRc9qbQXwGMOqACcam.wuIz.7qeXDRmPXjmD7eW.cLr8W2K4O986', '唐揚げ太田窪支店', '3360015', '埼玉県', 'さいたま市', '南区太田窪2088-7', 35.8519226, 139.6776857, 'イタリアン', '郵送', 'ホンシュウ鹿,ハクビシン,エゾ鹿', 'www.home.jp', '日,不定', 'テスト', 'テスト', '07026638216', NULL, '22222', 'niuhonggang008@gmail.com', NULL, NULL, 50, '申請中', '未申請', '未送付', '表示', '2021-07-16 16:41:33', '2021-05-18 18:25:23');
+INSERT INTO `restrants` VALUES (1297, '$2y$10$AiRc9qbQXwGMOqACcam.wuIz.7qeXDRmPXjmD7eW.cLr8W2K4O986', '唐揚げ太田窪支店', '3360015', '埼玉県', 'さいたま市', '南区太田窪2088-7', 35.8519226, 139.6776857, 'イタリアン', 'イートイン', 'ホンシュウ鹿,ハクビシン,エゾ鹿', 'www.home.jp', '日,不定', 'テスト', 'テスト', '07026638216', NULL, '22222', 'niuhonggang008@gmail.com', NULL, NULL, 50, '申請中', '未申請', '未送付', '表示', '2021-08-17 17:12:07', '2021-05-18 18:25:23');
 INSERT INTO `restrants` VALUES (1298, '$2y$10$Um./SprbkcmIO.ZXDxBKe.e49npqxw4qnr8zjQPe4DMegjICTqqqe', '测试店铺', '3360015', '埼玉県', 'さいたま市', '南区大字太田窪', 35.8516048, 139.6847564, '中華料理', 'イートイン', '猪,兎', 'www.google.com', '月,木,不定', 'テスト', 'テスト', '07026654318', '07026654318', NULL, 'test@gmail.com', NULL, 'テスト', 50, '申請中', '未申請', '未送付', '表示', '2021-07-16 15:58:03', '2021-06-06 13:15:55');
 
 -- ----------------------------
@@ -2225,6 +2227,8 @@ CREATE TABLE `restrants_orders`  (
   `payment` int(11) NOT NULL COMMENT '1:代引き、2:現地決済',
   `product_number` int(11) NOT NULL,
   `order_amount` int(11) NOT NULL,
+  `product_amount` int(11) NULL DEFAULT NULL COMMENT '注文価格',
+  `receive_type` enum('登録住所','その他') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '受取方式',
   `consignee` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '受取者の名前',
   `delivery_date` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `delivery_fee` int(11) NULL DEFAULT NULL COMMENT '配送料',
@@ -2240,32 +2244,12 @@ CREATE TABLE `restrants_orders`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of restrants_orders
 -- ----------------------------
-INSERT INTO `restrants_orders` VALUES (1, '2021041497545410', 12, NULL, 8, 1, 1, 1, 2, 3000, 'CAO MENGLONG', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-15 06:39:22', '2021-04-15 06:39:33');
-INSERT INTO `restrants_orders` VALUES (2, '2021041448100545', 25, NULL, 8, 1, 1, 1, 1, 2, 'CAO MENGLONG', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-15 06:40:00', '2021-04-15 06:40:06');
-INSERT INTO `restrants_orders` VALUES (3, '2021041610010156', 25, NULL, 8, 1, 1, 1, 1, 2, 'CAO MENGLONG', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'x', NULL, '2021-04-17 03:22:05', '2021-04-17 03:22:37');
-INSERT INTO `restrants_orders` VALUES (4, '2021041657995454', 25, NULL, 8, 0, 0, 0, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-17 03:23:21', '2021-04-17 03:23:21');
-INSERT INTO `restrants_orders` VALUES (5, '2021041657575410', 12, NULL, 8, 1, 1, 1, 4, 6200, 'CAO MENGLONG', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-17 03:46:33', '2021-04-17 03:46:39');
-INSERT INTO `restrants_orders` VALUES (6, '2021041649544999', 25, NULL, 8, 1, 1, 1, 1, 222, '3223132', '21321323321', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'testet', NULL, '2021-04-17 06:25:21', '2021-04-17 06:25:40');
-INSERT INTO `restrants_orders` VALUES (7, '2021041649981005', 25, NULL, 8, 0, 0, 0, 2, 4434, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-17 06:26:57', '2021-04-17 06:26:57');
-INSERT INTO `restrants_orders` VALUES (8, '2021041849504957', 12, NULL, 8, 1, 1, 1, 5, 2400, 'ソウムリュウ', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sddssddssddsdsds3rrereer', NULL, '2021-04-18 22:26:25', '2021-04-18 22:29:46');
-INSERT INTO `restrants_orders` VALUES (9, '2021041852485599', 12, NULL, 8, 1, 1, 1, 3, 3200, 'CAO MENGLONG', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-18 22:37:24', '2021-04-18 22:37:29');
-INSERT INTO `restrants_orders` VALUES (10, '2021041849485510', 25, NULL, 8, 1, 1, 1, 3, 2766, 'ソウムリュウ', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-18 22:39:29', '2021-04-18 23:29:40');
-INSERT INTO `restrants_orders` VALUES (11, '2021041810098579', 12, NULL, 8, 1, 1, 1, 3, 800, 'ソウムリュウ', '20日　18時', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-18 22:43:09', '2021-04-18 22:43:26');
-INSERT INTO `restrants_orders` VALUES (12, '2021041848525110', 12, NULL, 8, 2, 0, 0, 1, 600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-18 23:21:04', '2021-04-18 23:21:21');
-INSERT INTO `restrants_orders` VALUES (13, '2021060453494951', 12, NULL, 11, 0, 0, 0, 1, 600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-04 11:09:41', '2021-06-04 11:09:41');
-INSERT INTO `restrants_orders` VALUES (14, '2021060450545652', 1297, 16, 11, 1, 1, 1, 1, 2480, '牛', '11:35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-04 11:09:54', '2021-06-04 17:41:29');
-INSERT INTO `restrants_orders` VALUES (15, '2021060450555452', 1297, 16, 11, 1, 1, 1, 2, 2480, '牛', '11:35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-04 17:44:02', '2021-06-04 17:44:14');
-INSERT INTO `restrants_orders` VALUES (16, '2021060451100974', 1297, 21, 11, 1, 1, 1, 2, 2480, 'niu', '2021-06-05 10:44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-04 18:02:59', '2021-06-05 09:44:49');
-INSERT INTO `restrants_orders` VALUES (17, '2021060553525099', 1297, NULL, 11, 0, 0, 0, 20, 24800, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-05 11:39:33', '2021-06-05 11:39:33');
-INSERT INTO `restrants_orders` VALUES (22, '2021060510055485', 1297, 22, 11, 1, 1, 1, 5, 6200, '牛宏刚', '2021-06-05 13:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-05 11:50:53', '2021-06-05 11:55:44');
-INSERT INTO `restrants_orders` VALUES (23, '2021060549545549', 1297, 22, 11, 1, 1, 1, 2, 2480, 'niu', '2021-06-05 13:20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-05 13:20:17', '2021-06-05 13:20:45');
-INSERT INTO `restrants_orders` VALUES (24, '2021060554100555', 1297, NULL, 11, 0, 0, 0, 1, 1240, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-05 13:21:10', '2021-06-05 13:21:10');
-INSERT INTO `restrants_orders` VALUES (25, '2021060651979951', 1297, 24, 11, 1, 1, 1, 2, 2480, '牛宏刚', '2021-06-06 13:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-06 12:31:15', '2021-06-06 12:33:14');
+INSERT INTO `restrants_orders` VALUES (26, '2021081751504949', 1297, NULL, 11, 1, 1, 1, 1, 2790, 1240, '登録住所', 'niuhonggang', NULL, 972, 324, '07026638216', '3360015', NULL, 'さいたま市南区', '2021-08-17', NULL, NULL, 'e8UqKpGf1QQAXXa_26', '2021-08-17 17:08:19', '2021-08-17 19:24:47');
 
 -- ----------------------------
 -- Table structure for restrants_orders_product
@@ -2280,40 +2264,12 @@ CREATE TABLE `restrants_orders_product`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of restrants_orders_product
 -- ----------------------------
-INSERT INTO `restrants_orders_product` VALUES (1, 1, 5, 1000, 1, '2021-04-15 06:39:22', '2021-04-15 06:39:22');
-INSERT INTO `restrants_orders_product` VALUES (2, 1, 6, 2000, 1, '2021-04-15 06:39:22', '2021-04-15 06:39:22');
-INSERT INTO `restrants_orders_product` VALUES (3, 2, 39, 2, 1, '2021-04-15 06:40:00', '2021-04-15 06:40:00');
-INSERT INTO `restrants_orders_product` VALUES (4, 3, 39, 2, 1, '2021-04-17 03:22:05', '2021-04-17 03:22:05');
-INSERT INTO `restrants_orders_product` VALUES (5, 4, 39, 2, 1, '2021-04-17 03:23:21', '2021-04-17 03:23:21');
-INSERT INTO `restrants_orders_product` VALUES (6, 5, 1, 600, 2, '2021-04-17 03:46:33', '2021-04-17 03:46:33');
-INSERT INTO `restrants_orders_product` VALUES (7, 5, 3, 2500, 2, '2021-04-17 03:46:33', '2021-04-17 03:46:33');
-INSERT INTO `restrants_orders_product` VALUES (8, 6, 39, 222, 1, '2021-04-17 06:25:21', '2021-04-17 06:25:21');
-INSERT INTO `restrants_orders_product` VALUES (9, 7, 40, 2322, 1, '2021-04-17 06:26:57', '2021-04-17 06:26:57');
-INSERT INTO `restrants_orders_product` VALUES (10, 7, 41, 2112, 1, '2021-04-17 06:26:57', '2021-04-17 06:26:57');
-INSERT INTO `restrants_orders_product` VALUES (11, 8, 5, 1000, 1, '2021-04-18 22:26:25', '2021-04-18 22:26:25');
-INSERT INTO `restrants_orders_product` VALUES (12, 8, 1, 600, 2, '2021-04-18 22:26:25', '2021-04-18 22:26:25');
-INSERT INTO `restrants_orders_product` VALUES (13, 8, 42, 100, 2, '2021-04-18 22:26:25', '2021-04-18 22:26:25');
-INSERT INTO `restrants_orders_product` VALUES (14, 9, 2, 2000, 1, '2021-04-18 22:37:24', '2021-04-18 22:37:24');
-INSERT INTO `restrants_orders_product` VALUES (15, 9, 1, 600, 2, '2021-04-18 22:37:24', '2021-04-18 22:37:24');
-INSERT INTO `restrants_orders_product` VALUES (16, 10, 39, 222, 2, '2021-04-18 22:39:29', '2021-04-18 22:39:29');
-INSERT INTO `restrants_orders_product` VALUES (17, 10, 40, 2322, 1, '2021-04-18 22:39:29', '2021-04-18 22:39:29');
-INSERT INTO `restrants_orders_product` VALUES (18, 11, 42, 100, 2, '2021-04-18 22:43:09', '2021-04-18 22:43:09');
-INSERT INTO `restrants_orders_product` VALUES (19, 11, 1, 600, 1, '2021-04-18 22:43:09', '2021-04-18 22:43:09');
-INSERT INTO `restrants_orders_product` VALUES (20, 12, 1, 600, 1, '2021-04-18 23:21:04', '2021-04-18 23:21:04');
-INSERT INTO `restrants_orders_product` VALUES (21, 13, 1, 600, 1, '2021-06-04 11:09:41', '2021-06-04 11:09:41');
-INSERT INTO `restrants_orders_product` VALUES (22, 14, 43, 1240, 2, '2021-06-04 11:09:54', '2021-06-04 11:09:54');
-INSERT INTO `restrants_orders_product` VALUES (23, 15, 43, 1240, 2, '2021-06-04 17:44:02', '2021-06-04 17:44:02');
-INSERT INTO `restrants_orders_product` VALUES (24, 16, 43, 1240, 2, '2021-06-04 18:02:59', '2021-06-04 18:02:59');
-INSERT INTO `restrants_orders_product` VALUES (25, 17, 43, 1240, 20, '2021-06-05 11:39:33', '2021-06-05 11:39:33');
-INSERT INTO `restrants_orders_product` VALUES (26, 22, 43, 1240, 5, '2021-06-05 11:50:53', '2021-06-05 11:50:53');
-INSERT INTO `restrants_orders_product` VALUES (27, 23, 43, 1240, 2, '2021-06-05 13:20:17', '2021-06-05 13:20:17');
-INSERT INTO `restrants_orders_product` VALUES (28, 24, 43, 1240, 1, '2021-06-05 13:21:10', '2021-06-05 13:21:10');
-INSERT INTO `restrants_orders_product` VALUES (29, 25, 43, 1240, 2, '2021-06-06 12:31:15', '2021-06-06 12:31:15');
+INSERT INTO `restrants_orders_product` VALUES (30, 26, 43, 1240, 1, '2021-08-17 17:08:19', '2021-08-17 17:08:19');
 
 -- ----------------------------
 -- Table structure for restrants_products
@@ -2370,7 +2326,7 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('bWV95pfiNtjZQNRLKRsxpyM4oDcP8wnh47tk7AlL', 11, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 'YTo4OntzOjY6Il90b2tlbiI7czo0MDoiUGpzUXYyR1dEaDB5bjhsOUoydlVLN3Q5NUpHWFZpWnRyVVZYUjdHdSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU1OiJsb2dpbl9yZXN0cmFudF81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEyOTc7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTE7czoxNzoicGFzc3dvcmRfaGFzaF93ZWIiO3M6NjA6IiQyeSQxMCR1Yzc0TXVjdU91bkkxL3FGZEVDN0FlNXZXMXZKRC5EWGJ2S09QRUZaTWtEUnUyY3RqM2hKZSI7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkdWM3NE11Y3VPdW5JMS9xRmRFQzdBZTV2VzF2SkQuRFhidktPUEVGWk1rRFJ1MmN0ajNoSmUiO3M6ODoib3JkZXJfaWQiO3M6MjoiMjQiO30=', 1626428985);
+INSERT INTO `sessions` VALUES ('gdiypoUXOFPMtw1ONhMQnbcrQSkciMV11TZsHD4f', 11, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiTmlveVRGUjBETmZ1cE8xcmoxNnZZbTFMMUU5RXhVVWxhOVhwZVMycyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYXlTdWNjZXNzP3Rva2VuPWU4VXFLcEdmMVFRQVhYYV8yNiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjExO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkdWM3NE11Y3VPdW5JMS9xRmRFQzdBZTV2VzF2SkQuRFhidktPUEVGWk1rRFJ1MmN0ajNoSmUiO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEwJHVjNzRNdWN1T3VuSTEvcUZkRUM3QWU1dlcxdkpELkRYYnZLT1BFRlpNa0RSdTJjdGozaEplIjtzOjU1OiJsb2dpbl9yZXN0cmFudF81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEyOTc7fQ==', 1629195891);
 
 -- ----------------------------
 -- Table structure for stocks
@@ -2434,6 +2390,6 @@ INSERT INTO `users` VALUES (6, 'DPTDG6NQFQG37ERD98DPXTPD http://mail.com/549', '
 INSERT INTO `users` VALUES (7, 'QBRT9P17DKPHFPAX4IC9FRBQ http://google.com/375', 'bennageo.mar4723475@gmail.com', '$2y$10$.VLqpZpbFmHLwYR6chmmnOIk3RX5sR3rn9F9xfmoGM/pVoWOSZX3q', NULL, '2021-03-28 12:14:14', '2021-03-28 12:14:14', NULL, NULL, NULL, NULL);
 INSERT INTO `users` VALUES (8, 'ソウムリュウ', 'caomenglong788@gmail.com', '$2y$10$1ML16JuAlM2d1Khfhh2CN.zUe69WHkxHKYGpYHGVF7wBKY953HS7O', 'SdRU6GJjHW42lq7y5HFlx1oxEeUbBtPfUVJvi9nKND3kxsL3v6CMO1QREZ7n', '2021-04-10 05:55:29', '2021-04-12 04:09:04', NULL, NULL, NULL, NULL);
 INSERT INTO `users` VALUES (9, 'Test2', 'test@test.com', '$2y$10$DR.Ly9LugCV9ni/ZFa3/weJUcDB92vKyZX2wAZOHE0/5nehYnU5HC', NULL, '2021-04-11 22:22:57', '2021-04-11 22:38:08', NULL, NULL, NULL, NULL);
-INSERT INTO `users` VALUES (11, 'niuhonggang', 'niuhonggang007@gmail.com', '$2y$10$uc74MucuOunI1/qFdEC7Ae5vW1vJD.DXbvKOPEFZMkDRu2ctj3hJe', 'P8wn55fR5NITfYOReyoeIkwkF787QfkCbV3YVSpf3UCTUbu0mGdXCH2m6hEP', '2021-05-12 08:39:36', '2021-07-16 18:15:43', '07026638216', '3360015', '埼玉県', 'さいたま市南区');
+INSERT INTO `users` VALUES (11, 'niuhonggang', 'niuhonggang007@gmail.com', '$2y$10$uc74MucuOunI1/qFdEC7Ae5vW1vJD.DXbvKOPEFZMkDRu2ctj3hJe', 'pe9kNdgoXD1bWZVnS3MnnSlpABXMKti1Sf5V1EqwbDp2p1WsQHgd3zqYwywl', '2021-05-12 08:39:36', '2021-07-16 18:15:43', '07026638216', '3360015', '埼玉県', 'さいたま市南区');
 
 SET FOREIGN_KEY_CHECKS = 1;
