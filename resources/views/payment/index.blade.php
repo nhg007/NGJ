@@ -112,7 +112,6 @@
                                           placeholder="必要な場合のみご入力してくだい">{{ $order->remark }}</textarea>
                             </div>
                             <input type="hidden" name="id" id="id" value="{{ $order->id }}">
-                            <input type="hidden" name="payment" id="payment"/>
                         </div>
                     </div>
                     <div class="card mt-3">
@@ -161,7 +160,7 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-group">
-                                                    <input type="radio" name="time"
+                                                    <input type="radio" name="takeoutId"
                                                            value="{{ $takeoutTime->id }}" class="takeoutRule"/>
                                                 </div>
                                             </th>
@@ -364,7 +363,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="card mt-3">
                                 <div class="card-header">
                                     合計

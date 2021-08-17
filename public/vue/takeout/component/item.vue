@@ -115,7 +115,7 @@ module.exports = {
     data() {
         return {
             start: '10:00',
-            end: '20:00',
+            end: '22:00',
             form: {
                 takeDate: '',
                 timelines: [

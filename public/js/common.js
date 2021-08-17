@@ -51,7 +51,7 @@ let productUtils = {
             let id = this.dataset.id;
             let restrantId = this.dataset.rid;
             axios.post('/cart/addCart/' + restrantId + "/" + id).then(function (res) {
-                const {status, data,message} = res.data;
+                const {status, data, message} = res.data;
                 if (status === 201) {
                     location.href = '/login';
                     return;
@@ -152,9 +152,9 @@ let cart = {
                 function (res) {
                     if (res.status === 200) {
                         let data = res.data
-                        if(data.status === 500){
+                        if (data.status === 500) {
                             toastr.error(data.message);
-                        }else{
+                        } else {
                             callback();
                         }
                     }
@@ -166,7 +166,7 @@ let cart = {
             }).finally(function () {
                 setTimeout(function () {
                     $("#cartUpdate").modal('hide')
-                },1000)
+                }, 1000)
             })
         }
 
@@ -290,7 +290,7 @@ let cart = {
         function calcPrice(slChk) {
             selectedRestrantIdArrayWorked = [];
             let total = 0;
-            let selectedRestrantIdArray=[];
+            let selectedRestrantIdArray = [];
             slChk.each(function () {
                 //選択された商品の価格が合計された
                 let cart_id = this.dataset.id;
@@ -337,10 +337,10 @@ let cart = {
 
 
             console.log(selectedRestrantIdArrayWorked);
-            if(selectedRestrantIdArrayWorked.length>1){
+            if (selectedRestrantIdArrayWorked.length > 1) {
 
                 $('#modal1').modal('show')
-            }else {
+            } else {
                 $(this).closest('form').submit();
             }
             //location.href='/cartConfirm?cartIds=' + ids
@@ -385,7 +385,7 @@ let cart = {
                     totalPrice: totalPrice,
                     restrantId: restrantId
                 }).then(function (res) {
-                    const {data, status,message} = res.data;
+                    const {data, status, message} = res.data;
                     if (status === 200) {
                         $('.order_id').val(data.id);
                         $('.order_sn').val(data.order_sn);
@@ -460,8 +460,8 @@ let payment = {
             $('.delivery-baseinfo').hide()
         })
 
-         //代引き
-         $('#chkPayment').on('ifChecked', function () {
+        //代引き
+        $('#chkPayment').on('ifChecked', function () {
             formCheck();
             calcFee();
             $('#payment').val(1);
@@ -489,270 +489,272 @@ let payment = {
         }
 
         //
-        $('.takeoutRule').on('ifChecked', function(event){
+        $('.takeoutRule').on('ifChecked', function (event) {
             $('#takeoutId').val(this.value)
             $('#btnConfirm').removeAttr('disabled')
             $(this).closest('tr').find('.delivery_date').removeAttr('disabled')
         })
 
 
-      //先ず、配送料を計算します
-      calcFee();
+        //先ず、配送料を計算します
+        calcFee();
 
-      $('#pref').on('change', function () {
-          //计算
-          calcFee()
-      })
-
-
-      function calcFee() {
-          let receiver = $('#slReceiver').val();
-          let todofuken = '';
-          if (receiver === '登録住所') {
-              todofuken = $('#userTodofuken').val()
-          } else {
-              todofuken = $('#pref').val()
-          }
-
-          let fee1 = 0;
-          let tipfee = 0;
-
-          //检查支付类型
-          if ($('#chkPayment').prop('checked')) {
-              tipfee = 324;
-              fee1 = 972;
-              if (todofuken == '北海道' || todofuken == '沖縄県') {
-                  fee1 = 1404;
-              }
-              $('#tip').removeClass('hide');
-              $('#tipfee').text('¥' + formatNumber(tipfee))
-          }
-
-          if ($('#chkTakeout').prop('checked')) {
-              tipfee = 0;
-              fee1 = 0;
-              $('#tip').addClass('hide');
-          }
-
-          //检查商品是否是常温和冷冻混合
-          //冷凍と常温が混在するので、送料が二倍となる
-          if ($('[data-keeping*="冷凍"]').length > 0 && $('[data-keeping*="常温"]').length > 0) {
-              fee1 = fee1 * 2;
-              $('#feetip').removeClass('hide')
-          } else {
-              $('#feetip').addClass('hide')
-          }
-
-          $('#fee').text('¥' + formatNumber(fee1));
-
-          //
-          let orderAmount = $('#productAmout').val();
-
-          let total = parseInt(orderAmount, 10) + fee1 + tipfee;
-          console.info(fee1)
-          total = total + total * 0.1
-          //先舍位
-          $('#totalPay').text('¥' + formatNumber(Math.round(total)))
-      }
-
-      $('#slReceiver').change(function () {
-          let value = this.value;
-          if (value === '登録住所') {
-              $('.receiver-info').addClass('hidden')
-          } else {
-              $('.receiver-info').removeClass('hidden')
-          }
-          calcFee();
-      })
+        $('#pref').on('change', function () {
+            //计算
+            calcFee()
+        })
 
 
-      //基本情報
-      let form = $(".frmConsignee");
-      form.validate({
-          errorPlacement: function errorPlacement(error, element) {
-              let errorPlace = $(element).closest('.form-group').find('.errorPlace');
-              if (errorPlace.length > 0) {
-                  errorPlace.html(error)
-              } else {
-                  element.after(error);
-              }
-          }
-      });
+        function calcFee() {
+            let receiver = $('#slReceiver').val();
+            let todofuken = '';
+            if (receiver === '登録住所') {
+                todofuken = $('#userTodofuken').val()
+            } else {
+                todofuken = $('#pref').val()
+            }
 
+            let fee1 = 0;
+            let tipfee = 0;
 
-     async function formCheck() {
-
-          if( $('#slReceiver').val()=='登録住所'){
-
-              //检查用户登录信息是否是完整
-              //电话号码，邮编，住址，名前
-              let userTelphone = $('#userTelphone').val();
-              let userPost = $('#userPost').val();
-              let userTodofuken = $('#userTodofuken').val();
-              let userAddress = $('#userAddress').val();
-
-              if(userTelphone.length == 0
-                 || userPost.length == 0
-                 || userTodofuken.length == 0
-                 || userAddress.length == 0){
-
-                  const {data } = await axios.post('/getUserInfo')
-
-                  if(!data.telphone || !data.post || !data.todofuken || !data.address){
-
-                      $('#staticBackdrop').modal('show');
-                      return false;
-                  }
-
-                  $('#userTelphone').val(data.telphone)
-                  $('#userPost').val(data.post)
-                  $('#userTodofuken').val(data.pref)
-                  $('#userAddress').val(data.address)
-                  $('#lblTelphone').text(data.telphone);
-                  $('#lblPost').text(data.post);
-                  $('#lblTodofuken').text(data.todofuken);
-                  $('#lblAddress').text(data.address);
-              }
-          }
-
-
-          if(!$('#chkPayment').prop('checked') && !$('#chkTakeout').prop('checked')){
-              $('#payment-error').show()
-          }
-          if (!form.valid()) {
-              $(window).scrollTop(0)
-          }
-          return form.valid();
-      }
-
-      //初始化都道府県
-      initTodofuken($('#pref').attr('data-value'));
-
-      //邮编编号点击事件
-      $('#zipSearch').off('click').on('click', function () {
-          let postCode = $('#post');
-          if (postCode.val()) {
-              AjaxZip3.zip2addr(postCode[0], '', 'pref', 'address', 'address');
-          }
-      });
-
-
-       //受取日
-       $('#receiveDate').datetimepicker({
-          format: 'YYYY-MM-DD',
-          locale: 'ja',
-          useCurrent: true,
-          showClose: true,
-      });
-
-
-      //注文情報確認ダイアログ
-      $('#orderConfirmModel').on('show.bs.modal', function (event) {
-          var modal = $(this)
-          if ($('#slReceiver').val() == '登録住所') {
-              $('.userRegister').removeClass('hide')
-              $('.basicInfo').addClass('hide')
-          } else {
-              $('.basicInfo').removeClass('hide')
-              $('.userRegister').addClass('hide')
-
-              //
-              modal.find('.modal-body #spconsignee').text($('#consignee').val())
-              modal.find('.modal-body #sptel').text($('#tel').val())
-              modal.find('.modal-body #spost').text($('#post').val())
-              modal.find('.modal-body #sptodofuken').text($('#pref').val())
-              modal.find('.modal-body #spaddress').text($('#address').val())
-          }
-
-          modal.find('.modal-body #spreceiveDate').text($('#receiveDate').val())
-          modal.find('.modal-body #spreceiveTime').text($('#receiveTime option:selected').text())
-          modal.find('.modal-body #spremark').text($('#remark').val())
-
-          if ($('#chkPayment')[0].checked) {
-            modal.find('.modal-body .confirm-delivery').show()
-            modal.find('.modal-body .confirm-takeout').hide()
-              modal.find('.modal-body #spayType').text('代引き');
-          }
-
-          if ($('#chkTakeout')[0].checked) {
-                modal.find('.modal-body .confirm-delivery').hide()
-                modal.find('.modal-body .confirm-takeout').show()
-              modal.find('.modal-body #spayType').text('現地決済');
-
-              let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date');
-              modal.find('.modal-body #takeoutTime').text(inpt.val());
-          }
-
-          let html = $('.order-paymentAmount').clone().html();
-            modal.find('.modal-body #payment-result').html(html)
-      })
-
-
-      //最終の確定
-      $('#btnOrderInfoSend').off('click').on('click', function () {
-
-          //注文ID
-          let id = form.find('#id').val();
-
-          //保存订单数据
-          form.ajaxForm({
-              beforeSend: function () {
-                  $('#btnOrderInfoSend').attr('disabled','disabled')
-              },
-              success: function (res) {
-                  if (res.status === 200) {
-                      let order = res.data;
-                      if (order.payment == 1) {
-                          toastr.success(res.message);
-                          setTimeout(function () {
-                              location.href = "/paySuccess?token=" + order.token;
-                          }, 300)
-                      }
-
-                      //信用卡
-                      if (order.payment == 2) {
-                          
-                      }
-                  }
-              }, error: function (res) {
-                  console.info(res)
-                //   toastr.error('注文を失敗しました！');
-                //   setTimeout(function () {
-                //       location.href = "/payFailed?orderId=" + id;
-                //   }, 300)
-              }
-          })
-          form.submit();
-      })
-
-
-      //代引きの支払い
-      $('#btnConfirm').on('click', async function () {
-          if ( await formCheck()) {
-
-            //如果选择了takeout的情况
-            if ($('#chkTakeout').prop('checked')) {
-
-                let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date');
-                if(inpt.length == 0){
-                    toastr.error('テイクアウト来店時間帯を選択してください');
-                    return false
+            //检查支付类型
+            if ($('#chkPayment').prop('checked')) {
+                tipfee = 324;
+                fee1 = 972;
+                if (todofuken == '北海道' || todofuken == '沖縄県') {
+                    fee1 = 1404;
                 }
-                if(!checkTakeOutDate(inpt[0])){
-                    return false
+                $('#tip').removeClass('hide');
+                $('#tipfee').text('¥' + formatNumber(tipfee))
+            }
+
+            if ($('#chkTakeout').prop('checked')) {
+                tipfee = 0;
+                fee1 = 0;
+                $('#tip').addClass('hide');
+            }
+
+            //检查商品是否是常温和冷冻混合
+            //冷凍と常温が混在するので、送料が二倍となる
+            if ($('[data-keeping*="冷凍"]').length > 0 && $('[data-keeping*="常温"]').length > 0) {
+                fee1 = fee1 * 2;
+                $('#feetip').removeClass('hide')
+            } else {
+                $('#feetip').addClass('hide')
+            }
+
+            $('#fee').text('¥' + formatNumber(fee1));
+
+            //
+            let orderAmount = $('#productAmout').val();
+
+            let total = parseInt(orderAmount, 10) + fee1 + tipfee;
+            console.info(fee1)
+            total = total + total * 0.1
+            //先舍位
+            $('#totalPay').text('¥' + formatNumber(Math.round(total)))
+        }
+
+        $('#slReceiver').change(function () {
+            let value = this.value;
+            if (value === '登録住所') {
+                $('.receiver-info').addClass('hidden')
+            } else {
+                $('.receiver-info').removeClass('hidden')
+            }
+            calcFee();
+        })
+
+
+        //基本情報
+        let form = $(".frmConsignee");
+        form.validate({
+            errorPlacement: function errorPlacement(error, element) {
+                let errorPlace = $(element).closest('.form-group').find('.errorPlace');
+                if (errorPlace.length > 0) {
+                    errorPlace.html(error)
+                } else {
+                    element.after(error);
+                }
+            }
+        });
+
+
+        async function formCheck() {
+
+            if ($('#slReceiver').val() == '登録住所') {
+
+                //检查用户登录信息是否是完整
+                //电话号码，邮编，住址，名前
+                let userTelphone = $('#userTelphone').val();
+                let userPost = $('#userPost').val();
+                let userTodofuken = $('#userTodofuken').val();
+                let userAddress = $('#userAddress').val();
+
+                if (userTelphone.length == 0
+                    || userPost.length == 0
+                    || userTodofuken.length == 0
+                    || userAddress.length == 0) {
+
+                    const {data} = await axios.post('/getUserInfo')
+
+                    if (!data.telphone || !data.post || !data.todofuken || !data.address) {
+
+                        $('#staticBackdrop').modal('show');
+                        return false;
+                    }
+
+                    $('#userTelphone').val(data.telphone)
+                    $('#userPost').val(data.post)
+                    $('#userTodofuken').val(data.pref)
+                    $('#userAddress').val(data.address)
+                    $('#lblTelphone').text(data.telphone);
+                    $('#lblPost').text(data.post);
+                    $('#lblTodofuken').text(data.todofuken);
+                    $('#lblAddress').text(data.address);
                 }
             }
 
-              //弹出层，确认订货信息
-              $('#orderConfirmModel').modal({
-                  backdrop: true,
-                  show: true
-              })
-          }
-      })
+
+            if (!$('#chkPayment').prop('checked') && !$('#chkTakeout').prop('checked')) {
+                $('#payment-error').show()
+            }
+            if (!form.valid()) {
+                $(window).scrollTop(0)
+            }
+            return form.valid();
+        }
+
+        //初始化都道府県
+        initTodofuken($('#pref').attr('data-value'));
+
+        //邮编编号点击事件
+        $('#zipSearch').off('click').on('click', function () {
+            let postCode = $('#post');
+            if (postCode.val()) {
+                AjaxZip3.zip2addr(postCode[0], '', 'pref', 'address', 'address');
+            }
+        });
 
 
-        function checkTakeOutDate(obj){
+        //受取日
+        $('#receiveDate').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: 'ja',
+            useCurrent: true,
+            showClose: true,
+        });
+
+
+        //注文情報確認ダイアログ
+        $('#orderConfirmModel').on('show.bs.modal', function (event) {
+            var modal = $(this)
+            if ($('#slReceiver').val() == '登録住所') {
+                $('.userRegister').removeClass('hide')
+                $('.basicInfo').addClass('hide')
+            } else {
+                $('.basicInfo').removeClass('hide')
+                $('.userRegister').addClass('hide')
+
+                //
+                modal.find('.modal-body #spconsignee').text($('#consignee').val())
+                modal.find('.modal-body #sptel').text($('#tel').val())
+                modal.find('.modal-body #spost').text($('#post').val())
+                modal.find('.modal-body #sptodofuken').text($('#pref').val())
+                modal.find('.modal-body #spaddress').text($('#address').val())
+            }
+
+            modal.find('.modal-body #spreceiveDate').text($('#receiveDate').val())
+            modal.find('.modal-body #spreceiveTime').text($('#receiveTime option:selected').text())
+            modal.find('.modal-body #spremark').text($('#remark').val())
+
+            if ($('#chkPayment')[0].checked) {
+                modal.find('.modal-body .confirm-delivery').show()
+                modal.find('.modal-body .confirm-takeout').hide()
+                modal.find('.modal-body #spayType').text('代引き');
+            }
+
+            if ($('#chkTakeout')[0].checked) {
+                modal.find('.modal-body .confirm-delivery').hide()
+                modal.find('.modal-body .confirm-takeout').show()
+                modal.find('.modal-body #spayType').text('現地決済');
+
+                let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date');
+                modal.find('.modal-body #takeoutTime').text(inpt.val());
+            }
+
+            let html = $('.order-paymentAmount').clone().html();
+            modal.find('.modal-body #payment-result').html(html)
+        })
+
+
+        //最終の確定
+        $('#btnOrderInfoSend').off('click').on('click', function () {
+
+            //注文ID
+            let id = form.find('#id').val();
+
+            //保存订单数据
+            form.ajaxForm({
+                beforeSend: function () {
+                    $('#btnOrderInfoSend').attr('disabled', 'disabled')
+                },
+                success: function (res) {
+                    if (res.status === 200) {
+                        let order = res.data;
+                        toastr.success(res.message);
+                        setTimeout(function () {
+                            location.href = "/paySuccess?token=" + order.token;
+                        }, 300)
+                    }
+
+                    if (res.status === 500) {
+                        toastr.error(res.message);
+                        //更新一下时间带
+                        setTimeout(function () {
+                            location.href = '/dashboard';
+                        }, 2000)
+                    }
+                }, error: function (res) {
+                    console.info(res)
+                    $('#btnOrderInfoSend').removeEventListener('disabled')
+                    //   toastr.error('注文を失敗しました！');
+                    //   setTimeout(function () {
+                    //       location.href = "/payFailed?orderId=" + id;
+                    //   }, 300)
+                }
+            })
+            form.submit();
+        })
+
+
+        //代引きの支払い
+        $('#btnConfirm').on('click', async function () {
+            if (await formCheck()) {
+
+                //如果选择了takeout的情况
+                if ($('#chkTakeout').prop('checked')) {
+
+                    let inpt = $('.takeoutRule:checked').closest('tr').find('.delivery_date');
+                    if (inpt.length == 0) {
+                        toastr.error('テイクアウト来店時間帯を選択してください');
+                        return false
+                    }
+                    if (!checkTakeOutDate(inpt[0])) {
+                        return false
+                    }
+                }
+
+                //弹出层，确认订货信息
+                $('#orderConfirmModel').modal({
+                    backdrop: true,
+                    show: true
+                })
+            }
+        })
+
+
+        function checkTakeOutDate(obj) {
 
             let value = obj.value;
             let takeDate = obj.dataset.take_date
@@ -760,27 +762,27 @@ let payment = {
             let endTime = obj.dataset.end_time
             let result = true;
 
-            if(!value){
+            if (!value) {
                 $(obj).parent().find('.error').text('受け取る時間を入力してください');
                 $(obj).addClass('error');
                 return false
             }
 
-            if(new moment(value) - new moment(takeDate + ' ' + startTime) < 0){
+            if (new moment(value) - new moment(takeDate + ' ' + startTime) < 0) {
                 $(obj).parent().find('.error').text('货物を受け取る時間は開始時間より小さくしてはいけません');
                 $(obj).addClass('error');
                 return false
-            }else{
+            } else {
                 $(obj).parent().find('.error').text('');
                 $(obj).removeClass('error');
                 result = true;
             }
 
-            if(new moment(value) - new moment(takeDate + ' ' + endTime) > 0){
+            if (new moment(value) - new moment(takeDate + ' ' + endTime) > 0) {
                 $(obj).parent().find('.error').text('货物を受け取る時間は終了時間より大きくなってはいけません');
                 $(obj).addClass('error');
                 return false
-            }else{
+            } else {
                 $(obj).parent().find('.error').text('');
                 $(obj).removeClass('error');
                 result = true;
@@ -827,14 +829,13 @@ let payment = {
         // })
 
 
-
-        $.extend($.fn.datetimepicker.dates , {
+        $.extend($.fn.datetimepicker.dates, {
             ja: {
                 days: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日'],
                 daysShort: ['日', '月', '火', '水', '木', '金', '土', '日'],
                 daysMin: ['日', '月', '火', '水', '木', '金', '土', '日'],
-                months: ['1月', '2月', '3月', '4月', '5月', '6月','7月', '8月', '9月', '10月', '11月', '12月'],
-                monthsShort: ['1月', '2月', '3月', '4月', '5月', '6月','7月', '8月', '9月', '10月', '11月', '12月']
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                monthsShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
             }
         });
 
@@ -860,10 +861,10 @@ let payment = {
             showClose: true
         })
 
-            .on('dp.change',function(date,oldDate){
+            .on('dp.change', function (date, oldDate) {
                 checkTakeOutDate(this);
                 $('#delivery_date').val(this.value)
-        })
+            })
 
     }
 }
@@ -894,11 +895,13 @@ let profile = {
                     //全てのエラーメッセージを隠す
                     $('p.text-red-600').remove();
                     $('#message').show(100);
-                    setTimeout(function () { $('#message').hide() }, 2000);
+                    setTimeout(function () {
+                        $('#message').hide()
+                    }, 2000);
                 }
 
             }).catch(function (res) {
-                const { data, status } = res.response
+                const {data, status} = res.response
                 let errors = data.errors;
                 for (let item in errors) {
                     for (let index in errors[item]) {

@@ -68,18 +68,35 @@
                                                                 </div>
                                                                 <ul class="list-group list-group-flush">
                                                                     <li class="list-group-item"><b>{{$order->restrant->name}}</b> <br/> {{$order->restrant->tel}} <br/>{{$order->restrant->pref}}{{$order->restrant->city}}{{$order->restrant->street}}</li>
+                                                                    <li class="list-group-item">受取人：{{$order->consignee}}</li>
+                                                                    @if($order->payment == 1)
+                                                                    <li class="list-group-item">受取希望日：{{$order->receiveDate}}</li>
+                                                                    <li class="list-group-item">受取時間帯：@if ($order->receiveTime == '')
+                                                                            希望なし
+                                                                        @endif @if ($order->receiveTime == '0812')
+                                                                            午前中
+                                                                        @endif @if ($order->receiveTime == '1416')
+                                                                            14時～16時
+                                                                        @endif @if ($order->receiveTime == '1618')
+                                                                            16時～18時
+                                                                        @endif @if ($order->receiveTime == '1820')
+                                                                            18時～20時
+                                                                        @endif @if ($order->receiveTime == '1921')
+                                                                            19時～21時
+                                                                        @endif</li>
+                                                                    @else
+                                                                        <li class="list-group-item">受け取る時間：{{$order->delivery_date}}</li>
+                                                                    @endif
                                                                     <li class="list-group-item">電話番号：<a href="tel:{{$order->tel}}">{{$order->tel}}</a></li>
                                                                     <li class="list-group-item">メールアドレス：<a href="mailto:{{$email}}">{{$email}}</a></li>
-
-                                                                    <li class="list-group-item">受け取る時間：{{$order->delivery_date}}</li>
-                                                                    <li class="list-group-item">備考欄：{{$order->remark}}</li>
-{{--                                                                    <li class="list-group-item">郵便番号：〒{{$order->post}}</li>--}}
-{{--                                                                    <li class="list-group-item">詳細住所：{{$order->address}}</li>--}}
+                                                                    <li class="list-group-item">郵便番号：〒{{$order->post}}</li>
+                                                                    <li class="list-group-item">都道府県：{{$order->pref}}</li>
+                                                                    <li class="list-group-item">詳細住所：{{$order->address}}</li>
                                                                     @if($order->payment == 1)
                                                                         <li class="list-group-item">支払い方法：現地決済</li>
                                                                     @endif
                                                                     @if($order->payment == 2)
-                                                                        <li class="list-group-item">支払い方法：クレジット</li>
+                                                                        <li class="list-group-item">支払い方法：郵送</li>
                                                                     @endif
                                                                 </ul>
                                                             </div>
@@ -88,10 +105,17 @@
 
                                                 <div class="card-footer text-muted order-foot">
                                                     <div class="row order-buttons">
-                                                        <div class="col-md-6 col-sm-12">
-                                                            注文価格：<span class="goods-price">¥{{number_format($order->product_amount)}}</span>
+                                                        <div class="col-md-8 col-sm-12">
+                                                            @if($order->pay_status == 1 && $order->status == 1)
+                                                                手数料：<span class="goods-price">¥{{number_format($order->tip_fee)}}</span>　
+                                                                配送料：<span class="goods-price">¥{{number_format($order->delivery_fee)}}</span>　
+                                                                注文金額：<span class="goods-price">¥{{number_format($order->product_amount)}}</span>　
+                                                                お支払い(税込み)：<span class="goods-price">¥{{number_format($order->order_amount)}}</span>　
+                                                            @else
+                                                                注文金額：<span class="goods-price">¥{{number_format($order->product_amount)}}</span>
+                                                            @endif
                                                         </div>
-                                                        <div class="col-md-6 col-sm-12 text-right">
+                                                        <div class="col-md-4 col-sm-12 text-right">
                                                             @if($order->pay_status == 0 && $order->status == 0)
                                                                 <form action="/payment" method="POST">
                                                                     @csrf

@@ -205,20 +205,49 @@ class OrderServiceImpl implements OrderService
         $consignee = $request->consignee;
         $tel = $request->tel;
         $post = $request->post;
+        $pref = $request->pref;
         $address = $request->address;
         $remark = $request->remark;
-        $payment = $request->payment;
 
         $delivery_date = $request->delivery_date;
         $takeoutId = $request->takeoutId;
+        $receiveType = $request->receiveType;
+
+        //お届け先
+        if ($receiveType == '登録住所') {
+            $user = Auth::user();
+            $consignee = $user->name;
+            $post = $user->post;
+            $pref = $user->pref;
+            $tel = $user->telphone;
+            $address = $user->address;
+        }
 
         $order = Order::find($id);
         if (!isset($order)) {
             return response()->json(JsonResult::fail('注文情報を見つかりません', 404, $order));
         }
 
-        $filename = storage_path('app') . DIRECTORY_SEPARATOR. "lock";
-        $file = fopen($filename, 'r'); //打开文件
+        //最後の支払い金額を計算する
+        $products = $order->products;
+        $totalPrice = 0;
+        foreach ($products as $product) {
+            $totalPrice += $product->pivot->product_price * $product->pivot->product_number;
+        }
+        //手续费
+        $order->tip_fee = 0;
+        //配送料
+        $order->delivery_fee = 0;
+
+        $total = $totalPrice;
+        $total = $total + $total * 0.1;
+
+        //支付金额
+        $order->order_amount = round($total);
+
+
+        $filename = public_path('uploads') . DIRECTORY_SEPARATOR. "lock.txt";
+        $file = fopen($filename, "r+"); //打开文件
         $lock = flock($file, LOCK_EX);
         $cantakeOut = true;
         $message = "";
@@ -228,15 +257,13 @@ class OrderServiceImpl implements OrderService
                 $restrantTakeout = RestrantTakeOut::find($takeoutId);
                 if(!isset($restrantTakeout)){
                     $cantakeOut = false;
-                    fclose($file); //关闭文件句柄
-                    abort(404,"テイクアウト来店時間帯情報を見つかりません");
-                    return false;
+                    $message = 'テイクアウト来店時間帯情報を見つかりません';
+                }else{
+                    if($restrantTakeout ->number == 0){
+                        $cantakeOut = false;
+                        $message = 'ご予約がいっぱいですので、他の時間帯をお選びください';
+                    }
                 }
-                if($restrantTakeout ->number == 0){
-                    $cantakeOut = false;
-                    $message = 'ご予約がいっぱいですので、他の時間帯をお選びください';
-                }
-
                 //成功了
                 if($cantakeOut){
                     //更新预约数
@@ -248,9 +275,10 @@ class OrderServiceImpl implements OrderService
                 $message = $e->getMessage();
             } finally {
                 flock($file, LOCK_UN); //无论如何都要释放锁
+                fclose($file); //关闭文件句柄
             }
         }
-        fclose($file); //关闭文件句柄
+
 
         if(!$cantakeOut){
             return response()->json(JsonResult::fail($message, 500, $order));
@@ -260,7 +288,9 @@ class OrderServiceImpl implements OrderService
         $order->status = 0;
         //支払い方式
         $order->payment = 2;
+        $order->receive_type = $receiveType;
         $order->consignee = $consignee;
+        $order->pref = $pref;
         $order->tel = $tel;
         $order->post = $post;
         $order->address = $address;
@@ -280,7 +310,7 @@ class OrderServiceImpl implements OrderService
         $consignee = $request->consignee;
         $tel = $request->tel;
         $post = $request->post;
-        $todofuken = $request->todofuken;
+        $pref = $request->pref;
         $address = $request->address;
         $remark = $request->remark;
         $payment = $request->payment;
@@ -293,7 +323,7 @@ class OrderServiceImpl implements OrderService
             $user = Auth::user();
             $consignee = $user->name;
             $post = $user->post;
-            $todofuken = $user->todofuken;
+            $pref = $user->pref;
             $tel = $user->telphone;
             $address = $user->address;
         }
@@ -313,7 +343,7 @@ class OrderServiceImpl implements OrderService
         $order->address = $address;
         $order->remark = $remark;
         $order->receive_type = $receiveType;
-        $order->pref = $todofuken;
+        $order->pref = $pref;
         $order->receiveDate = $receiveDate;
         $order->receiveTime = $receiveTime;
 
@@ -337,7 +367,7 @@ class OrderServiceImpl implements OrderService
 
         //计算运费
         $fee1 = 972;
-        if ($todofuken == '北海道' || $todofuken == '沖縄県') {
+        if ($pref == '北海道' || $pref == '沖縄県') {
             $fee1 = 1404;
         }
 
