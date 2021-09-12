@@ -469,9 +469,9 @@ module.exports = {
 
       postData.workday = postData.workday.join(",");
       postData.animal = postData.animal.join(",");
-      postData.outFiles = postData.outFiles.join(",");
-      postData.innerFiles = postData.innerFiles.join(",");
-      postData.staffFiles = postData.staffFiles.join(",");
+      postData.outFiles = [postData.outFiles].join(",");
+      postData.innerFiles = [postData.innerFiles].join(",");
+      postData.staffFiles = [postData.staffFiles].join(",");
 
       //経緯度を取得する
 
