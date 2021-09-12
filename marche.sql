@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
  Source Server Version : 50732
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 17/08/2021 19:25:57
+ Date: 12/09/2021 16:43:13
 */
 
 SET NAMES utf8mb4;
@@ -21,109 +21,116 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for admins
 -- ----------------------------
 DROP TABLE IF EXISTS `admins`;
-CREATE TABLE `admins`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admins` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp(0) NULL DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `current_team_id` bigint(20) UNSIGNED NULL DEFAULT NULL,
-  `profile_photo_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `current_team_id` bigint(20) unsigned DEFAULT NULL,
+  `profile_photo_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `admins_email_unique`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `admins_email_unique` (`email`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of admins
 -- ----------------------------
+BEGIN;
 INSERT INTO `admins` VALUES (1, 'admin', 'order@gibier-petfood.org', NULL, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk0QQcnaYZ5YaA0HZyn1q', NULL, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for campains
 -- ----------------------------
 DROP TABLE IF EXISTS `campains`;
-CREATE TABLE `campains`  (
+CREATE TABLE `campains` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `class` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `holder` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `bank` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `branch` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `account` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name0` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name1` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name2` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name3` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name4` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name5` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `owner0` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `owner1` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `owner2` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `owner3` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `owner4` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `owner5` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `tel1` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `tel2` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `tel3` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `tel4` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `tel5` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `mail1` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `mail2` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `mail3` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `mail4` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `mail5` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `processed_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `class` varchar(20) NOT NULL,
+  `holder` varchar(20) NOT NULL,
+  `bank` varchar(20) NOT NULL,
+  `branch` varchar(20) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `account` varchar(20) NOT NULL,
+  `name0` varchar(20) NOT NULL,
+  `name1` varchar(20) NOT NULL,
+  `name2` varchar(20) NOT NULL,
+  `name3` varchar(20) NOT NULL,
+  `name4` varchar(20) NOT NULL,
+  `name5` varchar(20) NOT NULL,
+  `owner0` varchar(20) NOT NULL,
+  `owner1` varchar(20) NOT NULL,
+  `owner2` varchar(20) NOT NULL,
+  `owner3` varchar(20) NOT NULL,
+  `owner4` varchar(20) NOT NULL,
+  `owner5` varchar(20) NOT NULL,
+  `tel1` varchar(20) NOT NULL,
+  `tel2` varchar(20) NOT NULL,
+  `tel3` varchar(20) NOT NULL,
+  `tel4` varchar(20) NOT NULL,
+  `tel5` varchar(20) NOT NULL,
+  `mail1` varchar(30) DEFAULT NULL,
+  `mail2` varchar(30) DEFAULT NULL,
+  `mail3` varchar(30) DEFAULT NULL,
+  `mail4` varchar(30) DEFAULT NULL,
+  `mail5` varchar(30) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `processed_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of campains
 -- ----------------------------
+BEGIN;
 INSERT INTO `campains` VALUES (8, 'restrant', 'タカハシ　キヨシ', '三菱ＵＦＪ', '烏山支店', '普通', '14009001', 'びるとろ潔', 'びるとろ直子', 'びすとろ二郎', 'びすとろ達也', 'ぶすとろ雅子', 'びすとろ太郎', '潔高橋', '直子', '二郎', '達也', '雅子', '太郎', '090-8940-5482', '090-8940-5483', '090-8940-5483', '090-8940-5444', '090-8940-5555', NULL, NULL, NULL, NULL, NULL, '2020-06-03 07:56:15', NULL, '2020-06-03 07:56:15');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for carts
 -- ----------------------------
 DROP TABLE IF EXISTS `carts`;
-CREATE TABLE `carts`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
   `restrant_id` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL,
   `price` int(11) NOT NULL,
   `number` int(11) NOT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 80 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of carts
 -- ----------------------------
+BEGIN;
 INSERT INTO `carts` VALUES (77, 8, 12, 42, 100, 1, '2021-04-18 23:44:20', '2021-04-18 23:44:20');
 INSERT INTO `carts` VALUES (78, 8, 25, 39, 222, 1, '2021-04-18 23:44:33', '2021-04-18 23:44:33');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for columns
 -- ----------------------------
 DROP TABLE IF EXISTS `columns`;
-CREATE TABLE `columns`  (
+CREATE TABLE `columns` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `news_id` int(11) NOT NULL,
   `disp_order` tinyint(4) NOT NULL,
-  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `image` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `content` text NOT NULL,
+  `image` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 421 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=421 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of columns
 -- ----------------------------
+BEGIN;
 INSERT INTO `columns` VALUES (1, 2, 1, '【低脂肪猪セール：熊本県産 】\r\n\r\n商品内容\r\n・低脂肪猪ロース　¥1,300/㎏　4㎏から（限定100㎏まで）\r\n・低脂肪猪モモ　　¥1,000/㎏　4㎏から（限定100㎏まで）\r\n温度：冷凍', 'BrAFfFIzqeZrzv0H4OBH5O0Y1LxsMV7FoSWd0PQU.jpeg');
 INSERT INTO `columns` VALUES (2, 2, 2, '【鹿ロース＆ももセット特価：熊本県産】\r\n\r\n内容：鹿ロース１キロと鹿もも２キロのセットです。脂はのっていませんが、同じ時期に獲れた鹿なので、レベルはかなり高いです。大変お買い得な価格です！\r\n温度：冷凍\r\n価格：セット価格5000円\r\n数量：２０名限定', 'IL2jFSA9UrQGX6wqcDnrUjcJM6mUvNplTu1rEDdi.jpeg');
 INSERT INTO `columns` VALUES (3, 2, 3, '【ワンちゃん用ペットフード：全国産地】\r\n\r\n紹介：食肉処理施設１１カ所が共同で、鹿肉のペットフードを開発いたしました。止め刺し・解体・加工にこだり、人でも食べられる「ヒューングレード」なペットフードです。食肉処理施設自らがペットフード製造業の資格を取り、加工製造しているので、安心かつリーズナブルな商品に仕上がっています。\r\n鹿肉ジャーキー50ｇ＠360円\r\n鹿肉内臓ジャーキー50ｇ＠360円\r\n鹿肉スペアリブジャーキー50ｇ＠360円\r\n\r\n詳細はhttps://gibier-petfood.org/\r\nお電話でもご注文可能です。', 'RDil0QOP8tP8eKDI7SucIo7bAWF5IQ5JkfvE0h9k.jpeg');
@@ -526,52 +533,50 @@ INSERT INTO `columns` VALUES (417, 109, 1, '【猪一掃セール：長崎県産
 INSERT INTO `columns` VALUES (418, 109, 1, '【最高級猪解体：熊本県産】\r\n捕獲日：3月9日\r\n捕獲方法：箱罠\r\n性別：メス\r\n生体重量：35ｋ\r\n枝肉重量：半頭9k～10ｋ×3\r\n年齢：１歳\r\n肉質：若猪のメス、脂15ミリ～30ミリと脂最高級品、和食系には最適です。とっても柔らかいお肉です。すべて脱骨、肩、ロースバラ、モモ部分に4カット急速冷凍でお届けいたします。\r\n価格：キロ＠2.000円\r\n※購入は半頭分をセットです。', 'eC8Zun7tFMslGqEQP0nlL0JdsAMVrNQoPhjJDTF4.jpeg');
 INSERT INTO `columns` VALUES (419, 109, 1, '【仔猪入荷：岡山県産】\r\n捕獲日：３月１５日\r\n捕獲方法：くくり\r\n生体重量：３０キロ\r\n枝肉重量：１０キロ×２\r\n性別：メス\r\n肉質：若いメスで、丸々太っています。脂１５ミリ。\r\n価格：キロ＠1400\r\n※止刺し傷あります。値引き交渉可能。', 'M7MPokulbKKqH2rGm776qxl0tI44ovva08vVSk18.jpeg');
 INSERT INTO `columns` VALUES (420, 109, 1, '【猪パーツセール：長崎県・対馬産】\r\n紹介：対馬にある人気の処理施設です。良質な猪がお買い得ででました。\r\n部位：ロース１０キロ、バラ２０キロ、もも３０キロ\r\n※各部位とも薄目のお肉です。脂は５－１０ミリ。\r\n温度：冷凍\r\n価格：ロース＠2500、バラ＠1700、もも＠1300\r\n※バラは厚さ１０ミリほどです。\r\n※写真はロース', 'ikXFBXIkzqGbAV6BTo3DhBckyla5LTHQJhTO9ST6.jpeg');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for failed_jobs
 -- ----------------------------
 DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE `failed_jobs`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of failed_jobs
--- ----------------------------
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for ingredients
 -- ----------------------------
 DROP TABLE IF EXISTS `ingredients`;
-CREATE TABLE `ingredients`  (
+CREATE TABLE `ingredients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `etaxonomy` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `animal` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `taxonomy` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `image` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `alien` tinyint(4) NULL DEFAULT 0,
-  `season` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `quantity` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `taste` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `cooking` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `price_min` smallint(6) NULL DEFAULT NULL,
-  `price_max` smallint(6) NULL DEFAULT NULL,
-  `unit` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `note` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `etaxonomy` varchar(50) NOT NULL,
+  `animal` varchar(50) NOT NULL,
+  `taxonomy` varchar(50) NOT NULL,
+  `image` varchar(50) DEFAULT NULL,
+  `alien` tinyint(4) DEFAULT '0',
+  `season` varchar(20) DEFAULT NULL,
+  `quantity` text,
+  `taste` text,
+  `cooking` text,
+  `price_min` smallint(6) DEFAULT NULL,
+  `price_max` smallint(6) DEFAULT NULL,
+  `unit` varchar(10) DEFAULT NULL,
+  `note` text,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 116 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of ingredients
 -- ----------------------------
+BEGIN;
 INSERT INTO `ingredients` VALUES (1, 'mammal', '樋熊(ヒグマ)', '哺乳類', 'OjhIcrQsAYviDxAZorwQXQWAd2qsoFOzQ4ns8dqj.jpeg', NULL, '通年', 'ツキノワグマに比べ、個体は大きく、100～400キロあり、日本最大の陸上哺乳類。コーンやビーツを荒らすため、夏は害獣駆除される。夏季に１５頭、冬季に１５頭ほど入荷。常時在庫しています。夏季は赤身の為安く、冬季は、脂が多いほど価格が上がり傾向。ツキノワグマと比較して３割ほど安いため、洋食に人気あり。熊肉は、品質基準があいまいなため、ジビエマルシェで検品し、出荷。', '個体が大きいため、繊維は粗目で、肉質は、牛のテールに似ている。脂は、融点が２８度と大変低く、口溶けがいいのが特長、室温でも溶けだします。ツキノワグマと比較されますが、味の判別は、プロでも困難。パックは大き目で２～３キロです。', '脂があるものは、スライスして熊鍋に。ローストは、硬くなるのでやや不向き。ローストの場合、20-30％の脂のロースやももを使用し、１時間かけて低温調理する必要あり。脂が少ない部位は、基本的に煮込み・シャリュキトリ・パテ・ボロネーゼなど。', 4000, 10000, 'キロ', '筋肉内に旋毛虫が寄生するため、冷凍で出荷。生食は絶対不可。筋膜・スジが多いので、ローストには不向き。\r\n熊を初めて利用する場合は、必ずお電話で。');
 INSERT INTO `ingredients` VALUES (2, 'mammal', '月輪熊(ツキノワグマ)', '哺乳類', 'APFzMPvfLO8w1i7caYnBVufv2BueTPvO7ZVjkBvI.jpeg', NULL, '通年', '年間50頭ほど捕獲。年により捕獲数が変動し、価格も大きくぶれます。通年在庫あります。脂が多いほど価値が上がります。価格が高い部位は、高級割烹が「月鍋」として使用。捕獲方法や猟師の腕により、食味が変わる為、肉の基準が大変困難。', '基本は、脂を楽しむ食材です。脂の融点は２８度で、室温でも溶解。ヒグマとくらべると「甘い」と言われるが、実際には大差はない。', 'ロース、フィレはロースト。脂が多いときは熊鍋がおすすめ。脂が少ないときは、シャリュキトリ・煮込み・パテ・ボロネーゼがおすすめ。', 4000, 18000, 'キロ', '※筋肉内に旋毛虫が寄生するため、冷凍出荷。生食厳禁。\r\n※大きな個体は、スジが多い。\r\n※初回は必ず電話でのご注文となります。');
 INSERT INTO `ingredients` VALUES (3, 'mammal', '猪(イノシシ)', '哺乳類', 'TTpLar85bW97bL9LMlS6MamHQZDEv5W1T8qX5Naj.jpeg', NULL, '通年', '年間１０００頭以上入荷。害獣駆除されている為、毎日入荷あり。季節・産地・個体により価格が変動し、脂の少ない夏は安く、脂の乗った冬は高くなる。ただし、夏でも肉質は良く、「低脂肪猪」として、注目されている。\r\n５月頃出産し、瓜柄がある個体を「うり坊」、９月頃に瓜柄がとれた個体を「どんこ」と呼ぶ。生体重量５０キロ位が使いやすい。ブロックより枝肉買いがコスパが良い。', '脂がついた動物としては、パフォーマンスが高く、冬の代表的ジビエ。生体重量４０キロ、枝肉３０キロ、２-3歳、脂１０ミリくらいの個体は、焼てよし、煮てよし。「うり坊」は、柔らかいが、味は淡白。どんこは、脂ものり、肉も柔らかいので、人気。', '脂が多い場合は、猪鍋（牡丹鍋）がおすすめ。脂が１０ミリ程度は、ロースト向き。うり坊は、丸焼きなど。\r\nミンチはボロネーゼやハンバーグ。バラ肉・ほほ肉・スネ肉は、煮込みに最適。', 2000, 4000, 'キロ', '※料理方法により、お勧めの部位、脂のミリ数、年齢が異なります。調理法を決めてから、ご注文下さい。');
@@ -683,12 +688,13 @@ INSERT INTO `ingredients` VALUES (110, 'fish', 'チョウザメ・卵', '魚類'
 INSERT INTO `ingredients` VALUES (111, 'mammal', 'イルカ', '哺乳類', 'R56CTW4HusJDP7uEDhVyIjD4rjcrf6l6xqa3YA56.jpeg', NULL, '通年', 'まだ需要がないため、入荷がありません。', '未確認。', '未確認。', NULL, NULL, NULL, NULL);
 INSERT INTO `ingredients` VALUES (114, 'culture', 'スッポン', '養殖', 'vJ5hMWeHoUg5qnqal2zwRZhQ1PRo05v1hH9kW2V3.jpeg', NULL, '通年', '熊本県でも、老舗舗の養殖場として有名な小川スッポン。一番のこだわりは、通常２年で、出荷するところを３～４年かけて育てていることです。これにより肉がしまり、旨味がのってきます。環境も天然に近い状態で育てるため、ストレスが少なく甲羅もきれいです。活き、冷蔵ブロック、冷凍ブロックからお選びいただけます。', '天然と比べると、雑味がなく大変使いやすい。', '鍋など。', 4500, 5500, 'キロ', '※ブロックの場合、内臓や血液も同梱されます。');
 INSERT INTO `ingredients` VALUES (115, 'reptile', 'ハブ', '爬虫類', 'habu.jpg', 0, '通年', '年間１００匹入荷　頭落とし、皮むき、腸抜きの状態でお届け。', 'さっぱりして美味。マムシに比べ肉が多く、食べ応えがあります。骨は固くて食べられません。', 'ぶつ切で、塩コショウで炒める。または３枚卸にして、炭火焼きなどが美味。', 7000, 7000, '匹', '※ハブは猛毒を持っているため、頭は切り落とした状態で納品いたします。\r\n※姫ハブはマムシと同程度のサイズです。');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for items
 -- ----------------------------
 DROP TABLE IF EXISTS `items`;
-CREATE TABLE `items`  (
+CREATE TABLE `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `animal` tinyint(4) NOT NULL,
@@ -696,14 +702,15 @@ CREATE TABLE `items`  (
   `state` tinyint(4) NOT NULL,
   `bone` tinyint(4) NOT NULL,
   `part` tinyint(4) NOT NULL,
-  `mount` int(11) NULL DEFAULT NULL,
-  `price` int(11) NULL DEFAULT NULL,
+  `mount` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of items
 -- ----------------------------
+BEGIN;
 INSERT INTO `items` VALUES (1, 1, 3, 1, 1, 2, 1, 12, NULL);
 INSERT INTO `items` VALUES (2, 1, 1, 0, 1, 1, 1, NULL, NULL);
 INSERT INTO `items` VALUES (3, 1, 2, 0, 2, 1, 2, 300, NULL);
@@ -714,22 +721,24 @@ INSERT INTO `items` VALUES (7, 1, 4, 1, 1, 2, 1, NULL, NULL);
 INSERT INTO `items` VALUES (8, 1, 1, 0, 1, 1, 1, NULL, NULL);
 INSERT INTO `items` VALUES (10, 2, 1, 0, 1, 1, 1, 10, 100);
 INSERT INTO `items` VALUES (11, 8, 1, 0, 1, 1, 1, 10, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for memos
 -- ----------------------------
 DROP TABLE IF EXISTS `memos`;
-CREATE TABLE `memos`  (
+CREATE TABLE `memos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `animal_id` int(11) NOT NULL,
-  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of memos
 -- ----------------------------
+BEGIN;
 INSERT INTO `memos` VALUES (3, 1, '【熊の捕獲方法】2018.0415', 'シーズンと地域によって猟がことなります。\r\n秋熊猟：熊が冬ごもりする前にする追跡猟です。足跡などの情報が少ないので、難しい猟のひとつです。通常単独猟で行われます。肉質・脂ともには最高。\r\n\r\n冬熊猟：別名穴熊猟とも呼びます。巣穴で冬眠している熊を起こして、巣の外側に出てきたところを銃で仕留めます。積雪量が少ない（それでも150ｃｍ）　岐阜や滋賀などで行われます。基本的に単独猟。肉質は最高\r\n\r\n\r\n春熊猟：主に東北で行われる伝統猟です。猟期ではないので、伝統行事として継承されています。（一部有害駆除）。大人数でおこなう巻き狩り猟が主流。獲物を声で追い立てる勢子（セコ）と獲物が逃げてくると予想される地点で待つ射手の待子（マチコ）に分かれます。肉質は、個体や昨年の餌食量により異なります。昔は熊の胆を取るのが目的でした。\r\n\r\n夏熊猟：夏は猟期ではありませんので、里山に現れた有害駆除が対象です。害獣駆除の場合は箱罠が中心です。肉質はすべて赤身となります。');
 INSERT INTO `memos` VALUES (4, 1, '【熊の豊猟・不猟年】', '熊の捕れる年と捕れない年があります。捕れる年は、山の木の実が少なく、山里や林道までてくるため、狩猟や害獣駆除で捕獲されます。肉質は痩せている場合が多い可能性があります。捕れない年は、山の実りが豊富なため、山の奥に入って出てきません。猟師も山奥で仕留めても、処理施設まで搬送できません。小熊の出産頭数なども挙げられますが、行動範囲のほうが、捕獲頭数に影響するようです。また、熊猟は一般的に、冬眠前に狙う追跡猟なので、積雪が少ないと足跡が残らず、捕獲できません。ちなみに冬眠中は「穴熊猟」、冬眠明けは、「春熊猟」と呼ばれます。');
 INSERT INTO `memos` VALUES (6, 2, '【ツキノワグマの等級】2017.12.19', 'ツキノワグマの肉は、なかなか等級と価格を統一することが難しい種類の肉です。\r\nほとんどが、一部の猟師とレストランや民宿などとの取引だけで成立していたマーケットなので、標準価格がありませんでした。\r\n当社では、産地や獲れた時期・部位・脂の量・解体技術などを判断し、少しでも品質・価格基準を作りたいと考えています。\r\nＡクラス：キロ＠10000～　　\r\n部位はロース・肩ロース・バラを中心に、カットがきれいであること。捕獲時期は、秋から冬で、狩猟で獲れた個体が中心です。脂の量は50～80％\r\n\r\nＢクラス：キロ＠7000～\r\nももが中心で、脂の入り方が、Ａランクほどきれいではない。または筋膜や筋が見受けられる。捕獲期は秋から冬の猟期と春から夏の一部有害駆除。脂の量は10～40％\r\n\r\nＣクラス：キロ＠4000～\r\n脂がない赤身の肉。捕獲期間や狩猟方法などは問いません。');
@@ -814,43 +823,47 @@ INSERT INTO `memos` VALUES (90, 43, '【カラス捕獲＆試食探訪：長野�
 INSERT INTO `memos` VALUES (91, 44, '【カラス捕獲＆試食探訪：長野県】2020.08.25', 'カラスの捕獲と解体に、長野県の処理施設を訪問。まず、村が設置している檻罠へ。大きさは１０畳で高さは３ｍほど。天井から侵入すると、出られない仕掛けになっています。実際に、カラスが７羽入っていました。近づくと一斉に鳴き始めるので、ちょっと入るのに勇気がいります。大きなたも網をもって檻に入り、飛び交うカラスを、瞬間でしゃくります。作業はさほど難しくないのですが、カラスが意外に大きく見えるので、気合が必要です。カラスを生きたまま小さな箱罠に移し、２羽持ち帰りました。残り５羽は、水とえさをやり、生かしておきます。これにより、また新しいカラスが入ります。処理施設につくと、ちょっと残酷ですが、箱罠を、大きな水槽に入れ、水没させます。１分後には、止差し完了です。そのあとに、内臓を抜き、きれいに血抜きをします。このときの処理で、肉の柔らかさが決まるので、大変重要な作業です。そのあと、レストランの希望があれば、毛抜きや頭・羽を落とし、枝肉の状態にします。皮は固いので、剥いてしまいます。枝肉にすると、鳩と見分けがつきません(笑)。\r\n調理は、ローストで、胸肉とももを塩コショウで頂きました。胸肉は、牛に近い食味で、臭みもなく、柔らいのが特徴。ももは、若干の固さはありますが、ジューシーで大変美味。ちょっとした地鶏です。全体の骨で、スープや出汁をとったら絶対美味しいはずです。すごい食材です！');
 INSERT INTO `memos` VALUES (93, 1, '【熊の脂がピンクまたは半透明】2020.01.05', 'クマ猟師に聞くと、熊の脂にもいろいろ種類があるそうです。「水分が多い脂」「脂っぽい脂」「白肉のような脂」など。特に多いのが、ピンク系です。ピンクになる原因は、以下の要因が考えられます。\r\n\r\n１、くるみやブナのみを食べている。※油分が高い\r\n２．檻で暴れてる時間が長く、うっ血した場合。\r\n３、解体時に、血がついている手で触っている。\r\n４、秋熊で、まだ脂が出来上がってない場合。この場合は、低い温度で溶け出します。');
 INSERT INTO `memos` VALUES (94, 2, '【熊の脂がピンクまたは半透明】2020.01.05', 'クマ猟師に聞くと、熊の脂にもいろいろ種類があるそうです。「水分が多い脂」「脂っぽい脂」「白肉のような脂」など。特に多いのが、ピンク系です。ピンクになる原因は、以下の要因が考えられます。\r\n\r\n１、くるみやブナのみを食べている。※油分が高い\r\n２．檻で暴れてる時間が長く、うっ血した場合。\r\n３、解体時に、血がついている手で触っている。\r\n４、秋熊で、まだ脂が出来上がってない場合。この場合は、低い温度で溶け出します。');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for migrations
 -- ----------------------------
 DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE `migrations`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
 -- ----------------------------
+BEGIN;
 INSERT INTO `migrations` VALUES (1, '2014_10_12_000000_create_users_table', 1);
 INSERT INTO `migrations` VALUES (2, '2014_10_12_100000_create_password_resets_table', 1);
 INSERT INTO `migrations` VALUES (3, '2019_08_19_000000_create_failed_jobs_table', 2);
 INSERT INTO `migrations` VALUES (4, '2021_05_18_100000_create_restrant_password_resets_table', 3);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for news
 -- ----------------------------
 DROP TABLE IF EXISTS `news`;
-CREATE TABLE `news`  (
+CREATE TABLE `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `image` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `title` varchar(50) NOT NULL,
+  `content` text NOT NULL,
+  `image` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of news
 -- ----------------------------
+BEGIN;
 INSERT INTO `news` VALUES (2, '９月２６日（木）', '猪安値入荷。夏鹿入荷あり。ツキノワ・ヒグマ赤身入荷。アナグマ６名待ち。カラス６羽在庫あり。馬とスッポン取引予定あります。ご興味ある方はご連絡ください。', 'RDil0QOP8tP8eKDI7SucIo7bAWF5IQ5JkfvE0h9k.jpeg', '2021-05-09 17:19:27', '2019-10-06 13:54:15');
 INSERT INTO `news` VALUES (3, 'ジビエ情報９月２６日（木）', '猪安値入荷。夏鹿入荷あり。ツキノワ・ヒグマ赤身入荷。', 'vwDXXdsAZ3zXfOWw5fKKrzdD5DoPnJUunjp9QW6U.jpeg', '2021-05-09 17:19:27', '2019-10-01 13:13:06');
 INSERT INTO `news` VALUES (5, '１０月３日(木）', 'いよいよジビエのシーズン到来！猪多数入荷。夏鹿在庫あり。鹿も入荷多数。ヒグマ・ツキノワ入荷好調。アナグマ・ハクビ予約受付中。ホロホロ鳥、ナマズ、フランスうずら出荷順調。キョウ・台湾リス・インドクジャクは出荷未定です。スズメバチ入荷あり。', 'ZNSgT1woD1QZv2tuFwm1OzBiodmkdrI2RDJye8Ng.jpeg', '2021-05-09 17:19:27', '2019-10-06 13:56:25');
@@ -955,122 +968,118 @@ INSERT INTO `news` VALUES (106, '２月２４日（木）市況', '猪良品入�
 INSERT INTO `news` VALUES (107, '３月１日（月）市況', '猪入荷低調、ロース・肩ロース品薄。鹿入荷安定。ツキノワグマ・ヒグマ在庫少な目。小型哺乳類はすべて予約受付中。熊本県猪無料配布（アンケートあり）にご協力お願いいたします。最後８名。', 'iZIiwnFtDGg4qKAIEWz8lYkMaDgF6iuamzGZkIMC.jpeg', '2021-05-09 17:19:27', '2021-03-01 07:35:03');
 INSERT INTO `news` VALUES (108, '３月８日（月）市況', '猪入荷減少。鹿入荷減少。ヒグマ入荷中。ツキノワグマ（スネ）のみ在庫。小動物入荷なし。ヌート在庫あり。カラス入荷待ち。', 'OKzSgYpLFhCb7m8vucjqYpxgUtFiBJQ5HtCQh1jI.jpeg', '2021-05-09 17:19:27', '2021-03-08 07:37:35');
 INSERT INTO `news` VALUES (109, '３月１７日（水）市況', '鹿入荷数減少。猪入荷減少。ヒグマ入荷・在庫あり。アナグマ・ハクビ・カラスは予約受付中。ヌートリア・キョン入荷あり。ハブ入荷あり。', 'ikXFBXIkzqGbAV6BTo3DhBckyla5LTHQJhTO9ST6.jpeg', '2021-05-09 17:19:27', '2021-03-17 03:08:28');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for orders
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders`  (
+CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `restrant_id` int(11) NOT NULL,
-  `note` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `plant_id` int(11) NULL DEFAULT NULL,
-  `assigned_at` timestamp(0) NULL DEFAULT NULL,
-  `confirmation` tinyint(4) NOT NULL DEFAULT 0,
-  `weight` int(11) NULL DEFAULT NULL,
-  `postage` int(11) NULL DEFAULT NULL,
-  `price` int(11) NULL DEFAULT NULL,
-  `shipping` tinyint(4) NOT NULL DEFAULT 0,
-  `cod` tinyint(4) NOT NULL DEFAULT 0,
-  `delivery` date NULL DEFAULT NULL,
-  `announced_at` timestamp(0) NULL DEFAULT NULL,
-  `rating` tinyint(4) NULL DEFAULT NULL,
-  `memo` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `note` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `plant_id` int(11) DEFAULT NULL,
+  `assigned_at` timestamp NULL DEFAULT NULL,
+  `confirmation` tinyint(4) NOT NULL DEFAULT '0',
+  `weight` int(11) DEFAULT NULL,
+  `postage` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `shipping` tinyint(4) NOT NULL DEFAULT '0',
+  `cod` tinyint(4) NOT NULL DEFAULT '0',
+  `delivery` date DEFAULT NULL,
+  `announced_at` timestamp NULL DEFAULT NULL,
+  `rating` tinyint(4) DEFAULT NULL,
+  `memo` mediumtext,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+BEGIN;
 INSERT INTO `orders` VALUES (8, 171, '良かった', '2021-07-08 16:19:30', '0000-00-00 00:00:00', NULL, NULL, 0, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO `orders` VALUES (9, 169, NULL, '2021-07-08 16:37:12', '0000-00-00 00:00:00', NULL, NULL, 0, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for password_resets
 -- ----------------------------
 DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE `password_resets`  (
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  INDEX `password_resets_email_index`(`email`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of password_resets
--- ----------------------------
+CREATE TABLE `password_resets` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for plant_password_resets
 -- ----------------------------
 DROP TABLE IF EXISTS `plant_password_resets`;
-CREATE TABLE `plant_password_resets`  (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of plant_password_resets
--- ----------------------------
+CREATE TABLE `plant_password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `token` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for plants
 -- ----------------------------
 DROP TABLE IF EXISTS `plants`;
-CREATE TABLE `plants`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `plantname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `funding` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `corpname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `post` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `pref` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `city` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `street` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `homepage` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `owner` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `stuff1` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `stuff2` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `stuff3` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `tel` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `mb` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fax` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `mbmail` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `plantworkday` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `officeworkday` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `standard` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `hunternum` int(11) NULL DEFAULT NULL,
-  `deernum` int(11) NULL DEFAULT NULL,
-  `boarnum` int(11) NULL DEFAULT NULL,
-  `packing` tinyint(4) NULL DEFAULT NULL,
-  `slicer` tinyint(4) NULL DEFAULT NULL,
-  `mincer` tinyint(4) NULL DEFAULT NULL,
-  `freezer` tinyint(4) NULL DEFAULT NULL,
-  `metal` tinyint(4) NULL DEFAULT NULL,
-  `yamato` tinyint(4) NULL DEFAULT NULL,
-  `sagawa` tinyint(4) NULL DEFAULT NULL,
-  `upack` tinyint(4) NULL DEFAULT NULL,
-  `mailorder` tinyint(4) NULL DEFAULT NULL,
-  `faxorder` tinyint(4) NULL DEFAULT NULL,
-  `otherorder` tinyint(4) NULL DEFAULT NULL,
-  `ranking` tinyint(4) NOT NULL DEFAULT 50,
-  `partner` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `comment` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
-  `created_at` datetime(0) NULL DEFAULT NULL,
+CREATE TABLE `plants` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `plantname` varchar(50) DEFAULT NULL,
+  `funding` varchar(20) NOT NULL,
+  `corpname` varchar(50) DEFAULT NULL,
+  `post` varchar(16) DEFAULT NULL,
+  `pref` varchar(20) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `street` varchar(100) DEFAULT NULL,
+  `homepage` varchar(50) DEFAULT NULL,
+  `owner` varchar(20) DEFAULT NULL,
+  `stuff1` varchar(20) DEFAULT NULL,
+  `stuff2` varchar(20) DEFAULT NULL,
+  `stuff3` varchar(20) DEFAULT NULL,
+  `tel` varchar(20) DEFAULT NULL,
+  `mb` varchar(20) DEFAULT NULL,
+  `fax` varchar(20) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `mbmail` varchar(50) DEFAULT NULL,
+  `plantworkday` varchar(40) DEFAULT NULL,
+  `officeworkday` varchar(40) DEFAULT NULL,
+  `standard` varchar(20) DEFAULT NULL,
+  `hunternum` int(11) DEFAULT NULL,
+  `deernum` int(11) DEFAULT NULL,
+  `boarnum` int(11) DEFAULT NULL,
+  `packing` tinyint(4) DEFAULT NULL,
+  `slicer` tinyint(4) DEFAULT NULL,
+  `mincer` tinyint(4) DEFAULT NULL,
+  `freezer` tinyint(4) DEFAULT NULL,
+  `metal` tinyint(4) DEFAULT NULL,
+  `yamato` tinyint(4) DEFAULT NULL,
+  `sagawa` tinyint(4) DEFAULT NULL,
+  `upack` tinyint(4) DEFAULT NULL,
+  `mailorder` tinyint(4) DEFAULT NULL,
+  `faxorder` tinyint(4) DEFAULT NULL,
+  `otherorder` tinyint(4) DEFAULT NULL,
+  `ranking` tinyint(4) NOT NULL DEFAULT '50',
+  `partner` varchar(20) NOT NULL,
+  `comment` text,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `name`(`plantname`) USING BTREE,
-  UNIQUE INDEX `tel`(`tel`) USING BTREE,
-  UNIQUE INDEX `fax`(`fax`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `name` (`plantname`) USING BTREE,
+  UNIQUE KEY `tel` (`tel`) USING BTREE,
+  UNIQUE KEY `fax` (`fax`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of plants
 -- ----------------------------
+BEGIN;
 INSERT INTO `plants` VALUES (1, '知床ジャーニー', '公設', NULL, '099-4145', '北海道', '斜里郡斜里町美咲', '20', 'http://www.shiretokojourney.com/', '090-2690-3513（羽田野）', '千代', NULL, NULL, '0152-23-6633', '090-9523-6633', '0152-23-6634', 'info@shiretokojourney.com', '', NULL, NULL, NULL, NULL, 50, 120, 0, NULL, 1, NULL, NULL, NULL, 1, NULL, 0, 0, 0, NULL, 5, '常連', '鹿ロース＠3800　鹿もも＠2800　ヒグマロース＠4000　ヒグマもも＠2000　とど', '2020-06-10 09:45:01', NULL);
 INSERT INTO `plants` VALUES (2, '有限会社 みわ３７５', '民営', NULL, '729-6701', '広島県', '三次市', '三和町上壱2098番地1', 'http://www.miyoshi-dmo.jp/miwa375/', '片岡', '片岡', '片岡', NULL, '0824-52-3838（物産店）', '090-9064-2695', '0824-52-3888', 'miwa375@p1.pionet.ne.jp', '', NULL, '火', NULL, NULL, 36, 360, 60, NULL, 1, 1, NULL, NULL, 1, NULL, 0, 0, 1, NULL, 87, '常連', '猪、鹿、穴熊、タヌキ、アライグマなど', '2021-01-19 06:37:24', NULL);
 INSERT INTO `plants` VALUES (3, '株式会社 暁', '公設', NULL, '701－1351', '岡山県', '岡山市', '北区門前390-3', NULL, '安信', '野上', NULL, NULL, '086-230-7703', '080-6333-6866', '086-230-7706', 'akatsuki.corporation.ceo.ipad@gmail.com', '', NULL, NULL, NULL, NULL, 40, 200, 500, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0, 0, 0, NULL, 4, '拒否', '鹿、猪、穴熊など。価格高め。未払いあり。現在取引なし。', '2020-06-10 09:45:34', NULL);
@@ -1120,64 +1129,64 @@ INSERT INTO `plants` VALUES (67, '奄美ハブセンター', '公設', NULL, '89
 INSERT INTO `plants` VALUES (68, '桜井 直樹', '公設', NULL, '047-026', '北海道', '小樽市', '銭函１－１９－３８', NULL, '桜井 直樹', NULL, NULL, NULL, '080-6096-9035', NULL, NULL, NULL, '', NULL, '不定', '不定', NULL, NULL, NULL, NULL, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, NULL, 50, '未定', NULL, '2021-03-12 01:57:22', '2021-03-12 01:57:22');
 INSERT INTO `plants` VALUES (69, '奥山ジビエ', '民営', '安倍商会', '668-0251', '兵庫県', '豊岡市出石町奥山', '675', 'https://okuyamagibier.com/', '安倍育登', '安倍育登', '安倍育登', NULL, '080-1515-9144', NULL, NULL, 'abe.shokai@outlook.jp', '', NULL, '日,土', '不定', '保健所,県・市の衛生ガイドライン', 4, 30, 10, 1, 1, 1, NULL, NULL, 1, 0, 1, 1, 0, NULL, 50, '常連', '販売できれば捕獲頭数は増やせる。', '2021-04-01 02:36:33', '2021-03-31 00:28:39');
 INSERT INTO `plants` VALUES (71, '测试测试', '公設', '日本红十字', '3360015', '埼玉県', 'さいたま市', '南区2099-6', NULL, 'テスト', 'テスト', 'テスト', NULL, '07026638216', NULL, NULL, 'niuhonggang007@gmail.com', '$2y$10$CDMy45KcR989XipdfVnUDu8Y1oNKKCI63dCquWlxfmsT8yB40No5a', 'niuhonggang007@gmail.com', '月,不定', '火,不定', '保健所', 12, 12, 12, 0, 0, 0, NULL, 1, 0, 1, 0, 0, 0, NULL, 50, '申請中', NULL, '2021-06-29 21:33:25', '2021-05-18 14:30:05');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for restrant_images
 -- ----------------------------
 DROP TABLE IF EXISTS `restrant_images`;
-CREATE TABLE `restrant_images`  (
+CREATE TABLE `restrant_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '表主键',
-  `restrant_id` int(11) NULL DEFAULT NULL COMMENT '店铺主键',
-  `outPic` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '外观',
-  `innerPic` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '内饰',
-  `staffPic` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '店员',
-  `created_at` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
-  `updated_at` datetime(0) NULL DEFAULT NULL,
+  `restrant_id` int(11) DEFAULT NULL COMMENT '店铺主键',
+  `outPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '外观',
+  `innerPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内饰',
+  `staffPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '店员',
+  `created_at` datetime DEFAULT NULL COMMENT '创建日期',
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrant_images
 -- ----------------------------
-INSERT INTO `restrant_images` VALUES (2, 1297, NULL, NULL, NULL, '2021-05-29 19:20:57', '2021-07-16 16:41:33');
+BEGIN;
 INSERT INTO `restrant_images` VALUES (3, 1295, NULL, NULL, NULL, '2021-07-16 14:51:12', '2021-07-16 14:51:12');
+INSERT INTO `restrant_images` VALUES (4, 1297, '20210912/162054/aqDZpU08a90SN9klaOwzsiVuhaHYZwH2acuSEfR3.png', '20210912/162100/2sFbP1X4tpKOojWbu9P8FAJHA3wykeLJg3Pll2CB.png', NULL, '2021-09-12 15:50:34', '2021-09-12 16:21:02');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for restrant_password_resets
 -- ----------------------------
 DROP TABLE IF EXISTS `restrant_password_resets`;
-CREATE TABLE `restrant_password_resets`  (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  INDEX `restrant_password_resets_mail_index`(`email`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of restrant_password_resets
--- ----------------------------
+CREATE TABLE `restrant_password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `restrant_password_resets_mail_index` (`email`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for restrant_take_outs
 -- ----------------------------
 DROP TABLE IF EXISTS `restrant_take_outs`;
-CREATE TABLE `restrant_take_outs`  (
+CREATE TABLE `restrant_take_outs` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `restrant_id` int(11) NOT NULL COMMENT '店铺',
   `take_date` date NOT NULL COMMENT '外带日期',
-  `start_time` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '开始时间',
-  `end_time` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '结束时间',
+  `start_time` varchar(5) COLLATE utf8mb4_bin NOT NULL COMMENT '开始时间',
+  `end_time` varchar(5) COLLATE utf8mb4_bin NOT NULL COMMENT '结束时间',
   `start_hour` int(11) NOT NULL COMMENT '开始時間',
   `end_hour` int(11) NOT NULL COMMENT '終了時間',
   `number` int(11) NOT NULL COMMENT '件数',
-  `created_at` datetime(0) NULL DEFAULT NULL,
-  `updated_at` datetime(0) NULL DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrant_take_outs
 -- ----------------------------
+BEGIN;
 INSERT INTO `restrant_take_outs` VALUES (5, 1297, '2021-06-04', '10:00', '13:00', 10, 13, 2, '2021-06-03 11:35:30', '2021-06-03 11:35:30');
 INSERT INTO `restrant_take_outs` VALUES (6, 1297, '2021-06-04', '14:00', '16:00', 14, 16, 5, '2021-06-03 11:35:30', '2021-06-03 11:35:30');
 INSERT INTO `restrant_take_outs` VALUES (12, 1297, '2021-06-03', '10:00', '12:00', 10, 12, 5, '2021-06-03 17:50:41', '2021-06-03 17:50:41');
@@ -1190,49 +1199,52 @@ INSERT INTO `restrant_take_outs` VALUES (23, 1297, '2021-06-06', '10:00', '11:00
 INSERT INTO `restrant_take_outs` VALUES (24, 1297, '2021-06-06', '12:00', '14:00', 12, 14, 0, '2021-06-06 12:29:51', '2021-06-06 12:33:14');
 INSERT INTO `restrant_take_outs` VALUES (25, 1297, '2021-06-06', '15:00', '18:00', 15, 18, 4, '2021-06-06 12:29:51', '2021-06-06 12:29:51');
 INSERT INTO `restrant_take_outs` VALUES (26, 1297, '2021-06-07', '10:00', '12:00', 10, 12, 2, '2021-06-06 12:39:42', '2021-06-06 12:39:42');
-INSERT INTO `restrant_take_outs` VALUES (27, 1297, '2021-08-17', '10:00', '11:00', 10, 11, 0, '2021-08-17 17:17:42', '2021-08-17 17:17:42');
-INSERT INTO `restrant_take_outs` VALUES (28, 1297, '2021-08-17', '18:00', '20:00', 18, 20, 12, '2021-08-17 17:17:42', '2021-08-17 17:17:42');
+INSERT INTO `restrant_take_outs` VALUES (29, 1297, '2021-08-17', '10:00', '11:00', 10, 11, 0, '2021-08-17 21:25:03', '2021-08-17 21:25:03');
+INSERT INTO `restrant_take_outs` VALUES (30, 1297, '2021-08-17', '18:00', '20:00', 18, 20, 12, '2021-08-17 21:25:03', '2021-08-17 21:25:03');
+INSERT INTO `restrant_take_outs` VALUES (31, 1297, '2021-08-17', '20:00', '23:00', 20, 23, 8, '2021-08-17 21:25:03', '2021-08-17 22:49:35');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for restrants
 -- ----------------------------
 DROP TABLE IF EXISTS `restrants`;
-CREATE TABLE `restrants`  (
+CREATE TABLE `restrants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `post` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `pref` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `city` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `street` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `latitude` double NOT NULL DEFAULT 35.681382,
-  `longitude` double NOT NULL DEFAULT 139.766084,
-  `type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `paymentType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '販売形式',
-  `animal` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `homepage` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `workday` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `owner` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `stuff1` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `tel` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `mb` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fax` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `comment` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `PR` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `ranking` tinyint(4) NULL DEFAULT NULL,
-  `partner` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `grant` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `DM` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '未送付',
-  `GJ` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '表示',
-  `updated_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `created_at` datetime(0) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `post` varchar(16) DEFAULT NULL,
+  `pref` varchar(20) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `street` varchar(50) DEFAULT NULL,
+  `latitude` double NOT NULL DEFAULT '35.681382',
+  `longitude` double NOT NULL DEFAULT '139.766084',
+  `type` varchar(20) DEFAULT NULL,
+  `paymentType` varchar(20) DEFAULT NULL COMMENT '販売形式',
+  `animal` varchar(40) DEFAULT NULL,
+  `homepage` varchar(50) DEFAULT NULL,
+  `workday` varchar(40) DEFAULT NULL,
+  `owner` varchar(20) DEFAULT NULL,
+  `stuff1` varchar(20) DEFAULT NULL,
+  `tel` varchar(20) DEFAULT NULL,
+  `mb` varchar(20) DEFAULT NULL,
+  `fax` varchar(20) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `comment` text,
+  `PR` text,
+  `ranking` tinyint(4) DEFAULT NULL,
+  `partner` varchar(20) DEFAULT NULL,
+  `grant` varchar(20) NOT NULL DEFAULT '',
+  `DM` varchar(20) NOT NULL DEFAULT '未送付',
+  `GJ` varchar(20) NOT NULL DEFAULT '表示',
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1299 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=1299 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrants
 -- ----------------------------
+BEGIN;
 INSERT INTO `restrants` VALUES (12, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk0QQcnaYZ5YaA0HZyn1q', 'まるごと北海道・浅草店', '111-0032', '東京都', '台東区', '浅草２－１１－５国本ビル２階　', 35.714013, 139.792699, 'その他', 'イートイン', 'ホンシュウ鹿,猪', 'http://www.marugotohokkaido.com/restaurant/', NULL, '川上', NULL, '03-5827-2255', '080-6565-1688', NULL, 'caomenglong788@gmail.com', NULL, NULL, 50, '常連', '未申請', '送付済', '表示', '2021-07-16 15:58:03', '2017-07-25 00:00:00');
 INSERT INTO `restrants` VALUES (25, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk0QQcnaYZ5YaA0HZyn1q', '代官山　RINGRAZIARE KOJI MORITA', '150-0033', '東京都', '渋谷区', '猿楽町２－１１氷川ビル４０２号室', 35.681382, 139.766084, 'イタリアン', 'イートイン', 'ホンシュウ鹿,猪', 'https://ringraziare.jp/', NULL, '森田', NULL, '03-6416-1648', '080-5686-4857', NULL, 'k.morita@ringraziare.tokyo', NULL, NULL, 50, '常連', '未申請', '未送付', '表示', '2021-07-16 15:58:03', '2017-08-07 00:00:00');
 INSERT INTO `restrants` VALUES (30, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk0QQcnaYZ5YaA0HZyn1q', 'トラットリアゴデレッチョ恵比寿', '150-0021', '東京都', '渋谷区', '恵比寿西１－３０－１４エコー代官山１Ｆ', 35.681382, 139.766084, 'イタリアン', 'イートイン', 'ホンシュウ鹿,猪', NULL, NULL, '新島', NULL, '03-6416-1548', NULL, NULL, 'godereccio@kings-know.co.jp', NULL, NULL, 50, '常連', '未申請', '未送付', '表示', '2021-07-16 15:58:03', '2017-08-09 00:00:00');
@@ -2211,89 +2223,103 @@ INSERT INTO `restrants` VALUES (1293, '$2y$10$rRPsuKDSChCtK4VcTzOY6eG85MZi.jpkTk
 INSERT INTO `restrants` VALUES (1295, '$2y$10$kMpAUIN6.I.2dmA8v1IR/./a3O7hGOUf7UC6Aph7NAJNiZbMC1sl6', '南区大字太田窪唐揚げ', '3360015', '埼玉県', 'さいたま市', '２０８８−７', 35.8528661, 139.6454782, 'イタリアン', '現地決済', '猪,兎,ヌートリア', 'www.google.com.jp', '水,木,不定', '牛宏剛', '牛宏剛', '07026638216', '07026638216', NULL, 'niuhonggang007@gmail.com', NULL, NULL, 50, '申請中', '未申請', '未送付', '表示', '2021-07-16 16:29:47', '2021-05-15 15:52:19');
 INSERT INTO `restrants` VALUES (1297, '$2y$10$AiRc9qbQXwGMOqACcam.wuIz.7qeXDRmPXjmD7eW.cLr8W2K4O986', '唐揚げ太田窪支店', '3360015', '埼玉県', 'さいたま市', '南区太田窪2088-7', 35.8519226, 139.6776857, 'イタリアン', 'イートイン', 'ホンシュウ鹿,ハクビシン,エゾ鹿', 'www.home.jp', '日,不定', 'テスト', 'テスト', '07026638216', NULL, '22222', 'niuhonggang008@gmail.com', NULL, NULL, 50, '申請中', '未申請', '未送付', '表示', '2021-08-17 17:12:07', '2021-05-18 18:25:23');
 INSERT INTO `restrants` VALUES (1298, '$2y$10$Um./SprbkcmIO.ZXDxBKe.e49npqxw4qnr8zjQPe4DMegjICTqqqe', '测试店铺', '3360015', '埼玉県', 'さいたま市', '南区大字太田窪', 35.8516048, 139.6847564, '中華料理', 'イートイン', '猪,兎', 'www.google.com', '月,木,不定', 'テスト', 'テスト', '07026654318', '07026654318', NULL, 'test@gmail.com', NULL, 'テスト', 50, '申請中', '未申請', '未送付', '表示', '2021-07-16 15:58:03', '2021-06-06 13:15:55');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for restrants_orders
 -- ----------------------------
 DROP TABLE IF EXISTS `restrants_orders`;
-CREATE TABLE `restrants_orders`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `restrants_orders` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `order_sn` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `restrant_id` int(11) NOT NULL,
-  `restrant_take_out_id` int(11) NULL DEFAULT NULL COMMENT 'テイクアウト来店時間帯主キー',
+  `restrant_take_out_id` int(11) DEFAULT NULL COMMENT 'テイクアウト来店時間帯主キー',
   `user_id` bigint(20) NOT NULL,
   `status` tinyint(4) NOT NULL COMMENT '0:默认，1：正常，2：取消',
   `pay_status` tinyint(4) NOT NULL COMMENT '0:未支付，1：已支付',
   `payment` int(11) NOT NULL COMMENT '1:代引き、2:現地決済',
   `product_number` int(11) NOT NULL,
   `order_amount` int(11) NOT NULL,
-  `product_amount` int(11) NULL DEFAULT NULL COMMENT '注文価格',
-  `receive_type` enum('登録住所','その他') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '受取方式',
-  `consignee` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '受取者の名前',
-  `delivery_date` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `delivery_fee` int(11) NULL DEFAULT NULL COMMENT '配送料',
-  `tip_fee` int(255) NULL DEFAULT NULL COMMENT '手续费',
-  `tel` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '電話番号',
-  `post` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '郵便番号',
-  `pref` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '都道府県',
-  `address` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '詳細住所',
-  `receiveDate` date NULL DEFAULT NULL COMMENT '领取日期',
-  `receiveTime` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '领取时间带',
-  `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '備考',
-  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'token',
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `product_amount` int(11) DEFAULT NULL COMMENT '注文価格',
+  `receive_type` enum('登録住所','その他') DEFAULT NULL COMMENT '受取方式',
+  `consignee` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '受取者の名前',
+  `delivery_date` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_fee` int(11) DEFAULT NULL COMMENT '配送料',
+  `tip_fee` int(255) DEFAULT NULL COMMENT '手续费',
+  `tel` varchar(50) DEFAULT NULL COMMENT '電話番号',
+  `post` varchar(50) DEFAULT NULL COMMENT '郵便番号',
+  `pref` varchar(50) DEFAULT NULL COMMENT '都道府県',
+  `address` varchar(128) DEFAULT NULL COMMENT '詳細住所',
+  `receiveDate` date DEFAULT NULL COMMENT '领取日期',
+  `receiveTime` varchar(50) DEFAULT NULL COMMENT '领取时间带',
+  `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '備考',
+  `token` varchar(255) DEFAULT NULL COMMENT 'token',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrants_orders
 -- ----------------------------
-INSERT INTO `restrants_orders` VALUES (26, '2021081751504949', 1297, NULL, 11, 1, 1, 1, 1, 2790, 1240, '登録住所', 'niuhonggang', NULL, 972, 324, '07026638216', '3360015', NULL, 'さいたま市南区', '2021-08-17', NULL, NULL, 'e8UqKpGf1QQAXXa_26', '2021-08-17 17:08:19', '2021-08-17 19:24:47');
+BEGIN;
+INSERT INTO `restrants_orders` VALUES (30, '2021081751101495', 1297, 31, 11, 1, 1, 2, 1, 1364, 1240, NULL, 'niuhonggang', '2021-08-17 22:36', 0, 0, '07026638216', '3360015', NULL, 'さいたま市南区', NULL, NULL, NULL, 'xpMnwovwp9Tk2Vo_30', '2021-08-17 22:36:19', '2021-08-17 22:36:29');
+INSERT INTO `restrants_orders` VALUES (31, '2021081749534957', 1297, 31, 11, 1, 1, 2, 1, 1364, 1240, '登録住所', 'niuhonggang', '2021-08-17 22:49', 0, 0, '07026638216', '3360015', NULL, 'さいたま市南区', NULL, NULL, NULL, 'TIEHZHMb20877wD_31', '2021-08-17 22:38:09', '2021-08-17 22:49:36');
+INSERT INTO `restrants_orders` VALUES (32, '2021081754575654', 1297, NULL, 11, 1, 1, 1, 1, 2790, 1240, '登録住所', 'niuhonggang', NULL, 972, 324, '07026638216', '3360015', NULL, 'さいたま市南区', '2021-08-17', '1618', NULL, 'Xxd4Illk5c42NKi_32', '2021-08-17 22:51:18', '2021-08-17 22:51:36');
+INSERT INTO `restrants_orders` VALUES (33, '2021081710154559', 1297, NULL, 11, 1, 1, 1, 1, 2790, 1240, '登録住所', 'niuhonggang', NULL, 972, 324, '07026638216', '3360015', '埼玉県', 'さいたま市南区', '2021-08-17', NULL, NULL, 'fp0qGhHlvwY7iit_33', '2021-08-17 23:03:58', '2021-08-17 23:04:16');
+INSERT INTO `restrants_orders` VALUES (34, '2021081756101974', 1297, NULL, 11, 1, 1, 1, 2, 4629, 2480, 'その他', '牛桑', NULL, 1404, 324, '07026638216', '064-0941', '北海道', '札幌市中央区', '2021-08-26', NULL, NULL, 'DQYV9M5RFpQFOkG_34', '2021-08-17 23:08:24', '2021-08-17 23:10:12');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for restrants_orders_product
 -- ----------------------------
 DROP TABLE IF EXISTS `restrants_orders_product`;
-CREATE TABLE `restrants_orders_product`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `restrants_orders_product` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `order_id` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL,
   `product_price` int(11) NOT NULL,
   `product_number` int(11) NOT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrants_orders_product
 -- ----------------------------
-INSERT INTO `restrants_orders_product` VALUES (30, 26, 43, 1240, 1, '2021-08-17 17:08:19', '2021-08-17 17:08:19');
+BEGIN;
+INSERT INTO `restrants_orders_product` VALUES (34, 30, 43, 1240, 1, '2021-08-17 22:36:19', '2021-08-17 22:36:19');
+INSERT INTO `restrants_orders_product` VALUES (35, 31, 43, 1240, 1, '2021-08-17 22:38:09', '2021-08-17 22:38:09');
+INSERT INTO `restrants_orders_product` VALUES (36, 32, 43, 1240, 1, '2021-08-17 22:51:18', '2021-08-17 22:51:18');
+INSERT INTO `restrants_orders_product` VALUES (37, 33, 43, 1240, 1, '2021-08-17 23:03:58', '2021-08-17 23:03:58');
+INSERT INTO `restrants_orders_product` VALUES (38, 34, 43, 1240, 2, '2021-08-17 23:08:24', '2021-08-17 23:08:24');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for restrants_products
 -- ----------------------------
 DROP TABLE IF EXISTS `restrants_products`;
-CREATE TABLE `restrants_products`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `restrants_products` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `restrant_id` int(11) NOT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `column` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
-  `number` int(11) NULL DEFAULT NULL COMMENT '商品数量',
+  `number` int(11) DEFAULT NULL COMMENT '商品数量',
   `stock_status` enum('あり','残りわずか','売り切れ') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `original_name` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `picture_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `original_name` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `picture_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrants_products
 -- ----------------------------
+BEGIN;
 INSERT INTO `restrants_products` VALUES (1, 12, '2021-02-09 20:36:48', '2021-04-11 21:17:08', '鹿肉・ジャーキー・犬猫用1', '50g', 600, NULL, 'あり', 'PRD1.jpg', '20210209/203615/EaRSbN2yhXK8w0o3UYeDbfrwumrexwayGKTT9YOc.jpg', '低温熟成製法で、栄養価を壊さず、旨味そのままを凝縮。ソフトタイプだからワンちゃん、ネコちゃんも大満足。');
 INSERT INTO `restrants_products` VALUES (2, 12, '2021-02-09 20:38:05', '2021-02-09 20:38:05', '鹿肉・ぶつ切り・犬猫用', '200g×５パック', 2000, NULL, 'あり', 'PRD2.jpg', '20210209/203803/GefXJynxa8W7MGyBBezP3Ai9VRQ00LCrqwvGBB0B.jpg', '鹿のネック・バラ・ももを調理しやすいようにぶつ切りにしました。食肉と同様のレーンで解体・カットした高品質な生肉です。');
 INSERT INTO `restrants_products` VALUES (3, 12, '2021-02-09 20:38:55', '2021-04-01 11:11:23', '鹿肉・ミンチ・犬猫用', '200g×10パック', 2500, NULL, 'あり', 'PRD3.jpg', '20210209/203847/KBY3wdEY3FOQVlUU7Rq55U2X4MfZ4yhCoNxfVBaa.jpg', '鹿の端肉・ネック・スジで作った鹿肉100%のミンチです 。鮮度と便利さを両立させた小分けタイプです。※写真と異なります。１パック200ｇとなります。');
@@ -2306,81 +2332,89 @@ INSERT INTO `restrants_products` VALUES (39, 25, '2021-04-12 01:28:00', '2021-04
 INSERT INTO `restrants_products` VALUES (40, 25, '2021-04-17 03:26:24', '2021-04-17 06:24:57', 'test3', '12', 2322, NULL, 'あり', 'B5wp2oFCvx1e06dcjfF8vkLmadlCQBtaE9olAKYs.jpg', '20210416/182621/BJxYgtXFWWrfbnc4PzaCQMetgnVni7DRoqowrPpn.jpg', '低温熟成製法で、栄養価を壊さず、旨味そのままを凝縮。ソフトタイプだからワンちゃん、ネコちゃんも大満足。');
 INSERT INTO `restrants_products` VALUES (42, 12, '2021-04-18 22:18:40', '2021-04-18 22:18:47', 'test1', '10', 100, NULL, 'あり', 'B5wp2oFCvx1e06dcjfF8vkLmadlCQBtaE9olAKYs.jpg', '20210418/131830/y1qzl3CYWOf6JfSFXATMxolMXruLHvmDvc1nyxxG.jpg', 'ccccccccccccccccccccccccccccccccccccccccccccc\ncccccccccccccccccccccccccccccccccccccc');
 INSERT INTO `restrants_products` VALUES (43, 1297, '2021-05-29 21:30:14', '2021-06-05 11:59:14', 'スパイスと野菜の織りなす、マイルドで上品な味わいを堪能する『大先輩セット』', '100G', 1240, 30, 'あり', '459555-5b31e8e8aee0b-l.jpg', '20210529/212946/0rEgOjlzDMxVpx2UFIFbke8nXY3499KRNTMI7cIe.jpg', '美味しい');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sessions
 -- ----------------------------
 DROP TABLE IF EXISTS `sessions`;
-CREATE TABLE `sessions`  (
+CREATE TABLE `sessions` (
   `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL,
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `payload` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `sessions_user_id_index`(`user_id`) USING BTREE,
-  INDEX `sessions_last_activity_index`(`last_activity`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  KEY `sessions_user_id_index` (`user_id`) USING BTREE,
+  KEY `sessions_last_activity_index` (`last_activity`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('gdiypoUXOFPMtw1ONhMQnbcrQSkciMV11TZsHD4f', 11, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiTmlveVRGUjBETmZ1cE8xcmoxNnZZbTFMMUU5RXhVVWxhOVhwZVMycyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYXlTdWNjZXNzP3Rva2VuPWU4VXFLcEdmMVFRQVhYYV8yNiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjExO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkdWM3NE11Y3VPdW5JMS9xRmRFQzdBZTV2VzF2SkQuRFhidktPUEVGWk1rRFJ1MmN0ajNoSmUiO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEwJHVjNzRNdWN1T3VuSTEvcUZkRUM3QWU1dlcxdkpELkRYYnZLT1BFRlpNa0RSdTJjdGozaEplIjtzOjU1OiJsb2dpbl9yZXN0cmFudF81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEyOTc7fQ==', 1629195891);
+BEGIN;
+INSERT INTO `sessions` VALUES ('8UPGMgn2YfgeeSZRTK7YjIJ7VeoYRYopGiLZ5Y6M', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMEJHMk9ydkxBUE1pUDhsa0hSQ0pqZzRqM1M1MERZQWRoczlpY0xKeSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1631431489);
+INSERT INTO `sessions` VALUES ('g6v138Dw4o5oOcGVTAycCCrM5J1UigRf3O3AJmqZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoia0FVUDRaUkhNZW1pUnlpU1dkUHJ4ZlBWbEY1bE5kTzhMakIzeHF3VyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kZXRhaWw/aWQ9MTI5NyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTU6ImxvZ2luX3Jlc3RyYW50XzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI5Nzt9', 1631429466);
+INSERT INTO `sessions` VALUES ('QVyCTvnqHnEWrPxSFth0Le8xsu2ddSzarm4v5ih7', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTnFKWFlrdlFuVXBIajEwVVA4RHRyWnV5dWJmeXFBUXZCY0NBQndOWiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZXN0cmFudC9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTU6ImxvZ2luX3Jlc3RyYW50XzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI5Nzt9', 1631431262);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for stocks
 -- ----------------------------
 DROP TABLE IF EXISTS `stocks`;
-CREATE TABLE `stocks`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `plant_id` int(10) UNSIGNED NOT NULL,
-  `bio_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+CREATE TABLE `stocks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `plant_id` int(10) unsigned NOT NULL,
+  `bio_id` varchar(20) DEFAULT NULL,
   `animal` tinyint(4) NOT NULL,
   `sex` tinyint(4) NOT NULL,
   `state` tinyint(4) NOT NULL,
   `bone` tinyint(4) NOT NULL,
   `part` tinyint(4) NOT NULL,
-  `divisible` tinyint(4) NULL DEFAULT NULL,
-  `mount` int(11) NULL DEFAULT NULL,
-  `price` int(11) NULL DEFAULT NULL,
-  `memo` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `harvest_date` date NULL DEFAULT NULL,
-  `frozen_date` date NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `created_at` datetime(0) NULL DEFAULT NULL,
+  `divisible` tinyint(4) DEFAULT NULL,
+  `mount` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `memo` mediumtext,
+  `harvest_date` date DEFAULT NULL,
+  `frozen_date` date DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of stocks
 -- ----------------------------
+BEGIN;
 INSERT INTO `stocks` VALUES (1, 1, NULL, 1, 0, 1, 1, 1, 1, 11, 11, NULL, NULL, NULL, '2017-10-27 04:18:18', '2017-10-27 04:18:18');
 INSERT INTO `stocks` VALUES (3, 1, 'A-0011', 1, 0, 2, 1, 1, 1, 11, 11, NULL, '2017-11-01', NULL, '2017-10-27 04:56:27', '2017-10-27 13:56:27');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
-  `telphone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `post` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `pref` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `address` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `telphone` varchar(20) DEFAULT NULL,
+  `post` varchar(20) DEFAULT NULL,
+  `pref` varchar(20) DEFAULT NULL,
+  `address` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `users_email_unique` (`email`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+BEGIN;
 INSERT INTO `users` VALUES (1, 'Han Chenggao', 'hanchenggao@mac.com', '$2y$10$KbzXE.7ldYerDLmvQlCOFuLSyRalf9K7908CrWbwsuMBkd2HmXjzK', '5UwszUaUq0TTIo1f9w52TeMhyJ4zVyuJWBFVVOxI6pn3stJLBnkDnxeO2yca', '2017-09-27 08:25:11', '2017-09-27 08:25:11', NULL, NULL, NULL, NULL);
 INSERT INTO `users` VALUES (2, 'marche', 'order@gibier-marche.com', '$2y$10$HrZj7rs2F4h6WtlmDbZ1DudjoGJykaOrSvW6vvHgjiDrH6eRMl7zG', '1SRThPLXwgP1A66Iro16QJPpx0DCe2s1qBKXvpd6wsF0OVihXD3pWyY0Xabr', '2017-11-24 05:20:01', '2017-11-24 05:20:01', NULL, NULL, NULL, NULL);
 INSERT INTO `users` VALUES (3, '知床ジャーニー', 'siretoko@mac.com', '$2y$10$XeZasmOthimdC5BWl/WaGudqGxx.aMx/68cvJq2wqxaQnZxA4yhmq', 'hfpS4n8w3hiKxLAqXINz0wwbgpZ5LvRmDhlL3lumqxxv2Y85as6aZBYvlhRb', '2020-08-10 03:57:34', '2020-08-10 03:57:34', NULL, NULL, NULL, NULL);
@@ -2391,5 +2425,6 @@ INSERT INTO `users` VALUES (7, 'QBRT9P17DKPHFPAX4IC9FRBQ http://google.com/375',
 INSERT INTO `users` VALUES (8, 'ソウムリュウ', 'caomenglong788@gmail.com', '$2y$10$1ML16JuAlM2d1Khfhh2CN.zUe69WHkxHKYGpYHGVF7wBKY953HS7O', 'SdRU6GJjHW42lq7y5HFlx1oxEeUbBtPfUVJvi9nKND3kxsL3v6CMO1QREZ7n', '2021-04-10 05:55:29', '2021-04-12 04:09:04', NULL, NULL, NULL, NULL);
 INSERT INTO `users` VALUES (9, 'Test2', 'test@test.com', '$2y$10$DR.Ly9LugCV9ni/ZFa3/weJUcDB92vKyZX2wAZOHE0/5nehYnU5HC', NULL, '2021-04-11 22:22:57', '2021-04-11 22:38:08', NULL, NULL, NULL, NULL);
 INSERT INTO `users` VALUES (11, 'niuhonggang', 'niuhonggang007@gmail.com', '$2y$10$uc74MucuOunI1/qFdEC7Ae5vW1vJD.DXbvKOPEFZMkDRu2ctj3hJe', 'pe9kNdgoXD1bWZVnS3MnnSlpABXMKti1Sf5V1EqwbDp2p1WsQHgd3zqYwywl', '2021-05-12 08:39:36', '2021-07-16 18:15:43', '07026638216', '3360015', '埼玉県', 'さいたま市南区');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
