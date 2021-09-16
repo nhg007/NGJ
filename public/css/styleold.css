@@ -57,11 +57,9 @@ ul, li {
   margin: 0 auto;
   max-width: 1000px;
   padding-top: 10px;
+  width: 80%;
+}
 
-}
-.search-box {
-  margin-bottom: 30px;
-}
 
 .search-box .form-control:focus {
   border-color:#8c8c8c;
@@ -84,6 +82,8 @@ select,option{
   background:#fff;
   padding-right: .14rem;
 }
+
+
 
 /* CHOSEN PLUGIN */
 

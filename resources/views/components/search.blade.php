@@ -25,7 +25,7 @@
         </div>
       
         <div class="col-sm-1">
-            <button type="button" class="btn btn-danger form-control-lg w-100 btn-search">検索</button>
+            <button type="button" class="btn btn-danger form-control-lg btn-search">検索</button>
         </div>
     </div>
 </div>
