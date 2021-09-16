@@ -138,27 +138,6 @@
             style="width: 60%"
           ></el-input>
         </el-form-item>
-        <el-form-item label="備考">
-          <el-input
-            type="textarea"
-            rows="5"
-            v-model="form.comment"
-            style="width: 60%"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="ランギング">
-          <el-row :gutter="20">
-            <el-col :span="1">
-              <el-tag>低い</el-tag>
-            </el-col>
-            <el-col :span="8">
-              <el-slider v-model="form.ranking"></el-slider>
-            </el-col>
-            <el-col :span="3">
-              <el-tag>高い</el-tag>
-            </el-col>
-          </el-row>
-        </el-form-item>
         <el-form-item label="店舗外観">
           <el-upload
             class="avatar-uploader"

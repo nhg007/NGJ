@@ -1,5 +1,5 @@
 @include('components.head')
-<body>
+<body style="overflow-x: hidden">
 @stack('css')
 <div id="wrapper">
     @include('components.top')

@@ -25,9 +25,9 @@
                     </el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
-                    <template slot="title"><i class="el-icon-setting"></i>系统管理</template>
+                    <template slot="title"><i class="el-icon-setting"></i>システム管理</template>
                     <el-menu-item index="3-1">
-                        <router-link to="/profile">店铺信息</router-link>
+                        <router-link to="/profile">店铺情報</router-link>
                     </el-menu-item>
                     <el-menu-item index="3-2">
                         <router-link to="/takeout">テイクアウト</router-link>
