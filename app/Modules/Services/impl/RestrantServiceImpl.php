@@ -42,8 +42,13 @@ class RestrantServiceImpl implements RestrantServcie
         $id = Auth::guard('restrant')->id();
 
         $outFiles = $request->get('outFiles');
+        $outComment = $request->get('outComment');
         $innerFiles = $request->get('innerFiles');
+        $innerComment = $request->get('innerComment');
         $staffFiles = $request->get('staffFiles');
+        $staffComment = $request->get('staffComment');
+        $foodFiles = $request->get('foodFiles');
+        $foodComment = $request->get('foodComment');
 
 
         //レストラン情報を更新する
@@ -98,12 +103,25 @@ class RestrantServiceImpl implements RestrantServcie
                     Storage::disk('uploads')->delete($restrantImage->staffPic);
                 }
             }
+
+            //food
+            if ($restrantImage->foodPic != $foodFiles) {
+                //删除文件
+                if (Storage::disk('uploads')->exists($restrantImage->$foodFiles)) {
+                    Storage::disk('uploads')->delete($restrantImage->$foodFiles);
+                }
+            }
         }
 
         $restrantImage->restrant_id = $id;
         $restrantImage->outPic = $outFiles;
+        $restrantImage->outComment = $outComment;
         $restrantImage->innerPic = $innerFiles;
+        $restrantImage->innerComment = $innerComment;
         $restrantImage->staffPic = $staffFiles;
+        $restrantImage->staffComment = $staffComment;
+        $restrantImage->foodPic = $foodFiles;
+        $restrantImage->foodComment = $foodComment;
 
         $restrantImage->save();
         return response()->json(JsonResult::success($message, 200, $restrantImage));

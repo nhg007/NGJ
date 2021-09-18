@@ -2,7 +2,8 @@ var animal = 'ホンシュウ鹿,猪,ツキノワグマ,ヒグマ,アナグマ,�
 var type = 'イタリアン,フレンチ,中華料理,日本料理,その他';
 let paymentType = 'イートイン,現地決済,郵送';
 var config = {
-    no_results_text: 'データを見つかりません。'
+    no_results_text: 'データを見つかりません。',
+    allow_single_deselect:true
 }
 
 

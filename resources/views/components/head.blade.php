@@ -14,13 +14,13 @@
     <meta name="description" content="ジビエ・ジャポン オフィシャルサイト"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/fontawesome/css/all.css">
-    <link href="/css/chosen.css" rel="stylesheet">
+    <link href="/chosen_v1.8.7/chosen.css" rel="stylesheet">
     <link href="{{ asset('/css/reset.css') }}" media="all" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('/css/styleold.css') }}" media="all" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.jquery.min.js"></script>
+    <script src="/chosen_v1.8.7/chosen.jquery.min.js"></script>
     <script src="/js/search.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK6GPBCxZEmYmCPckjSG4cjonOespvxE8&callback=utils.getCurrentPos&language=ja"></script>

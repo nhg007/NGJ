@@ -96,7 +96,9 @@ class IndexController extends Controller
         $restrantId =$request->query("id");
         $products = $this->productService->getListsByRestrantId($restrantId);
 
-        return view('detail',['restrant' => $result,"products" =>$products,"restrantId"=>$restrantId]);
+        $prefList = $restrant->getAllPrefs();
+
+        return view('detail',['restrant' => $result,"products" =>$products,"restrantId"=>$restrantId,'prefList' => $prefList]);
     }
 
     public function getLocationRangeApi(Request $request){
