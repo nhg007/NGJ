@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 12/09/2021 16:43:13
+ Date: 19/09/2021 13:13:55
 */
 
 SET NAMES utf8mb4;
@@ -1139,10 +1139,15 @@ CREATE TABLE `restrant_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '表主键',
   `restrant_id` int(11) DEFAULT NULL COMMENT '店铺主键',
   `outPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '外观',
+  `outComment` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '外観コメント',
   `innerPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内饰',
+  `innerComment` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内観コメント',
   `staffPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '店员',
+  `staffComment` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'スタッフコメント',
+  `foodPic` varchar(60) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '料理',
+  `foodComment` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '料理コメント',
   `created_at` datetime DEFAULT NULL COMMENT '创建日期',
-  `updated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL COMMENT '更新日',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
 
@@ -1150,8 +1155,8 @@ CREATE TABLE `restrant_images` (
 -- Records of restrant_images
 -- ----------------------------
 BEGIN;
-INSERT INTO `restrant_images` VALUES (3, 1295, NULL, NULL, NULL, '2021-07-16 14:51:12', '2021-07-16 14:51:12');
-INSERT INTO `restrant_images` VALUES (4, 1297, '20210912/162054/aqDZpU08a90SN9klaOwzsiVuhaHYZwH2acuSEfR3.png', '20210912/162100/2sFbP1X4tpKOojWbu9P8FAJHA3wykeLJg3Pll2CB.png', NULL, '2021-09-12 15:50:34', '2021-09-12 16:21:02');
+INSERT INTO `restrant_images` VALUES (3, 1295, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-07-16 14:51:12', '2021-07-16 14:51:12');
+INSERT INTO `restrant_images` VALUES (4, 1297, '20210918/202948/DcappU2UsBiaNVRlmjCFtHHaEvWtrKv819e6unzT.jpg', '素晴らしいの店、\nすごい!!!!', '20210918/202954/BIiqIZTUJCZuLhvgkkZGGGjwjHnZ1iWhOeVKK6bn.jpg', '素晴らしいの店、\nすごい!!!', '20210918/202959/FxuqbtnVdk1GGRoGGXSilPmlT4DGuWduukB1CX5L.jpg', '素晴らしいですね！', '20210918/203004/FcdyvuMydFBakUOjK0WNcBIcTCktOthhQHF6wKS4.jpg', '料理も美味しい', '2021-09-12 15:50:34', '2021-09-18 20:30:05');
 COMMIT;
 
 -- ----------------------------
@@ -2314,7 +2319,7 @@ CREATE TABLE `restrants_products` (
   `picture_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of restrants_products
@@ -2332,6 +2337,7 @@ INSERT INTO `restrants_products` VALUES (39, 25, '2021-04-12 01:28:00', '2021-04
 INSERT INTO `restrants_products` VALUES (40, 25, '2021-04-17 03:26:24', '2021-04-17 06:24:57', 'test3', '12', 2322, NULL, 'あり', 'B5wp2oFCvx1e06dcjfF8vkLmadlCQBtaE9olAKYs.jpg', '20210416/182621/BJxYgtXFWWrfbnc4PzaCQMetgnVni7DRoqowrPpn.jpg', '低温熟成製法で、栄養価を壊さず、旨味そのままを凝縮。ソフトタイプだからワンちゃん、ネコちゃんも大満足。');
 INSERT INTO `restrants_products` VALUES (42, 12, '2021-04-18 22:18:40', '2021-04-18 22:18:47', 'test1', '10', 100, NULL, 'あり', 'B5wp2oFCvx1e06dcjfF8vkLmadlCQBtaE9olAKYs.jpg', '20210418/131830/y1qzl3CYWOf6JfSFXATMxolMXruLHvmDvc1nyxxG.jpg', 'ccccccccccccccccccccccccccccccccccccccccccccc\ncccccccccccccccccccccccccccccccccccccc');
 INSERT INTO `restrants_products` VALUES (43, 1297, '2021-05-29 21:30:14', '2021-06-05 11:59:14', 'スパイスと野菜の織りなす、マイルドで上品な味わいを堪能する『大先輩セット』', '100G', 1240, 30, 'あり', '459555-5b31e8e8aee0b-l.jpg', '20210529/212946/0rEgOjlzDMxVpx2UFIFbke8nXY3499KRNTMI7cIe.jpg', '美味しい');
+INSERT INTO `restrants_products` VALUES (44, 1297, '2021-09-18 20:30:57', '2021-09-18 20:30:57', '担々麺', '12g', 1240, 30, 'あり', 'cuisine.jpg', '20210918/203054/bXXtC3frRgkd90IrAXjnnJ7RDIzB9lsPuqcCAZpP.jpg', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -2354,9 +2360,7 @@ CREATE TABLE `sessions` (
 -- Records of sessions
 -- ----------------------------
 BEGIN;
-INSERT INTO `sessions` VALUES ('8UPGMgn2YfgeeSZRTK7YjIJ7VeoYRYopGiLZ5Y6M', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMEJHMk9ydkxBUE1pUDhsa0hSQ0pqZzRqM1M1MERZQWRoczlpY0xKeSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1631431489);
-INSERT INTO `sessions` VALUES ('g6v138Dw4o5oOcGVTAycCCrM5J1UigRf3O3AJmqZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoia0FVUDRaUkhNZW1pUnlpU1dkUHJ4ZlBWbEY1bE5kTzhMakIzeHF3VyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kZXRhaWw/aWQ9MTI5NyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTU6ImxvZ2luX3Jlc3RyYW50XzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI5Nzt9', 1631429466);
-INSERT INTO `sessions` VALUES ('QVyCTvnqHnEWrPxSFth0Le8xsu2ddSzarm4v5ih7', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTnFKWFlrdlFuVXBIajEwVVA4RHRyWnV5dWJmeXFBUXZCY0NBQndOWiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZXN0cmFudC9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTU6ImxvZ2luX3Jlc3RyYW50XzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI5Nzt9', 1631431262);
+INSERT INTO `sessions` VALUES ('RXba3fpyZmgJP5RlG2Rw89kP2OsTHBAq6eGvQZTE', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZW5zYjdyUWJSdmRWcGQ3QTZiekFBNDZrS1RpTjE4b2dvYXlKNGxqOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kZXRhaWw/aWQ9MTI5NyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTU6ImxvZ2luX3Jlc3RyYW50XzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI5Nzt9', 1631965084);
 COMMIT;
 
 -- ----------------------------
