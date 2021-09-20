@@ -2,10 +2,17 @@
 @section('title', 'Top')
 
 @section('content')
-<main id="contents">
-    <div class="new form-row">
-    </div>
+@include('components.frame.navbar')
+<main>
+@include('components.mainvisual')
+@include('components.menu')
 </main>
+
 @endsection
 @section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        utils.topSearchEvent()
+    })
+</script>
 @endsection

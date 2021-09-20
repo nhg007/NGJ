@@ -17,13 +17,14 @@ class IndexController extends Controller
     {
         $this->productService = $productService;
     }
+
     //
     public function index(Request $request)
     {
         $restrant = new Search($request);
         $result = $restrant->getAllPrefs();
 
-        return view('index',['prefList' => $result]);
+        return view('index', ['prefList' => $result]);
     }
 
     public function getCityListApi(Request $request)
@@ -35,25 +36,27 @@ class IndexController extends Controller
 
     }
 
-    public function getRestrantPageListApi(Request $request){
+    public function getRestrantPageListApi(Request $request)
+    {
         $restrant = new Search($request);
         return response()->json($restrant->getRestrantPagerList());
     }
 
-    public function getRestrantRangeListApi(Request $request){
+    public function getRestrantRangeListApi(Request $request)
+    {
 
         $restrant = new Search($request);
         $lng = $request['lng'];
         $lat = $request['lat'];
-        $distance =  $request['distance'];
+        $distance = $request['distance'];
         $list = $restrant->getRestrantListByRange();
 
         $result = [];
-        foreach ($list as $value){
+        foreach ($list as $value) {
             //$to = [$value->longitude,$value->latitude];
-            $cur =  $this->GetDistance($value->latitude,$value->longitude,$lat, $lng);
-            if($cur <= $distance){
-                array_push($result, ["distance" =>$cur,"res"=>$value]);
+            $cur = $this->GetDistance($value->latitude, $value->longitude, $lat, $lng);
+            if ($cur <= $distance) {
+                array_push($result, ["distance" => $cur, "res" => $value]);
             }
         }
         return response()->json($result);
@@ -68,56 +71,75 @@ class IndexController extends Controller
      * @param $lng2
      * @return float|int
      */
-        public function GetDistance($lat1, $lng1, $lat2, $lng2)
-        {
-            $EARTH_RADIUS = 6378.137;
+    public function GetDistance($lat1, $lng1, $lat2, $lng2)
+    {
+        $EARTH_RADIUS = 6378.137;
 
-            $radLat1 = $this->rad($lat1);
-            $radLat2 = $this->rad($lat2);
-            $a = $radLat1 - $radLat2;
-            $b = $this->rad($lng1) - $this->rad($lng2);
-            $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2)));
-            $s = $s * $EARTH_RADIUS;
-            $s = round($s * 10000) / 10000;
+        $radLat1 = $this->rad($lat1);
+        $radLat2 = $this->rad($lat2);
+        $a = $radLat1 - $radLat2;
+        $b = $this->rad($lng1) - $this->rad($lng2);
+        $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2)));
+        $s = $s * $EARTH_RADIUS;
+        $s = round($s * 10000) / 10000;
 
-            return $s;
-        }
+        return $s;
+    }
 
-        private function rad($d)
-        {
-            return $d * M_PI / 180.0;
-        }
+    private function rad($d)
+    {
+        return $d * M_PI / 180.0;
+    }
 
 
+    public function searchResult(Request $request)
+    {
+        $restrant = new Search($request);
+        $prefList = $restrant->getAllPrefs();
 
-    public function detail(Request $request){
+        $animal = $request->get('animal');
+        $pref = $request->get('pref');
+        $city = $request->get('city');
+        $paymentType = $request->get('paymentType');
+
+        return view('index2', ['prefList' => $prefList,
+            'animal' => $animal,
+            'pref' => $pref,
+            'city' => $city,
+            'paymentType' => $paymentType]);
+    }
+
+
+    public function detail(Request $request)
+    {
         $restrant = new Search($request);
         $result = $restrant->getRestrantInfo();
-        $restrantId =$request->query("id");
+        $restrantId = $request->query("id");
         $products = $this->productService->getListsByRestrantId($restrantId);
 
         $prefList = $restrant->getAllPrefs();
 
-        return view('detail',['restrant' => $result,"products" =>$products,"restrantId"=>$restrantId,'prefList' => $prefList]);
+        return view('detail', ['restrant' => $result, "products" => $products, "restrantId" => $restrantId, 'prefList' => $prefList]);
     }
 
-    public function getLocationRangeApi(Request $request){
+    public function getLocationRangeApi(Request $request)
+    {
         $lng = $request["lng"];
         $lat = $request["lat"];
-        $distance =  $request["distance"];
+        $distance = $request["distance"];
 
-        $point = $this->returnSquarePoint($lng,$lat,$distance);
+        $point = $this->returnSquarePoint($lng, $lat, $distance);
         $right_bottom_lat = $point['right_bottom']['lat'];
         $left_top_lat = $point['left_top']['lat'];
         $left_top_lng = $point['left_top']['lng'];
         $right_bottom_lng = $point['right_bottom']['lng'];
 
         return response()->json(
-            [ "right_bottom_lat" => $right_bottom_lat,
-        "left_top_lat" => $left_top_lat,
-        "left_top_lng" => $left_top_lng,
-        "right_bottom_lng" => $right_bottom_lng,
-        ]);
+            ["right_bottom_lat" => $right_bottom_lat,
+                "left_top_lat" => $left_top_lat,
+                "left_top_lng" => $left_top_lng,
+                "right_bottom_lng" => $right_bottom_lng,
+            ]);
     }
 
     /**
@@ -127,17 +149,18 @@ class IndexController extends Controller
      * @return array
      * 根据传入的经纬度，和距离范围，返回所有在距离范围内的经纬度的取值范围
      */
-    function returnSquarePoint($lng, $lat,$distance = 1){
+    function returnSquarePoint($lng, $lat, $distance = 1)
+    {
         $earthRadius = 6378.137;//单位km
-        $dlng =  2 * asin(sin($distance / (2 * $earthRadius)) / cos(deg2rad($lat)));
+        $dlng = 2 * asin(sin($distance / (2 * $earthRadius)) / cos(deg2rad($lat)));
         $dlng = rad2deg($dlng);
-        $dlat = $distance/$earthRadius;
+        $dlat = $distance / $earthRadius;
         $dlat = rad2deg($dlat);
         return array(
-            'left_top'=>array('lat'=>$lat + $dlat,'lng'=>$lng-$dlng),
-            'right_top'=>array('lat'=>$lat + $dlat, 'lng'=>$lng + $dlng),
-            'left_bottom'=>array('lat'=>$lat - $dlat, 'lng'=>$lng - $dlng),
-            'right_bottom'=>array('lat'=>$lat - $dlat, 'lng'=>$lng + $dlng),
+            'left_top' => array('lat' => $lat + $dlat, 'lng' => $lng - $dlng),
+            'right_top' => array('lat' => $lat + $dlat, 'lng' => $lng + $dlng),
+            'left_bottom' => array('lat' => $lat - $dlat, 'lng' => $lng - $dlng),
+            'right_bottom' => array('lat' => $lat - $dlat, 'lng' => $lng + $dlng),
         );
     }
 }

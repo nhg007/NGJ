@@ -1,8 +1,7 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top" >
     <h5 class="my-0 mr-md-auto font-weight-normal"><a href="https://gibier-japon.com">GIBIER JAPON</a></h5>
-    @include('components.search')
+    <a class="btn btn-outline-danger my-0 mr-md-auto font-weight-bold" href="https://gibier-japon.com">ご利用案内</a>
     @if(\Illuminate\Support\Facades\Auth::check())
-
         <a class="nav-link" href="/cart"><i
                 class='fas fa-shopping-cart'></i> カート <span id="badge" class="badge badge-danger" style="display: none">0</span></a>
 

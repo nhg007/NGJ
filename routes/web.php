@@ -11,6 +11,7 @@ use App\Http\Controllers\RestrantController;
 
 // Index Controller
 Route::get('/', [IndexController::class, 'index'])->name('top');
+Route::get('/searchResult', [IndexController::class, 'searchResult'])->name('searchResult');
 Route::get('/detail', [IndexController::class, 'detail'])->name('detail');
 Route::get('/getCityListApi', [IndexController::class, 'getCityListApi'])->name('getCityListApi');
 Route::get('/getLocationRangeApi', [IndexController::class, 'getLocationRangeApi'])->name('getLocationRangeApi');

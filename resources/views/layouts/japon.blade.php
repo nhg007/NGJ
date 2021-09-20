@@ -1,8 +1,9 @@
-@include('components.head')
-<body style="overflow-x: hidden">
+<html lang="ja">
+@include('components.frame.head')
 @stack('css')
+<body>
+  @include('components.frame.logo')
 <div id="wrapper">
-    @include('components.top')
     @yield('content')
     @include('components.footer')
 </div>
@@ -47,3 +48,4 @@
 </script>
 @stack('scripts')
 </body>
+</html>

@@ -544,3 +544,17 @@ button, input {
     height: calc(2.875rem + 2px);
    }
   }
+
+
+#scrolltotop {
+    width: 48px;
+    height: 48px;
+    background: url(/img/top.png) top no-repeat;
+    margin: 0px 15px 10px 0;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    border-radius: 3px;
+}
