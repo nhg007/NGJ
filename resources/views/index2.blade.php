@@ -14,8 +14,8 @@
     <script src="/js/search.js"></script>
     <script type="text/javascript">
         let animalVal = '{{$animal}}';
-        let prefVal = '{{$animal}}';
-        let cityVal = '{{$animal}}';
+        let prefVal = '{{$pref}}';
+        let cityVal = '{{$city}}';
         let paymentTypeVal = '{{$paymentType}}';
         utils.ajaxSearchEvent(animalVal,prefVal,cityVal,paymentTypeVal);
     </script>

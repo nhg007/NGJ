@@ -179,7 +179,7 @@
         { path: '/order', component:OrderComponent},
         { path: '/profile',component:ProfileComponent },
         { path: '/takeout',component:TakeoutComponent },
-        { path: '*', redirect: '/product' },
+        { path: '*', redirect: '/profile' },
     ]
     const router = new VueRouter({
         routes

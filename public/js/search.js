@@ -127,30 +127,13 @@ var utils = {
         $('#ddlPaymentType').html(html.join('')).chosen(config);
     },
 
+
+
     //都道府を初期化する
     initPref: function () {
         $('#ddlPref').chosen(config).change(function () {
-            var pref = this.value;
-            var html = ['<option value=""></option>'];
-            var ddlCity = $('#ddlCity');
-            if (pref) {
-                $.ajax({
-                    url: 'getCityListApi',
-                    data: {pref: pref}
-                }).done(function (res) {
-                    $.each(res, function (index, item) {
-                        html.push(`<option value="${item.city}">${item.city}</option>`);
-                    });
-
-                    ddlCity.html(html.join('')).trigger('chosen:updated');
-                }).fail(function (error) {
-
-                })
-            } else {
-                ddlCity.html(html).trigger('chosen:updated');
-            }
+            utils.initCity(this.value,null)
         });
-
     },
 
     initRestrantList: function () {
@@ -161,8 +144,41 @@ var utils = {
     },
 
     //県を初期化する
-    initCity: function () {
+    initCity: function (pref,city) {
+            var html = ['<option value=""></option>'];
+            if (pref) {
+                $.ajax({
+                    url: 'getCityListApi',
+                    data: {pref: pref}
+                }).done(function (res) {
+                    $.each(res, function (index, item) {
+                        html.push(`<option value="${item.city}">${item.city}</option>`);
+                    });
+                    if(city){
+                        $('#ddlCity').html(html.join(''))
+                        $('#ddlCity').val(city);
+                        $('#ddlCity').trigger('chosen:updated');
+                    }else{
+                        $('#ddlCity').html(html.join(''));
+                        $('#ddlCity').trigger('chosen:updated');
+                    }
+                }).fail(function (error) {
+
+                })
+            } else {
+                $('#ddlCity').html(html);
+                $('#ddlCity').trigger('chosen:updated');
+            }
+
         $('#ddlCity').chosen(config);
+    },
+
+    getCityVal(){
+        let val = $('#ddlCity').val();
+        if(!val){
+            val = utils.data.city;
+        }
+        return val || '';
     },
 
     goDetails: function (id) {
@@ -173,15 +189,16 @@ var utils = {
     },
 
     getRestrantList: function () {
+
         utils.data.pageNo = utils.pageNo;
         utils.data.pageSize = utils.pageSize;
         utils.data.animal = $('#ddlAnimal').val();
         utils.data.pref = $('#ddlPref').val();
-        utils.data.city = $('#ddlCity').val();
+        utils.data.city = this.getCityVal();
         utils.data.type = $('#ddlType').val();
         utils.data.paymentType = $('#ddlPaymentType').val()
 
-        console.info(utils.data)
+        console.info('getRestrantList',utils.data)
 
         $.ajax({
             url: 'getRestrantPageListApi',
@@ -228,6 +245,7 @@ var utils = {
         utils.data.city = cityVal
         utils.data.paymentType = paymentTypeVal
 
+
         //console.info(utils.data.animal)
         $(document).ready(function () {
 
@@ -235,8 +253,8 @@ var utils = {
             $("#ddlAnimal").trigger("chosen:updated");
             $('#ddlPref').val(utils.data.pref);
             $("#ddlPref").trigger("chosen:updated");
-            $('#ddlCity').val(utils.data.city);
-            $("#ddlCity").trigger("chosen:updated");
+            utils.initCity(utils.data.pref,utils.data.city)
+
             $('#ddlPaymentType').val(utils.data.paymentType);
             $("#ddlPaymentType").trigger("chosen:updated");
 
@@ -244,11 +262,10 @@ var utils = {
             //有条件的情况下
             if(utils.data.animal!=""
                 || utils.data.pref!=""
-                && utils.data.city.length!=""
-                && utils.data.paymentType!=""){
-
-                utils.getRestrantList();
-
+                || utils.data.city!=""
+                || utils.data.paymentType!=""){
+                    console.info('----------getRestrantList begin------------------')
+                    utils.getRestrantList();
             }
 
             $('.btn-search').on('click', function () {
@@ -268,6 +285,9 @@ var utils = {
     },
 
     topSearchEvent: function () {
+
+        $('#ddlPref').val('');
+        $("#ddlPref").trigger("chosen:updated");
         $('.btn-search').on('click', function () {
             utils.data.pageNo = utils.pageNo;
             utils.data.pageSize = utils.pageSize;
