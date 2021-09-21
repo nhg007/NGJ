@@ -4,7 +4,8 @@
             </select>
         </div>
         <div class="col-sm-2 py-2">
-            <select id="ddlPref" class="custom-select" data-placeholder="地域" >
+        
+            <select id="ddlPref" class="chosen-select form-control" data-placeholder="地域" tabindex="2">
               <option value="" selected>地域</option>
                 @foreach ($prefList as $pref)
                 <option value="{{ $pref->pref }}">{{ $pref->pref }}
