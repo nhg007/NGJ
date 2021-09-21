@@ -45,11 +45,16 @@
                     </tr>
                     <tr class="row">
                         <td colspan="2" class="col-sm-12">
-                            @if(isset($restrant->RestrantImage) && isset($restrant->RestrantImage->outPic))
-                                <img src="/uploads/{{$restrant->RestrantImage->outPic}}" class="card-img-bottom">
-                            @else
-                                <img src="/img/outer.jpg" class="card-img-bottom">
-                            @endif
+                            <div>
+                                @if(isset($restrant->RestrantImage) && isset($restrant->RestrantImage->outPic))
+                                    <img src="/uploads/{{$restrant->RestrantImage->outPic}}" class="card-img-bottom">
+                                @else
+                                    <img src="/img/outer.jpg" class="card-img-bottom">
+                                @endif
+                                @if(isset($restrant->RestrantImage->outComment))
+                                    <pre>{{$restrant->RestrantImage->outComment}}</pre>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     <tr class="row">
@@ -57,21 +62,47 @@
                     </tr>
                     <tr class="row">
                         <td colspan="2" class="col-sm-12">
-                            @if(isset($restrant->RestrantImage) && isset($restrant->RestrantImage->innerPic))
-                                <img src="/uploads/{{$restrant->RestrantImage->innerPic}}" class="card-img-bottom">
-                            @else
-                                <img src="/img/inner.jpg" class="card-img-bottom">
-                            @endif
+                            <div>
+                                @if(isset($restrant->RestrantImage) && isset($restrant->RestrantImage->innerPic))
+                                    <img src="/uploads/{{$restrant->RestrantImage->innerPic}}" class="card-img-bottom">
+                                @else
+                                    <img src="/img/inner.jpg" class="card-img-bottom">
+                                @endif
+                                @if(isset($restrant->RestrantImage->innerComment))
+                                    <pre>{{$restrant->RestrantImage->innerComment}}</pre>
+                                @endif
+                            </div>
                         </td>
                     </tr>
+
+                    @if(isset($restrant->RestrantImage) && isset($restrant->RestrantImage->foodPic))
+                        <tr class="row">
+                            <th colspan="2" class="col-sm-12">料理</th>
+                        </tr>
+                        <tr class="row">
+                            <td colspan="2" class="col-sm-12">
+                                <div>
+                                    <img src="/uploads/{{$restrant->RestrantImage->foodPic}}" class="card-img-bottom">
+                                    @if(isset($restrant->RestrantImage->foodComment))
+                                        <pre>{{$restrant->RestrantImage->foodComment}}</pre>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
+
                     @if(isset($restrant->RestrantImage) && isset($restrant->RestrantImage->staffPic))
                         <tr class="row">
                             <th colspan="2" class="col-sm-12">スタッフ</th>
                         </tr>
                         <tr class="row">
                             <td colspan="2" class="col-sm-12">
-
-                                <img src="/uploads/{{$restrant->RestrantImage->staffPic}}" class="card-img-bottom">
+                                <div>
+                                    <img src="/uploads/{{$restrant->RestrantImage->staffPic}}" class="card-img-bottom">
+                                    @if(isset($restrant->RestrantImage->staffComment))
+                                        <pre>{{$restrant->RestrantImage->staffComment}}</pre>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endif
@@ -89,4 +120,3 @@
         </section>
     </div>
 </div>
-
