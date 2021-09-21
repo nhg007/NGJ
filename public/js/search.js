@@ -415,7 +415,7 @@ var utils = {
                         })
 
                         $('.new').append(html.join(''));
-                        layer.close(index)
+                        layer.close(utils.index)
 
                     }).fail(function(res){
                         console.info(res);
