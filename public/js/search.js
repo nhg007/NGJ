@@ -94,6 +94,7 @@ var utils = {
     distance: 10,
     instance: 60,
     data: {},
+    index:null,
 
 
     //食材の初期化
@@ -206,9 +207,15 @@ var utils = {
 
             $('.new').append(html.join(''));
             utils.loading = false;
+            if(utils.index!=null){
+                layer.close(utils.index)
+            }
 
         }).fail(function (res) {
             console.info(res);
+            if(utils.index!=null){
+                layer.close(utils.index)
+            }
         });
     },
 
@@ -357,7 +364,7 @@ var utils = {
 
         //loading层
 
-        var index = layer.load(1, {
+        utils.index = layer.load(1, {
             shade: [0.7,'#000'] //0.1透明度的白色背景
         });
 
@@ -412,7 +419,7 @@ var utils = {
 
                     }).fail(function(res){
                         console.info(res);
-                        layer.close(index)
+                        layer.close(utils.index)
                     });
                 }
 
@@ -420,6 +427,7 @@ var utils = {
 
             }).fail(function (res) {
                 utils.getRestrantList();
+                layer.close(utils.index)
             })
 
         }
@@ -427,8 +435,13 @@ var utils = {
         // 位置情報取得が失敗したら
         var error = (err) => {
             // エラーメッセージ
-            console.log(err);
-            $('.btn-search').trigger('click');
+            //$('.btn-search').trigger('click');
+            if(utils.index!=null){
+                layer.close(utils.index)
+            }
+
+            //utils.initRestrantList();
+            utils.getRestrantList();
 
         }
         navigator.geolocation.getCurrentPosition(success, error, options);
