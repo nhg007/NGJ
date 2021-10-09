@@ -123,6 +123,9 @@ class ProductServiceImpl implements ProductService
             }
             $product->original_name = $file['name'];
             $product->picture_path = $file['url'];
+        }else{
+            $product->original_name = '';
+            $product->picture_path = '';
         }
         $product->save();
         return response()->json(JsonResult::success($message, 200, $product));

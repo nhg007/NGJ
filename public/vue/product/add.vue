@@ -47,6 +47,7 @@
                     <img v-if="imageUrl" :src="imageUrl" class="avatar"/>
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <i v-if="imageUrl" class="el-icon-delete" @click="deleteImage('imageUrl')"></i>
             </el-form-item>
             <el-form-item label="詳細内容" :label-width="formLabelWidth">
                 <el-input
@@ -146,7 +147,9 @@
                 } else {
                     this.title = "商品編集";
                     this.form = Object.assign({}, row);
-                    this.imageUrl = "/uploads/" + this.form.picture_path;
+                    if(this.form.picture_path){
+                        this.imageUrl = "/uploads/" + this.form.picture_path;
+                    }
                 }
                 this.dialogFormVisible = true;
             },
@@ -195,6 +198,10 @@
                 }
                 return (isJPG || isBMP || isGIF || isPNG) && isLt2M;
             },
+            deleteImage(){
+                this.imageUrl = ''
+                this.form.files = ''
+            }
         },
     };
 </script>
@@ -238,5 +245,14 @@
         width: 160px;
         height: 160px;
         display: block;
+    }
+
+    .el-icon-delete {
+        color: #e80808;
+        position: relative;
+        left: 170px;
+        bottom: 3px;
+        top: -100px;
+        cursor:pointer;
     }
 </style>
