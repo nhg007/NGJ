@@ -159,7 +159,9 @@
                                 <img v-if="outImageUrl" :src="outImageUrl" class="avatar"/>
                                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
+                            <i v-if="outImageUrl" class="el-icon-delete" @click="deleteImage('outFiles',outImageUrl)"></i>
                         </el-col>
+
                         <el-col :span="15">
                             <el-input
                                 type="textarea"
@@ -185,8 +187,10 @@
                                 accept="image/jpeg,image/gif,image/png,image/bmp"
                             >
                                 <img v-if="innerImageUrl" :src="innerImageUrl" class="avatar"/>
+                                <i v-if="innerImageUrl" class="el-icon-delete"></i>
                                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
+                            <i v-if="innerImageUrl" class="el-icon-delete" @click="deleteImage('innerFiles',innerImageUrl)"></i>
                         </el-col>
                         <el-col :span="15">
                             <el-input
@@ -216,8 +220,10 @@
                                     :src="staffImageUrl"
                                     class="avatar-square"
                                 />
+                                <i v-if="staffImageUrl" class="el-icon-delete"></i>
                                 <i v-else class="el-icon-plus avatar-uploader-icon-square"></i>
                             </el-upload>
+                            <i v-if="staffImageUrl" class="el-icon-delete" @click="deleteImage('staffImageUrl',staffImageUrl)"></i>
                         </el-col>
                         <el-col :span="15">
                             <el-input
@@ -247,8 +253,10 @@
                                     :src="foodImageUrl"
                                     class="avatar-square"
                                 />
+                                <i v-if="foodImageUrl" class="el-icon-delete"></i>
                                 <i v-else class="el-icon-plus avatar-uploader-icon-square"></i>
                             </el-upload>
+                            <i v-if="foodImageUrl" class="el-icon-delete" @click="deleteImage('foodImageUrl',foodImageUrl)"></i>
                         </el-col>
                         <el-col :span="15">
                             <el-input
@@ -569,7 +577,7 @@
                                 console.info(response.data);
                             })
                             .catch(function (error) {
-                                _this.$message.error("操作を失敗しました");
+                                _this.$message.error(error);
                             });
                     }
                 );
@@ -605,6 +613,26 @@
                 }
                 return (isJPG || isBMP || isGIF || isPNG) && isLt2M;
             },
+            deleteImage(type){
+                switch (type) {
+                    case 'outFiles':
+                        this.form.outFiles = '';
+                        this.outImageUrl = '';
+                        break;
+                    case 'innerFiles':
+                        this.form.innerFiles = '';
+                        this.innerImageUrl = '';
+                        break;
+                    case 'staffImageUrl':
+                        this.form.staffFiles = '';
+                        this.staffImageUrl = '';
+                        break;
+                    case 'foodImageUrl':
+                        this.form.foodFiles = '';
+                        this.foodImageUrl = '';
+                        break;
+                }
+            }
         },
     };
 </script>
@@ -654,5 +682,13 @@
         height: 220px;
         line-height: 220px;
         display: block;
+    }
+    .el-icon-delete {
+        color: #e80808;
+        position: relative;
+        left: 238px;
+        bottom: 3px;
+        top: -100px;
+        cursor:pointer;
     }
 </style>
