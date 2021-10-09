@@ -124,6 +124,11 @@ class ProductServiceImpl implements ProductService
             $product->original_name = $file['name'];
             $product->picture_path = $file['url'];
         }else{
+
+            if (Storage::disk('uploads')->exists($product->picture_path)) {
+                Storage::disk('uploads')->delete($product->picture_path);
+            }
+
             $product->original_name = '';
             $product->picture_path = '';
         }
